@@ -24,14 +24,15 @@ int main(int argc, char *argv[]) {
   DIR *dir = opendir("/proc");
   assert(dir);
   struct dirent *ptr;
+  char file_name[512] = {0};
   while((ptr = readdir(dir))){
       if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
           //只读取以数字命名的目录
-          //printf("/proc/%s/status",ptr->d_name);
-          FILE* fp = fopen("/proc"+ptr->d_name+"/status","r");
+          sprintf(file_name,"/proc/%s/status",ptr->d_name);
+          FILE* fp = fopen(file_name,"r");
           assert(fp);
           int tmp;
-          fscanf(fp,"PPid %d",&tmp);
+          fscanf(fp,"PPid: %d",&tmp);
           printf("%s * %d\n",ptr->d_name,tmp);
       }
   }
