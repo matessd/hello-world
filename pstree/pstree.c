@@ -6,6 +6,7 @@
 int a_op[3];//分别代表-p，-n和-V是否存在
 
 void fnread_proc(FILE* fp);
+void fnmake_tree();
 
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
@@ -56,7 +57,7 @@ void fnread_proc(FILE* fp){
         fgets(line_buff,BUFF_LEN,fp);
     }
     char name[64];
-    sscanf(line_buff,"%s %s",tmp,name);
+    sscanf(line_buff,"%s %s",&tmp,&name);
     
     //read pid
     fseek(fp,0,SEEK_SET);
@@ -64,7 +65,7 @@ void fnread_proc(FILE* fp){
         fgets(line_buff,BUFF_LEN,fp);
     }
     int pid;
-    sscanf(line_buff,"%s %d",tmp,pid);
+    sscanf(line_buff,"%s %d",&tmp,&pid);
     
     //read ppid
     fseek(fp,0,SEEK_SET);
@@ -72,7 +73,7 @@ void fnread_proc(FILE* fp){
         fgets(line_buff,BUFF_LEN,fp);
     }
     int ppid;
-    sscanf(line_buff,"%s %d",tmp,ppid);
+    sscanf(line_buff,"%s %d",&tmp,&ppid);
 }
 
 
