@@ -28,9 +28,11 @@ int main(int argc, char *argv[]) {
       if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
           //只读取以数字命名的目录
           //printf("/proc/%s/status",ptr->d_name);
-          char tmp[512];
-          sprintf(tmp,"/proc/%s/status",ptr->d_name);
-          printf("%s\n",tmp);
+          FILE* fp = fopen("/proc"+ptr->d_name+"/status","r");
+          assert(fp);
+          int tmp;
+          fscanf(fp,"PPid %d",&tmp);
+          printf("%s * %d\n",ptr->d_name,tmp);
       }
   }
   return 0;
