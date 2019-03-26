@@ -6,7 +6,7 @@
 int a_op[3];//分别代表-p，-n和-V是否存在
 
 void fnread_proc(FILE* fp);
-void fnmake_tree();
+//void fnmake_tree();
 
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
               continue;
           assert(fp);
           fnread_proc(fp);
-          fnmake_tree();
+          //fnmake_tree();
       }
   }
   return 0;
