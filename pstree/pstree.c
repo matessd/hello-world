@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   while(ptr = readdir(dir)){
       if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
           //只读取以数字命名的目录
-          printf("%s\n",ptr-d_name);
+          printf("%s\n",ptr->d_name);
       }
   }
   return 0;
