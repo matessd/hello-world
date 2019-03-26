@@ -24,11 +24,10 @@ int main(int argc, char *argv[]) {
   assert(dir);
   struct dirent *ptr;
   while(ptr = readdir(dir)){
-     make{
-         i{
-    
-         }
-     } 
+      if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
+          //只读取以数字命名的目录
+          printf("%s\n",ptr-d_name);
+      }
   }
   return 0;
 }
