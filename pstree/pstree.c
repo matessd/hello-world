@@ -30,12 +30,47 @@ int main(int argc, char *argv[]) {
           //只读取以数字命名的目录
           sprintf(file_name,"/proc/%s/status",ptr->d_name);
           FILE* fp = fopen(file_name,"r");
+          if(!fp)
+              continue;
           assert(fp);
-          char name[512];
-          //fscanf(fp,"Name");
-          fscanf(fp,"%s",&name[0]);
-          printf("%s * %s\n",ptr->d_name,name);
+          fnread_proc(fp);
+          fnmake_tree();
       }
   }
   return 0;
 }
+
+#define NAME_LINE 1//名称行
+#define PID_LINE 4//pid行
+#define PPID_LINE 5//ppid行
+#define BUFF_LEN 1024//读取一行缓冲区的最大长度
+void fnread_proc(FILE* fp){
+    char tmp[16];
+    char line_buff[BUFF_LEN];//暂存行
+    
+    //read name
+    fseek(fp,0,SEEK_SET);//定位文件头
+    for(int i=1; i<=NAME_LINE; i++){
+        fgets(line_buff,BUFF_LEN,fp);
+    }
+    char name[64];
+    sscanf(line_buff,"%s %s",tmp,name);
+    
+    //read pid
+    fseek(fp,0,SEEK_SET);
+    for(int i=1; i<=PID_LINE; i++){
+        fgets(line_buff,BUFF_LEN,fp);
+    }
+    int pid;
+    sscanf(line_buff,"%s %d",tmp,pid);
+    
+    //read ppid
+    fseek(fp,0,SEEK_SET);
+    for(int i=1; i<=PPID_LINE; i++){
+        fgets(line_buff,BUFF_LEN,fp);
+    }
+    int ppid;
+    sscanf(line_buff,"%s %d",tmp,ppid);
+}
+
+
