@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
           assert(fp);
           char name[512];
           //fscanf(fp,"Name");
-          fscanf(fp,"%s",&name);
+          fscanf(fp,"%s",&name[0]);
           printf("%s * %s\n",ptr->d_name,name);
       }
   }
