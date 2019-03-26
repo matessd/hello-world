@@ -32,7 +32,8 @@ int main(int argc, char *argv[]) {
           FILE* fp = fopen(file_name,"r");
           assert(fp);
           int tmp;
-          fscanf(fp,"PPid: %d",&tmp);
+          fscanf(fp,"PPid");
+          fscanf(fp,"%d",&tmp);
           printf("%s * %d\n",ptr->d_name,tmp);
       }
   }
