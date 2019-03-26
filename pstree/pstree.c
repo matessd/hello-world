@@ -5,6 +5,8 @@
 
 int a_op[3];//分别代表-p，-n和-V是否存在
 
+void fnread_proc(FILE* fp);
+
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
   int i;		
