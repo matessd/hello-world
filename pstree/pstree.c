@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
           sprintf(file_name,"/proc/%s/status",ptr->d_name);
           FILE* fp = fopen(file_name,"r");
           assert(fp);
-          int tmp;
-          fscanf(fp,"PPid");
-          fscanf(fp,"%d",&tmp);
-          printf("%s * %d\n",ptr->d_name,tmp);
+          char name[512];
+          //fscanf(fp,"Name");
+          fscanf(fp,"%s",&name);
+          printf("%s * %s\n",ptr->d_name,name);
       }
   }
   return 0;
