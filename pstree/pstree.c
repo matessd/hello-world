@@ -81,11 +81,11 @@ void fnread_proc(FILE* fp){
     int ppid;
     sscanf(line_buff,"%s %d",tmp,&ppid);
 
-    a_ground[pid] = a_ground[ppid];
+    a_grand[pid] = a_grand[ppid];
     if(pid==1||pid==2){
-        a_ground[pid] = pid;
+        a_grand[pid] = pid;
     }
-    if(a_ground[pid]==2){
+    if(a_grand[pid]==2){
         return;
     }
     a_p[pid] = ppid;
