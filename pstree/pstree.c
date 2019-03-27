@@ -122,7 +122,8 @@ int comp(const void* a, const void* b){
 }
 
 int fnDFS(int pid,  char* name){
-    a_vis[pid] = 1;
+    a_vis[pid] = true;
+    printf("%d\n",pid);
     int loop_flag = true;
     int x = a_pos[pid][0];
     int y = a_pos[pid][1];
@@ -162,7 +163,7 @@ void fnMake_tree(){
     }
     //assert(0);
     fnDFS(1,a_process[1].name);
-    assert(0);
+    //assert(0);
     for(int i=0; i<=a_pos[1][0]; i++){
         puts(&aa_out[i][0]);
     }   
