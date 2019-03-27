@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
           if(!fp)
               continue;
           assert(fp);
+          printf("%s\n",ptr->d_name);
           fnread_proc(fp);
           //fnmake_tree();
       }
