@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
 }
 
 #define NAME_LINE 1//名称行
-#define PID_LINE 4//pid行
-#define PPID_LINE 5//ppid行
+#define PID_LINE 6//pid行
+#define PPID_LINE 7//ppid行
 #define BUFF_LEN 1024//读取一行缓冲区的最大长度
 void fnread_proc(FILE* fp){
     char tmp[16];
