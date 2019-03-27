@@ -15,7 +15,7 @@ typedef struct{
 stProcess a_process[MAX_PID];
 int a_grand[MAX_PID];//pid的祖先
 int a_pid_num = 0;//不考虑祖先为2的情况下，当前找到几个进程
-#define MAX_LINE_LEN 1024
+#define MAX_LINE_LEN 128
 char aa_out[MAX_PID][MAX_LINE_LEN];
 
 void fnRead_proc(FILE* fp);
@@ -166,7 +166,7 @@ void fnMake_tree(){
     memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
     printf("%d&&&&&\n",a_pos[1][0]);
-    for(int i=0; i<=20; i++){
+    for(int i=0; i<=a_pos[1][0]; i++){
         puts(&aa_out[i][0]);
     }   
 }
