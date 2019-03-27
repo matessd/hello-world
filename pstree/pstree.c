@@ -28,15 +28,19 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < argc; i++) { 
     assert(argv[i]); // always true
 	if(!strcmp(argv[i],"-p")||!strcmp(argv[i],"--show-pids"))
-		a_op[0] = 1;
+		a_op[0] = true;
 	if(!strcmp(argv[i],"-n")||!strcmp(argv[i],"--numeric-sort"))
-		a_op[1] = 1;
+		a_op[1] = true;
 	if(!strcmp(argv[i],"-V")||!strcmp(argv[i],"--version"))
-		a_op[2] = 1;
+		a_op[2] = true;
     //printf("argv[%d] = %s\n", i, argv[i]); //teacher's code
   }
   assert(!argv[argc]); // always true
-  
+  if(a_op[2]==true){
+      printf("This is my version\n");
+      return 0;
+  } 
+
   //below is read dir
   DIR *dir = opendir("/proc");
   assert(dir);
@@ -64,7 +68,7 @@ int main(int argc, char *argv[]) {
 #define PPID_LINE 7//ppid行
 #define BUFF_LEN 1024//读取一行缓冲区的最大长度
 void fnRead_proc(FILE* fp){
-    char tmp[16];
+    char tmp[32];
     char line_buff[BUFF_LEN];//暂存行
     
     //read name
@@ -105,9 +109,55 @@ void fnRead_proc(FILE* fp){
     //printf("%d %d %d\n",pid,ppid,a_pid_num);
 }
 
+bool a_vis[MAX_PID];
+int a_pos[MAX_PID][2];
+
+bool cmp(stProcess a, stProcess b){
+    return strcmp(a.name,b.name)<0;
+}
+
+int fnDFS(int pid, char* name){
+    a_vis[pid] = 1;
+    bool loop_flag = true;
+    int x = a_pos[pid][0];
+    int y = a_pos[pid][1];
+    strcpy(&aa_out[x][y], name);
+    //先把进程名拷进来
+    y += strlen(name);
+    while(loop_flag){
+        int width = 0;
+        for(int i=1; i<=a_pid_num; i++){
+            if(a_process[i].ppid==pid && a_vis[i]==false){
+                int child = a_process[i].pid;
+                a_pos[child][0] = x;
+                a_pos[child][1] = y+1;
+                aa_out[x][y] = "——";
+                width = fnDFS(child, a_prcess[i].name);
+                for(int j=1; j<=width; j++){
+                    aa_out[x+j][y] = "|";
+                }
+                x+=width+1;
+                break;
+            }
+            if(i==a_pid_num)
+                loop_flag = false;
+        }
+    }
+    int ret = x-a_pos[pid][0];
+    a_pos[pid][0] = x;
+    a_pos[pid][1] = y;
+    return x-a_pos[pid][0];
+}
+
 void fnMake_tree(){
-    if(a_op[1]==true)
-        return;
+    if(a_op[1]==false){//按字母序排序
+        //a_pid_num不可能连2个都没有
+        qsort(a_process+2,a_process+1+a_pid_num,cmp);
+    }
+    fnDFS(1,a_process[1].name);
+    for(int i=0; i<=a_pos[1][0]; i++){
+        puts(&aa_out[i][0]);
+    }   
 }
 
 
