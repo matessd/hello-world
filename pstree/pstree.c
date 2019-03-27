@@ -138,7 +138,7 @@ int fnDFS(int pid,  char* name){
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 a_pos[child_pid][0] = x;
                 a_pos[child_pid][1] = y+2;
-                puts(a_process[i].name);
+                //puts(a_process[i].name);
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
                 width = fnDFS(child_pid, a_process[i].name);
@@ -163,9 +163,8 @@ void fnMake_tree(){
         //a_pid_num不可能连2个都没有
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
-    //assert(0);
+    memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
-    //assert(0);
     for(int i=0; i<=a_pos[1][0]; i++){
         //puts(&aa_out[i][0]);
     }   
