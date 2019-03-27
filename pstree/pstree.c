@@ -156,7 +156,7 @@ int fnDFS(int pid, char* name){
 void fnMake_tree(){
     if(a_op[1]==false){//按字母序排序
         //a_pid_num不可能连2个都没有
-        qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
+        qsort(a_process+2,a_pid_num-1,sizeof(stProcess),comp);
     }
     fnDFS(1,a_process[1].name);
     for(int i=0; i<=a_pos[1][0]; i++){
