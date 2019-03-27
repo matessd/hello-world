@@ -15,11 +15,13 @@ stProcess a_process[MAX_PID];
 int a_grand[MAX_PID];//pid的祖先
 int a_pid_num = 0;//不考虑祖先为2的情况下，当前找到几个进程
 #define MAX_LINE_LEN 1024
-char a_out[MAX_PID][MAX_LINE_LEN];
+char aa_out[MAX_PID][MAX_LINE_LEN];
 
-void fnread_proc(FILE* fp);
-//void fnmake_tree();
+void fnRead_proc(FILE* fp);
+void fnMake_tree();
 
+#define true 1
+#define false 0
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
   int i;		
@@ -49,10 +51,11 @@ int main(int argc, char *argv[]) {
           if(!fp)
               continue;
           assert(fp);
-          fnread_proc(fp);
+          fnRead_proc(fp);
           //fnmake_tree();
        }
-  } 
+  }
+  fnmake_tree(); 
   return 0;
 }
 
@@ -60,7 +63,7 @@ int main(int argc, char *argv[]) {
 #define PID_LINE 6//pid行
 #define PPID_LINE 7//ppid行
 #define BUFF_LEN 1024//读取一行缓冲区的最大长度
-void fnread_proc(FILE* fp){
+void fnRead_proc(FILE* fp){
     char tmp[16];
     char line_buff[BUFF_LEN];//暂存行
     
@@ -87,7 +90,8 @@ void fnread_proc(FILE* fp){
     }
     int ppid;
     sscanf(line_buff,"%s %d",tmp,&ppid);
-
+    
+    //处理得到的信息
     a_grand[pid] = a_grand[ppid];
     if(pid==1||pid==2){
         a_grand[pid] = pid;
@@ -98,7 +102,11 @@ void fnread_proc(FILE* fp){
     a_process[++a_pid_num].pid = pid;
     a_process[a_pid_num].ppid = ppid;
     strcpy(a_process[a_pid_num].name, name);
-    printf("%d %d %d\n",pid,ppid,a_pid_num);
+    //printf("%d %d %d\n",pid,ppid,a_pid_num);
+}
+
+void fnMake_tree(){
+    if(a_op[1]==1)
 }
 
 
