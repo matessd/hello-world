@@ -133,10 +133,10 @@ int fnDFS(int pid,  char* name){
     while(loop_flag){
         int width = 0;
         for(int i=1; i<=a_pid_num; i++){
-            if(a_process[i].ppid==pid && a_vis[i]==false){
-                int child = a_process[i].pid;
-                a_pos[child][0] = x;
-                a_pos[child][1] = y+2;
+            int child_pid = a_process[i].pid;
+            if(a_process[i].ppid==pid && a_vis[child_pid]==false){
+                a_pos[child_pid][0] = x;
+                a_pos[child_pid][1] = y+2;
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
                 width = fnDFS(child, a_process[i].name);
