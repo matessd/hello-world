@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <dirent.h>
 #include <string.h>
-#include <algorithm>
+#include <stdlib.h>
 
 int a_op[3];//分别代表-p，-n和-V是否存在
 #define MAX_PID 32768
