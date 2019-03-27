@@ -4,11 +4,17 @@
 #include <string.h>
 
 int a_op[3];//分别代表-p，-n和-V是否存在
-#define MAX_PID 4096
+#define MAX_PID 32768
 #define MAX_NAME 256
-int a_p[MAX_PID];//父节点的pid
-int a_grand[MAX_PID];//祖父
-char a_name[MAX_PID][MAX_NAME];//pid对应的进程名
+typedef struct{
+    int pid;//进程号
+    int ppid;//父亲
+    char name[MAX_NAME];//进程名
+}stProcess;
+stProcess a_process[MAX_PID];
+int a_grand[MAX_PID];//pid的祖先
+int a_pid_num = 0;//不考虑祖先为2的情况下，当前找到几个进程
+char a_out[MAX_PID][MAX_LINE];
 
 void fnread_proc(FILE* fp);
 //void fnmake_tree();
@@ -44,8 +50,8 @@ int main(int argc, char *argv[]) {
           assert(fp);
           fnread_proc(fp);
           //fnmake_tree();
-      }
-  }
+       }
+  } 
   return 0;
 }
 
@@ -59,7 +65,7 @@ void fnread_proc(FILE* fp){
     
     //read name
     fseek(fp,0,SEEK_SET);//定位文件头
-    for(int i=1; i<=NAME_LINE; i++){
+    f or(int i=1; i<=NAME_LINE; i++){
         fgets(line_buff,BUFF_LEN,fp);
     }
     char name[256];
@@ -69,7 +75,7 @@ void fnread_proc(FILE* fp){
     fseek(fp,0,SEEK_SET);
     for(int i=1; i<=PID_LINE; i++){
         fgets(line_buff,BUFF_LEN,fp);
-    }
+    } 
     int pid;
     sscanf(line_buff,"%s %d",tmp,&pid);
     
@@ -84,13 +90,14 @@ void fnread_proc(FILE* fp){
     a_grand[pid] = a_grand[ppid];
     if(pid==1||pid==2){
         a_grand[pid] = pid;
-    }
+    } 
     if(a_grand[pid]==2){
         return;
     }
-    a_p[pid] = ppid;
-    strcpy(&a_name[pid][0], name);
-    printf("%d %d\n",pid,ppid);
+    a_process[++a_pid_num].pid = pid;
+    a_process[a_pid_num].ppid = ppid;
+    strcpy(a_process[a_pid_num].name, name);
+    printf("%d %d %d\n",pid,ppid,a_pid_num);
 }
 
 
