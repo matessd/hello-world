@@ -79,7 +79,7 @@ void fnRead_proc(FILE* fp){
     }
     char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
-    printf("%s\n",name);
+    //printf("%s\n",name);
     
     //read pid
     fseek(fp,0,SEEK_SET);
