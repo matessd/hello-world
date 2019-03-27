@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
   while((ptr = readdir(dir))){
       if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
           //只读取以数字命名的目录
-          //printf("%s\n",ptr->d_name);
+          printf("%s\n",ptr->d_name);
           sprintf(file_name,"/proc/%s/status",ptr->d_name);
           FILE* fp = fopen(file_name,"r");
           if(!fp)
@@ -166,7 +166,7 @@ void fnMake_tree(){
     memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
     for(int i=0; i<=a_pos[1][0]-1; i++){
-        puts(&aa_out[i][0]);
+        //puts(&aa_out[i][0]);
     }   
 }
 
