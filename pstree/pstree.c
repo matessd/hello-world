@@ -114,7 +114,9 @@ int a_vis[MAX_PID];
 int a_pos[MAX_PID][2];
 
 int cmp(stProcess a, stProcess b){
-    return strcmp(a.name,b.name)<0;
+    if(strcmp(a.name,b.name)<0)
+        return 1;
+    else return 0;
 }
 
 int fnDFS(int pid, char* name){
