@@ -109,16 +109,16 @@ void fnRead_proc(FILE* fp){
     //printf("%d %d %d\n",pid,ppid,a_pid_num);
 }
 
-bool a_vis[MAX_PID];
+int a_vis[MAX_PID];
 int a_pos[MAX_PID][2];
 
-bool cmp(stProcess a, stProcess b){
+int cmp(stProcess a, stProcess b){
     return strcmp(a.name,b.name)<0;
 }
 
 int fnDFS(int pid, char* name){
     a_vis[pid] = 1;
-    bool loop_flag = true;
+    int loop_flag = true;
     int x = a_pos[pid][0];
     int y = a_pos[pid][1];
     strcpy(&aa_out[x][y], name);
