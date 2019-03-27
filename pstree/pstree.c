@@ -160,8 +160,9 @@ void fnMake_tree(){
         //a_pid_num不可能连2个都没有
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
-    assert(0);
+    //assert(0);
     fnDFS(1,a_process[1].name);
+    assert(0);
     for(int i=0; i<=a_pos[1][0]; i++){
         puts(&aa_out[i][0]);
     }   
