@@ -124,7 +124,7 @@ int comp(const void* a, const void* b){
 
 int fnDFS(int pid,  char* name){
     a_vis[pid] = true;
-    printf("%d\n",pid);
+    //printf("%d\n",pid);
     int loop_flag = true;
     int x = a_pos[pid][0];
     int y = a_pos[pid][1];
