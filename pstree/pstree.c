@@ -14,6 +14,7 @@ typedef struct{
 stProcess a_process[MAX_PID];
 int a_grand[MAX_PID];//pid的祖先
 int a_pid_num = 0;//不考虑祖先为2的情况下，当前找到几个进程
+#define MAX_LINE_LEN 1024
 char a_out[MAX_PID][MAX_LINE];
 
 void fnread_proc(FILE* fp);
@@ -65,7 +66,7 @@ void fnread_proc(FILE* fp){
     
     //read name
     fseek(fp,0,SEEK_SET);//定位文件头
-    f or(int i=1; i<=NAME_LINE; i++){
+    for(int i=1; i<=NAME_LINE; i++){
         fgets(line_buff,BUFF_LEN,fp);
     }
     char name[256];
