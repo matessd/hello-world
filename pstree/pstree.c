@@ -6,7 +6,8 @@
 int a_op[3];//分别代表-p，-n和-V是否存在
 #define MAX_PID 4096
 #define MAX_NAME 256
-char a_p[MAX_PID];//父节点的pid
+int a_p[MAX_PID];//父节点的pid
+int a_grand[MAX_PID];//祖父
 char a_name[MAX_PID][MAX_NAME];//pid对应的进程名
 
 void fnread_proc(FILE* fp);
@@ -80,6 +81,13 @@ void fnread_proc(FILE* fp){
     int ppid;
     sscanf(line_buff,"%s %d",tmp,&ppid);
 
+    a_ground[pid] = a_ground[ppid];
+    if(pid==1||pid==2){
+        a_ground[pid] = pid;
+    }
+    if(a_ground[pid]==2){
+        return;
+    }
     a_p[pid] = ppid;
     strcpy(&a_name[pid][0], name);
     printf("%d %d\n",pid,ppid);
