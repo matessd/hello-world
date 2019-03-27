@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
           //fnmake_tree();
        }
   }
-  //fnMake_tree(); 
+  fnMake_tree(); 
   return 0;
 }
 
@@ -121,7 +121,7 @@ int comp(const void* a, const void* b){
     else return 0;
 }
 
-int fnDFS(int pid, char* name){
+int fnDFS(int pid,  char* name){
     a_vis[pid] = 1;
     int loop_flag = true;
     int x = a_pos[pid][0];
@@ -160,6 +160,7 @@ void fnMake_tree(){
         //a_pid_num不可能连2个都没有
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
+    assert(0);
     fnDFS(1,a_process[1].name);
     for(int i=0; i<=a_pos[1][0]; i++){
         puts(&aa_out[i][0]);
