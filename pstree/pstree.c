@@ -138,7 +138,7 @@ int fnDFS(int pid,  char* name){
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 a_pos[child_pid][0] = x;
                 a_pos[child_pid][1] = y+2;
-                puts(a_process[i],name);
+                puts(a_process[i].name);
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
                 width = fnDFS(child_pid, a_process[i].name);
