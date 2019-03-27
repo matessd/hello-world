@@ -147,7 +147,7 @@ int fnDFS(int pid, char* name){
     int ret = x-a_pos[pid][0];
     a_pos[pid][0] = x;
     a_pos[pid][1] = y;
-    return x-a_pos[pid][0];
+    return ret;
 }
 
 void fnMake_tree(){
