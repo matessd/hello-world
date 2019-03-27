@@ -4,6 +4,10 @@
 #include <string.h>
 
 int a_op[3];//分别代表-p，-n和-V是否存在
+#define MAX_PID 4096
+#define MAX_NAME 256
+char a_p[MAX_PID];//父节点的pid
+char a_name[MAX_PID][MAX_NAME];//pid对应的进程名
 
 void fnread_proc(FILE* fp);
 //void fnmake_tree();
@@ -57,7 +61,7 @@ void fnread_proc(FILE* fp){
     for(int i=1; i<=NAME_LINE; i++){
         fgets(line_buff,BUFF_LEN,fp);
     }
-    char name[64];
+    char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
     
     //read pid
