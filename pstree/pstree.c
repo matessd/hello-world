@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   while((ptr = readdir(dir))){
       if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
           //只读取以数字命名的目录
-          printf("%s\n",ptr->d_name);
+          //printf("%s\n",ptr->d_name);
           sprintf(file_name,"/proc/%s/status",ptr->d_name);
           FILE* fp = fopen(file_name,"r");
           if(!fp)
@@ -75,6 +75,10 @@ void fnread_proc(FILE* fp){
     }
     int ppid;
     sscanf(line_buff,"%s %d",tmp,&ppid);
+
+    a_p[pid] = ppid;
+    strcpy(&a_name[pid][0], name);
+    printf("%d %d\n",pid,ppid);
 }
 
 
