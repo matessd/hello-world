@@ -165,8 +165,7 @@ void fnMake_tree(){
     }
     memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
-    printf("%d&&&&&\n",a_pos[1][0]);
-    for(int i=0; i<=73; i++){
+    for(int i=0; i<=a_pos[1][0]-1; i++){
         puts(&aa_out[i][0]);
     }   
 }
