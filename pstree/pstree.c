@@ -79,6 +79,7 @@ void fnRead_proc(FILE* fp){
     }
     char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
+    printf("%s\n",name);
     
     //read pid
     fseek(fp,0,SEEK_SET);
@@ -165,7 +166,7 @@ void fnMake_tree(){
     fnDFS(1,a_process[1].name);
     //assert(0);
     for(int i=0; i<=a_pos[1][0]; i++){
-        puts(&aa_out[i][0]);
+        //puts(&aa_out[i][0]);
     }   
 }
 
