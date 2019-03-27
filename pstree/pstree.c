@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
           //fnmake_tree();
        }
   }
-  fnmake_tree(); 
+  fnMake_tree(); 
   return 0;
 }
 
@@ -106,7 +106,8 @@ void fnRead_proc(FILE* fp){
 }
 
 void fnMake_tree(){
-    if(a_op[1]==1)
+    if(a_op[1]==true)
+        return;
 }
 
 
