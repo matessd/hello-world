@@ -113,7 +113,7 @@ void fnRead_proc(FILE* fp){
 int a_vis[MAX_PID];
 int a_pos[MAX_PID][2];
 
-size_t cmp(stProcess a, stProcess b){
+int cmp(stProcess a, stProcess b){
     if(strcmp(a.name,b.name)<0)
         return 1;
     else return 0;
@@ -156,7 +156,7 @@ int fnDFS(int pid, char* name){
 void fnMake_tree(){
     if(a_op[1]==false){//按字母序排序
         //a_pid_num不可能连2个都没有
-        qsort(a_process+2,a_pid_num,cmp);
+        qsort(a_process+2,a_pid_num-1,sizeof(a_process),cmp);
     }
     fnDFS(1,a_process[1].name);
     for(int i=0; i<=a_pos[1][0]; i++){
