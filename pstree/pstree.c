@@ -131,7 +131,7 @@ int fnDFS(int pid, char* name){
                 int child = a_process[i].pid;
                 a_pos[child][0] = x;
                 a_pos[child][1] = y+1;
-                aa_out[x][y] = '——';
+                aa_out[x][y] = "-";
                 width = fnDFS(child, a_prcess[i].name);
                 for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = "|";
