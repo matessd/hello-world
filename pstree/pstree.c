@@ -23,6 +23,39 @@ void fnMake_tree();
 
 #define true 1
 #define false 0
+
+void fnRead_data(){
+  //below is read dir
+  DIR *dir = opendir("/proc");
+  assert(dir);
+  struct dirent *ptr;
+  char file_name[512];
+  while((ptr = readdir(dir))){
+      if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
+          //只读取以数字命名的目录
+          //printf("%s\n",ptr->d_name);
+          sprintf(file_name,"/proc/%s/status",ptr->d_name);
+          FILE* fp = fopen(file_name,"r");
+          fnRead_proc(fp);
+          
+          //read task dir
+          char sub_file_name[512];
+          char dir_name[255];
+          struct dirent *sub_ptr;
+          sprintf(dir_name,"/proc/%s/task",ptr->d_name);
+          DIR* sub_dir = opendir(dir_name);
+          sub_ptr = readdir(sub_dir);
+          //跳过task中的第一个文件夹
+          while( (sub_ptr = readdir(sub_dir)) ){
+              sprintf(sub_file_name,"%s/%s/status",dir_name,sub_dir->name);
+              printf("%s\n",sub_file_name);
+              fp = fopen(sub_file_name,"r");
+              fnRead_proc(fp);
+          } 
+      }
+  }
+}
+
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
   int i;		
@@ -41,25 +74,7 @@ int main(int argc, char *argv[]) {
       printf("This is my version\n");
       return 0;
   } 
-
-  //below is read dir
-  DIR *dir = opendir("/proc");
-  assert(dir);
-  struct dirent *ptr;
-  char file_name[512] = {0};
-  while((ptr = readdir(dir))){
-      if(ptr->d_name[0]>'0' && ptr->d_name[0]<='9'){
-          //只读取以数字命名的目录
-          printf("%s\n",ptr->d_name);
-          sprintf(file_name,"/proc/%s/status",ptr->d_name);
-          FILE* fp = fopen(file_name,"r");
-          if(!fp)
-              continue;
-          assert(fp);
-          fnRead_proc(fp);
-          //fnmake_tree();
-       }
-  }
+  fnRead_data();
   fnMake_tree(); 
   return 0;
 }
@@ -68,35 +83,42 @@ int main(int argc, char *argv[]) {
 #define PID_LINE 6//pid行
 #define PPID_LINE 7//ppid行
 #define BUFF_LEN 1024//读取一行缓冲区的最大长度
+#define TPID_LINE 4//tpid行
+void fnRead_line(FILE* fp, char* line_buff, int ln){
+    //ln 代表要读的行号
+    fseek(fp,0,SEEK_SET);//定位文件头
+    for(int i=1; i<=ln; i++){
+        fgets(line_buff,BUFF_LEN,fp);
+    }
+}
+
 void fnRead_proc(FILE* fp){
     char tmp[32];
     char line_buff[BUFF_LEN];//暂存行
     
     //read name
-    fseek(fp,0,SEEK_SET);//定位文件头
-    for(int i=1; i<=NAME_LINE; i++){
-        fgets(line_buff,BUFF_LEN,fp);
-    }
+    fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
-    //printf("%s\n",name);
     
     //read pid
-    fseek(fp,0,SEEK_SET);
-    for(int i=1; i<=PID_LINE; i++){
-        fgets(line_buff,BUFF_LEN,fp);
-    } 
+    fnRead_line(fp, line_buff, PID_LINE);
     int pid;
     sscanf(line_buff,"%s %d",tmp,&pid);
     
     //read ppid
-    fseek(fp,0,SEEK_SET);
-    for(int i=1; i<=PPID_LINE; i++){
-        fgets(line_buff,BUFF_LEN,fp);
-    }
+    fnRead_line(fp, line_buff, PPID_LINE);
     int ppid;
     sscanf(line_buff,"%s %d",tmp,&ppid);
+
+    //read tpid
+    fnRead_line(fp, line_buff, TPID_LINE);
+    int tpid;
+    sscanf(line_buff,"%s %d",tmp,&tpid);
     
+    //线程的父亲认为是tpid
+    ppid = (pid==tpid)?ppid:tpid;
+
     //处理得到的信息
     a_grand[pid] = a_grand[ppid];
     if(pid==1||pid==2){
