@@ -168,11 +168,11 @@ int fnDFS(int pid,  char* name, int x, int y){
     //printf("%d&\n",y);
     int width = 0;
     int x0 = x;
+    int dy = 0;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
-                int dy = 0;
                 if(width==0){
                     strcpy(&aa_out[x][y],"─┬─");
                     aa_out[x][y+9] = ' ';
@@ -204,6 +204,10 @@ int fnDFS(int pid,  char* name, int x, int y){
     }
     x += width;
     int ret = (width==0)?1:x-x0;
+    if(ret>1){
+        strcpy(&aa_out[x-width][y],"└");
+        aa_out[x][y+3] = ' ';
+    }
     return ret;
 }
 
