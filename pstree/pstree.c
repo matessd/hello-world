@@ -175,7 +175,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                 int dy = 0;
                 if(width==0){
                     strcpy(&aa_out[x][y],"─┬─");
-                    aa_out[x][y+9] = ' '
+                    aa_out[x][y+9] = ' ';
                     //这是特殊符号，内存一个占3个char
                     //但是打印出来只占一空格
                     //所以下一行只要空出一格对齐
