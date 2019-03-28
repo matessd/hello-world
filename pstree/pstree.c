@@ -155,7 +155,7 @@ int fnDFS(int pid,  char* name,const int x0,const int y0){
     //先把进程名拷进来
     y += strlen(name);
     int width = 0;
-    int x0 = x;
+    //int x0 = x;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
