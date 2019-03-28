@@ -176,15 +176,15 @@ int fnDFS(int pid,  char* name, int x, int y){
                     strcpy(&aa_out[x][y],"─┬─");
                     y+=3;
                 }else{
-                    for(int j=1; j<=width; j++)
-                        strcpy(&aa_out[x+j][y],"├─");
+                    for(int j=1; j<width; j++)
+                        strcpy(&aa_out[x+j][y],"│");
                 }
                 /*for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = '|';
                 }
                 printf("%d*\n",y);*/
                 x+=width;
-                //strcpy(&aa_out[x][y+1],"──");
+                strcpy(&aa_out[x][y],"├─");
                 width = fnDFS(child_pid, a_process[i].name,x, y+6);
                 break;
             }
