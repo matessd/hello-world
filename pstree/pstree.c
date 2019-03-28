@@ -162,7 +162,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x+j][y] = '|';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y+1],"------");
+                strcpy(&aa_out[x][y+1],"──");
                 width = fnDFS(child_pid, a_process[i].name,x, y+7);
                 break;
             }
