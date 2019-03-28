@@ -164,8 +164,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                 //puts(a_process[i].name);
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
-                y+=2;
-                width = fnDFS(child_pid, a_process[i].name,x, y);
+                width = fnDFS(child_pid, a_process[i].name,x, y+2);
                 break;
             }
             if(i==a_pid_num)
