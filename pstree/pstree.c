@@ -48,6 +48,7 @@ void fnRead_data(){
               //跳过task中的前三个文件夹. .. 和自身线程
               sub_ptr = readdir(sub_dir);
           //}
+          assert(0);
           while( (sub_ptr = readdir(sub_dir)) ){
               sprintf(sub_file_name,"%s/%s/status",dir_name,sub_ptr->d_name);
               //printf("%s\n",sub_file_name);
