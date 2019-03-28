@@ -61,6 +61,7 @@ void fnRead_data(){
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
   int i;		
+  printf("%d***\n",argc);
   for (i = 0; i < argc; i++) { 
     assert(argv[i]); // always true
 	if(!strcmp(argv[i],"-p")||!strcmp(argv[i],"--show-pids"))
