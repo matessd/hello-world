@@ -145,16 +145,15 @@ int comp(const void* a, const void* b){
     else return 0;
 }
 
-int fnDFS(int pid,  char* name, int x0, int y0){
+int fnDFS(int pid,  char* name, int x, int y){
     a_vis[pid] = true;
     //printf("%d\n",pid);
     int loop_flag = true;
-    int x = x0;
-    int y= y0;
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
     y += strlen(name);
     int width = 0;
+    int x0 = x;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
@@ -163,8 +162,8 @@ int fnDFS(int pid,  char* name, int x0, int y0){
                     aa_out[x+j][y] = '|';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y+1],"──");
-                width = fnDFS(child_pid, a_process[i].name,x, y+7);
+                strcpy(&aa_out[x][y+1],"--");
+                width = fnDFS(child_pid, a_process[i].name,x, y+3);
                 break;
             }
             if(i==a_pid_num)
