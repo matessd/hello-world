@@ -153,7 +153,7 @@ int fnDFS(int pid,  char* name,const int x0,const int y0){
     int y= y0;
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
-    y += strlen(name);
+    int len = strlen(name);
     int width = 0;
     //int x0 = x;
     while(loop_flag){
@@ -161,11 +161,11 @@ int fnDFS(int pid,  char* name,const int x0,const int y0){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 for(int j=0; j<=width; j++){
-                    aa_out[x+j][y0] = '|';
+                    aa_out[x+j][y0+len] = '|';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y0+1],"--");
-                width = fnDFS(child_pid, a_process[i].name,x, y0+3);
+                strcpy(&aa_out[x][y0+1+len],"--");
+                width = fnDFS(child_pid, a_process[i].name,x, y0+len+3);
                 break;
             }
             if(i==a_pid_num)
