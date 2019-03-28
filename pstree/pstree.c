@@ -137,9 +137,16 @@ void fnRead_proc(FILE* fp){
 
 int a_vis[MAX_PID];
 
-int comp(const void* a, const void* b){
+int cmp(const void* a, const void* b){
     stProcess* aa = (stProcess*)a;
     stProcess* bb = (stProcess*)b;
+    if(a_op[1]==true){
+        //-n模式，按pid大小排序
+        if(aa->pid > bb->pid)
+            return 1;
+        else return 0;
+    }
+    //非-n，按字母序排序
     if(strcmp(aa->name,bb->name)>0)
         return 1;
     else return 0;
@@ -180,10 +187,8 @@ int fnDFS(int pid,  char* name, int x, int y){
 }
 
 void fnMake_tree(){
-    if(a_op[1]==false){//按字母序排序
-        //a_pid_num不可能连2个都没有
-        qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
-    }
+    //a_pid_num不可能连2个都没有
+    qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),cmp);
     memset(aa_out,' ',sizeof(aa_out));
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     for(int i=0; i<line_cnt; i++){
