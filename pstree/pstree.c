@@ -176,7 +176,8 @@ int fnDFS(int pid,  char* name, int x, int y){
                     strcpy(&aa_out[x][y],"─┬─");
                     y+=3;
                 }else{
-                    strcpy(&aa_out[x][y],"├─");
+                    for(int j=1; j<=width; j++)
+                        strcpy(&aa_out[x+j][y],"├─");
                 }
                 /*for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = '|';
