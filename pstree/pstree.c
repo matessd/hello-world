@@ -102,7 +102,6 @@ void fnRead_proc(FILE* fp){
     fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
-    printf("%s***\n",name);
     
     //read pid
     fnRead_line(fp, line_buff, PID_LINE);
@@ -160,6 +159,8 @@ int fnDFS(int pid,  char* name, int x, int y){
     char name_num[512];
     if(a_op[0]==true){
         sprintf(name_num,"%s(%d)",name,pid);
+    }else{
+        sprintf(name_num,"%s",name);
     }
     strcpy(&aa_out[x][y], name_num);
     //先把进程名拷进来
