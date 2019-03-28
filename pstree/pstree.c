@@ -60,8 +60,7 @@ void fnRead_data(){
 
 int main(int argc, char *argv[]) {
   //printf("Hello, World!\n");
-  int i;		
-  printf("%d***\n",argc);
+  int i;		 
   for (i = 0; i < argc; i++) { 
     assert(argv[i]); // always true
 	if(!strcmp(argv[i],"-p")||!strcmp(argv[i],"--show-pids"))
@@ -103,6 +102,7 @@ void fnRead_proc(FILE* fp){
     fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
     sscanf(line_buff,"%s %s",tmp,name);
+    printf("%s***\n",name);
     
     //read pid
     fnRead_line(fp, line_buff, PID_LINE);
