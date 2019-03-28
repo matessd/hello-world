@@ -172,20 +172,26 @@ int fnDFS(int pid,  char* name, int x, int y){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
+                int dy = 0;
                 if(width==0){
                     strcpy(&aa_out[x][y],"─┬─");
-                    y+=3;
+                    //这是特殊符号，内存一个占3个char
+                    //但是打印出来只占一空格
+                    //所以下一行只要空出一格对齐
+                    y+1 = 1;
+                    dy = 8;
                 }else{
                     for(int j=1; j<width; j++)
                         strcpy(&aa_out[x+j][y],"│");
                     x+=width;
                     strcpy(&aa_out[x][y],"├─");
+                    dy = 6;
                 }
                 /*for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = '|';
                 }
                 printf("%d*\n",y);*/
-                width = fnDFS(child_pid, a_process[i].name, x, y+5);
+                width = fnDFS(child_pid, a_process[i].name, x, y+dy);
                 break;
             }
             if(i==a_pid_num)
