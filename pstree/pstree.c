@@ -140,7 +140,7 @@ int a_vis[MAX_PID];
 int comp(const void* a, const void* b){
     stProcess* aa = (stProcess*)a;
     stProcess* bb = (stProcess*)b;
-    if(strcmp(aa->name,bb->name)<0)
+    if(strcmp(aa->name,bb->name)>0)
         return 1;
     else return 0;
 }
