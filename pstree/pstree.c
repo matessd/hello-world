@@ -149,10 +149,11 @@ int fnDFS(int pid,  char* name, int x0, int y0){
     a_vis[pid] = true;
     //printf("%d\n",pid);
     int loop_flag = true;
+    int x = x0;
+    int y= y0;
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
-    int y = y0 + strlen(name);
-    int x = x0;
+    y += strlen(name);
     int width = 0;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
