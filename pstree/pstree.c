@@ -44,8 +44,9 @@ void fnRead_data(){
           struct dirent *sub_ptr;
           sprintf(dir_name,"/proc/%s/task",ptr->d_name);
           DIR* sub_dir = opendir(dir_name);
-          //sub_ptr = readdir(sub_dir);
-          //跳过task中的第一个文件夹
+          for(int i=0; i<3; i++)
+              //跳过task中的前三个文件夹. .. 和自身线程
+              sub_ptr = readdir(sub_dir);
           while( (sub_ptr = readdir(sub_dir)) ){
               sprintf(sub_file_name,"%s/%s/status",dir_name,sub_ptr->d_name);
               //printf("%s\n",sub_file_name);
