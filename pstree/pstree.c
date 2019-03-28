@@ -165,7 +165,7 @@ int fnDFS(int pid,  char* name, int x, int y){
     strcpy(&aa_out[x][y], name_num);
     //先把进程名拷进来
     y += strlen(name_num);
-    printf("%d&\n",y);
+    //printf("%d&\n",y);
     int width = 0;
     int x0 = x;
     while(loop_flag){
@@ -202,7 +202,7 @@ void fnMake_tree(){
     memset(aa_out,' ',sizeof(aa_out));
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     for(int i=0; i<line_cnt; i++){
-        //puts(&aa_out[i][0]);
+        puts(&aa_out[i][0]);
     }   
 }
 
