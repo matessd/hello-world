@@ -169,7 +169,7 @@ int fnDFS(int pid,  char* name, int x, int y){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
-                for(int j=0; j<=width; j++){
+                for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = '|';
                 }
                 if(width==0){
@@ -177,8 +177,8 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x][y] = '-';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y+2],"--");
-                width = fnDFS(child_pid, a_process[i].name,x, y+4);
+                strcpy(&aa_out[x][y+1],"--");
+                width = fnDFS(child_pid, a_process[i].name,x, y+3);
                 break;
             }
             if(i==a_pid_num)
