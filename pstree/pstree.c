@@ -50,7 +50,7 @@ void fnRead_data(){
           }
           while( (sub_ptr = readdir(sub_dir)) ){
               sprintf(sub_file_name,"%s/%s/status",dir_name,sub_ptr->d_name);
-              printf("%s\n",sub_file_name);
+              //printf("%s\n",sub_file_name);
               fp = fopen(sub_file_name,"r");
               fnRead_proc(fp);
           } 
@@ -190,7 +190,7 @@ void fnMake_tree(){
     memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
     for(int i=0; i<=a_pos[1][0]-1; i++){
-        //puts(&aa_out[i][0]);
+        puts(&aa_out[i][0]);
     }   
 }
 
