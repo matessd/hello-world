@@ -136,7 +136,6 @@ void fnRead_proc(FILE* fp){
 }
 
 int a_vis[MAX_PID];
-int a_pos[MAX_PID][2];
 
 int comp(const void* a, const void* b){
     stProcess* aa = (stProcess*)a;
@@ -146,16 +145,14 @@ int comp(const void* a, const void* b){
     else return 0;
 }
 
-int fnDFS(int pid,  char* name){
+int fnDFS(int pid,  char* name, int x, int y){
     a_vis[pid] = true;
     //printf("%d\n",pid);
     int loop_flag = true;
-    int x = a_pos[pid][0];
-    int y = a_pos[pid][1];
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
     y += strlen(name);
-    int width = 0;
+    int width = 0, x0 = 0;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
@@ -164,12 +161,11 @@ int fnDFS(int pid,  char* name){
                     aa_out[x+j][y] = '|';
                 }
                 x+=width;
-                a_pos[child_pid][0] = x;
-                a_pos[child_pid][1] = y+2;
                 //puts(a_process[i].name);
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
-                width = fnDFS(child_pid, a_process[i].name);
+                y+=2;
+                width = fnDFS(child_pid, a_process[i].name,x, y);
                 break;
             }
             if(i==a_pid_num)
@@ -177,9 +173,7 @@ int fnDFS(int pid,  char* name){
         }
     }
     x += width;
-    int ret = x-a_pos[pid][0]+1;
-    a_pos[pid][0] = x;
-    a_pos[pid][1] = y;
+    int ret = x-x0;
     return ret;
 }
 
@@ -189,7 +183,7 @@ void fnMake_tree(){
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
     memset(aa_out,' ',sizeof(aa_out));
-    fnDFS(1,a_process[1].name);
+    fnDFS(1,a_process[1].name, 0, 0);
     for(int i=0; i<20; i++){
         puts(&aa_out[i][0]);
     }   
