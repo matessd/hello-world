@@ -145,15 +145,15 @@ int comp(const void* a, const void* b){
     else return 0;
 }
 
-int fnDFS(int pid,  char* name, int x, int y){
+int fnDFS(int pid,  char* name, int x0, int y0){
     a_vis[pid] = true;
     //printf("%d\n",pid);
     int loop_flag = true;
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
-    y += strlen(name);
+    y = y0 + strlen(name);
+    x = x0;
     int width = 0;
-    int x0 = x;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
