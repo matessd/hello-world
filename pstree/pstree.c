@@ -165,7 +165,7 @@ int fnDFS(int pid,  char* name, int x, int y){
     strcpy(&aa_out[x][y], name_num);
     //先把进程名拷进来
     y += strlen(name_num);
-    //printf("%d&\n",y);
+    printf("%d&\n",y);
     int width = 0;
     int x0 = x;
     while(loop_flag){
