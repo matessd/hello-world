@@ -185,7 +185,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x+j][y] = '|';
                 }
                 printf("%d*\n",y);*/
-                width = fnDFS(child_pid, a_process[i].name, x, y+6);
+                width = fnDFS(child_pid, a_process[i].name, x, y+7);
                 break;
             }
             if(i==a_pid_num)
@@ -203,7 +203,7 @@ void fnMake_tree(){
     memset(aa_out,' ',sizeof(aa_out));
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     for(int i=0; i<line_cnt; i++){
-        puts(&aa_out[1][0]);
+        puts(&aa_out[i][0]);
     }   
 }
 
