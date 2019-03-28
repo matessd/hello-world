@@ -172,7 +172,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                 for(int j=1; j<=width; j++){
                     aa_out[x+j][y] = '|';
                 }
-                *if(width==0){
+                if(width==0){
                     //printf("1**\n");
                     aa_out[x][y] = '-';
                 }
