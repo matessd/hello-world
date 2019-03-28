@@ -158,7 +158,7 @@ int fnDFS(int pid,  char* name, int x, int y){
     int loop_flag = true;
     char name_num[512];
     if(a_op[0]==true){
-        sprintf(name_num,"%s{%d}",name,pid);
+        sprintf(name_num,"%s(%d)",name,pid);
     }
     strcpy(&aa_out[x][y], name_num);
     //先把进程名拷进来
@@ -177,8 +177,8 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x][y] = '-';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y+1],"--");
-                width = fnDFS(child_pid, a_process[i].name,x, y+3);
+                strcpy(&aa_out[x][y+2],"--");
+                width = fnDFS(child_pid, a_process[i].name,x, y+4);
                 break;
             }
             if(i==a_pid_num)
