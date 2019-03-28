@@ -136,8 +136,7 @@ void fnRead_proc(FILE* fp){
 }
 
 int a_vis[MAX_PID];
-char a_chLine[7];
-//char aa_chCol[2][7];
+
 int comp(const void* a, const void* b){
     stProcess* aa = (stProcess*)a;
     stProcess* bb = (stProcess*)b;
@@ -163,8 +162,9 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x+j][y] = '|';
                 }
                 x+=width;
-                strcpy(&aa_out[x][y+1],a_chLine);
-                width = fnDFS(child_pid, a_process[i].name,x, y+7);
+                strcpy(&aa_out[x][y+1],"──");
+                int z = y+7;
+                width = fnDFS(child_pid, a_process[i].name,x, z);
                 break;
             }
             if(i==a_pid_num)
@@ -182,7 +182,6 @@ void fnMake_tree(){
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
     memset(aa_out,' ',sizeof(aa_out));
-    strcpy(a_chLine, "──");
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     for(int i=0; i<line_cnt; i++){
         puts(&aa_out[i][0]);
