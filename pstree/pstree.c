@@ -182,8 +182,8 @@ void fnMake_tree(){
         qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),comp);
     }
     memset(aa_out,' ',sizeof(aa_out));
-    fnDFS(1,a_process[1].name, 0, 0);
-    for(int i=0; i<20; i++){
+    int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
+    for(int i=0; i<line_cnt; i++){
         puts(&aa_out[i][0]);
     }   
 }
