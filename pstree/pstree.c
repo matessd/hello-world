@@ -185,7 +185,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x+j][y] = '|';
                 }
                 printf("%d*\n",y);*/
-                width = fnDFS(child_pid, a_process[i].name, x, y+7);
+                width = fnDFS(child_pid, a_process[i].name, x, y+5);
                 break;
             }
             if(i==a_pid_num)
