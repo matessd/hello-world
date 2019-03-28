@@ -191,10 +191,6 @@ int fnDFS(int pid,  char* name, int x, int y){
                     aa_out[x][y+6] = ' ';
                     dy = 6;
                 }
-                /*for(int j=1; j<=width; j++){
-                    aa_out[x+j][y] = '|';
-                }
-                printf("%d*\n",y);*/
                 width = fnDFS(child_pid, a_process[i].name, x, y+dy);
                 break;
             }
@@ -205,8 +201,8 @@ int fnDFS(int pid,  char* name, int x, int y){
     x += width;
     int ret = (width==0)?1:x-x0;
     if(ret>1){
-        strcpy(&aa_out[x-width][y],"└");
-        aa_out[x][y+3] = ' ';
+        //strcpy(&aa_out[x-width][y],"└");
+        //aa_out[x][y+3] = ' ';
     }
     return ret;
 }
