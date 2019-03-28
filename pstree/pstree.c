@@ -44,14 +44,13 @@ void fnRead_data(){
           struct dirent *sub_ptr;
           sprintf(dir_name,"/proc/%s/task",ptr->d_name);
           DIR* sub_dir = opendir(dir_name);
-          //for(int i=0; i<1; i++){
+          for(int i=0; i<1; i++){
               //跳过task中的前三个文件夹. .. 和自身线程
               sub_ptr = readdir(sub_dir);
-          //}
+          }
           while( (sub_ptr = readdir(sub_dir)) ){
-              assert(0);
               sprintf(sub_file_name,"%s/%s/status",dir_name,sub_ptr->d_name);
-              //printf("%s\n",sub_file_name);
+              printf("%s\n",sub_file_name);
               fp = fopen(sub_file_name,"r");
               fnRead_proc(fp);
           } 
