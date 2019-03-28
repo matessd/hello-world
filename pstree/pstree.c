@@ -178,7 +178,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                     //这是特殊符号，内存一个占3个char
                     //但是打印出来只占一空格
                     //所以下一行只要空出一格对齐
-                    y+1 = 1;
+                    y += 1;
                     dy = 8;
                 }else{
                     for(int j=1; j<width; j++)
