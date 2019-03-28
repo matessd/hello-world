@@ -155,28 +155,29 @@ int fnDFS(int pid,  char* name){
     strcpy(&aa_out[x][y], name);
     //先把进程名拷进来
     y += strlen(name);
+    int width = 0;
     while(loop_flag){
-        int width = 0;
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
+                for(int j=0; j<width; j++){
+                    aa_out[x+j][y] = '|';
+                }
+                x+=width;
                 a_pos[child_pid][0] = x;
                 a_pos[child_pid][1] = y+2;
                 //puts(a_process[i].name);
                 aa_out[x][y] = '-';
                 aa_out[x][y+1] = '-';
                 width = fnDFS(child_pid, a_process[i].name);
-                for(int j=1; j<=width; j++){
-                    aa_out[x+j][y] = '|';
-                }
-                x+=width+1;
                 break;
             }
             if(i==a_pid_num)
                 loop_flag = false;
         }
     }
-    int ret = x-a_pos[pid][0];
+    x += width;
+    int ret = x-a_pos[pid][0]+1;
     a_pos[pid][0] = x;
     a_pos[pid][1] = y;
     return ret;
@@ -189,7 +190,7 @@ void fnMake_tree(){
     }
     memset(aa_out,' ',sizeof(aa_out));
     fnDFS(1,a_process[1].name);
-    for(int i=0; i<=20; i++){
+    for(int i=0; i<a_pos[1][0]; i++){
         puts(&aa_out[i][0]);
     }   
 }
