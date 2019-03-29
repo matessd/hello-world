@@ -218,7 +218,7 @@ void fnMake_tree(){
             if((int)aa_out[i][j]<=0x4){
                 printf("%s",&aa_chSpec[ASC][0]);
             }else{
-                printf("%s",aa_out[i][j]);
+                printf("%c",aa_out[i][j]);
             }
         }
         printf("\n");
