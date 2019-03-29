@@ -82,53 +82,32 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-#define NAME_LINE 1//名称行
-#define PID_LINE 6//pid行
-#define PPID_LINE 7//ppid行
 #define BUFF_LEN 1024//读取一行缓冲区的最大长度
-#define TPID_LINE 4//tpid行
-void fnRead_line(FILE* fp, char* line_buff, int ln){
-    //ln 代表要读的行号
-    fseek(fp,0,SEEK_SET);//定位文件头
-    for(int i=1; i<=ln; i++){
-        fgets(line_buff,BUFF_LEN,fp);
-    }
-}
 
 void fnRead_proc(FILE* fp){
     char tmp[32];
     char line_buff[BUFF_LEN];//暂存行
-    
-    //read name
-    fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
-    sscanf(line_buff,"%s",tmp);
-    int len = strlen(tmp);
-    //line_buff[len]不是空格，可能是制表符什么的，看着像很多个空格
-    printf("%c*%c*\n",line_buff[len],line_buff[len+1]);
-    for(len=len; line_buff[len]==' '||line_buff[len]=='\t'; len++);
-    strcpy(name, &line_buff[len]);
-    len = strlen(name);
-    name[len-1] = '\0';
-    //puts(name);
-    
-    //read pid
-    fnRead_line(fp, line_buff, PID_LINE);
-    int pid;
-    sscanf(line_buff,"%s %d",tmp,&pid);
-    
-    //read ppid
-    fnRead_line(fp, line_buff, PPID_LINE);
-    int ppid;
-    sscanf(line_buff,"%s %d",tmp,&ppid);
-
-    //read tpid
-    fnRead_line(fp, line_buff, TPID_LINE);
-    int tpid;
-    sscanf(line_buff,"%s %d",tmp,&tpid);
-    
-    //线程的父亲认为是tpid
-    ppid = (pid==tpid)?ppid:tpid;
+    int pid, ppid, tgid;
+    while(fgets(line_buff, BUFF_LEN, fp)!=NULL){
+        sscanf(line_buff,"%s",tmp);
+        if(strcmp(tmp,"Name:")==0){
+            int len = strlen(tmp);
+            //line_buff[len]不是空格，可能是制表符什么的，看着像很多个空格
+            for(len=len; line_buff[len]==' '||line_buff[len]=='\t'; len++);
+            strcpy(name, &line_buff[len]);
+            len = strlen(name);
+            name[len-1] = '\0';
+        }else if(strcmp(tmp,"Tgid:")==0){
+            sscanf(line_buff,"%s %d",tmp,&tgid);
+        }else if(strcmp(tmp,"PPid:")==0){
+            sscanf(line_buff,"%s %d",tmp,&ppid);
+        }else if(strcmp(tmp,"Pid:")==0){
+            sscanf(line_buff,"%s %d",tmp,&pid);
+        }
+    }    
+    //线程的父亲认为是tgid
+    ppid = (pid==tgid)?ppid:tgid;
 
     //处理得到的信息
     a_grand[pid] = a_grand[ppid];
