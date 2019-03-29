@@ -185,7 +185,7 @@ int fnDFS(int pid,  char* name, int x, int y){
                     x+=width;
                     aa_out[x][y] = (char)0x3;
                 }
-                width = fnDFS(child_pid, a_process[i].name, x, y);
+                width = fnDFS(child_pid, a_process[i].name, x, y+1);
                 break;
             }
             if(i==a_pid_num)
@@ -209,8 +209,8 @@ void fnMake_tree(){
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     strcpy(&aa_chSpec[1][0],"─┬─");
     strcpy(&aa_chSpec[2][0],"│");
-    strcpy(&aa_chSpec[3][0],"├─ ");
-    strcpy(&aa_chSpec[4][0],"└─ ");
+    strcpy(&aa_chSpec[3][0],"├─");
+    strcpy(&aa_chSpec[4][0],"└─");
     for(int i=0; i<line_cnt; i++){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
