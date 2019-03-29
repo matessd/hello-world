@@ -14,6 +14,7 @@ typedef struct{
 }stProcess;
 stProcess a_process[MAX_PID];
 int a_grand[MAX_PID];//pid的祖先
+int a_child_num[MAX_PID];
 int a_pid_num = 0;//不考虑祖先为2的情况下，当前找到几个进程
 #define MAX_LINE_LEN 1024
 char aa_out[MAX_PID][MAX_LINE_LEN];
@@ -129,6 +130,7 @@ void fnRead_proc(FILE* fp){
     if(a_grand[pid]==2){
         return;
     }
+    a_child_num[ppid]++;
     a_process[++a_pid_num].pid = pid;
     a_process[a_pid_num].ppid = ppid;
     strcpy(a_process[a_pid_num].name, name);
@@ -173,7 +175,11 @@ int fnDFS(int pid,  char* name, int x, int y){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 if(width==0){
-                    aa_out[x][y] = (char)0x1;
+                    if(a_child_num[pid]==1){
+                        aa_out[x][y] = (char)0x5;
+                    }else{
+                        aa_out[x][y] = (char)0x1;
+                    }
                     //这是特殊符号，内存一个占3个char
                     //但是打印出来只占一空格
                     //所以下一行只要空出一格对齐
@@ -199,7 +205,7 @@ int fnDFS(int pid,  char* name, int x, int y){
     return ret;
 }
 
-char aa_chSpec[5][10];
+char aa_chSpec[6][10];
 void fnMake_tree(){
     //a_pid_num不可能连2个都没有
     qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),cmp);
@@ -209,6 +215,7 @@ void fnMake_tree(){
     strcpy(&aa_chSpec[2][0],"│ ");
     strcpy(&aa_chSpec[3][0],"├─");
     strcpy(&aa_chSpec[4][0],"└─");
+    strcpy(&aa_chSpec[4][0],"──");
     for(int i=0; i<line_cnt; i++){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
