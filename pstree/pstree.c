@@ -104,10 +104,9 @@ void fnRead_proc(FILE* fp){
     char name[256];
     sscanf(line_buff,"%s",tmp);
     int len = strlen(tmp);
+    //line_buff[len]不是空格，可能是制表符什么的，看着像很多个空格
     printf("%c*%c*\n",line_buff[len],line_buff[len+1]);
-    //for(len=len; line_buff[len]==' '; len++){
-        //puts("1");
-    //}
+    for(len=len; line_buff[len]==' '||line_buff[len]=='\t'; len++);
     strcpy(name, &line_buff[len]);
     len = strlen(name);
     name[len-1] = '\0';
@@ -219,13 +218,13 @@ void fnMake_tree(){
     //a_pid_num不可能连2个都没有
     qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),cmp);
     memset(aa_out,' ',sizeof(aa_out));
-    //int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
+    int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
     strcpy(&aa_chSpec[1][0],"┬─");
     strcpy(&aa_chSpec[2][0],"│ ");
     strcpy(&aa_chSpec[3][0],"├─");
     strcpy(&aa_chSpec[4][0],"└─");
     strcpy(&aa_chSpec[5][0],"──");
-    /*for(int i=0; i<line_cnt; i++){
+    for(int i=0; i<line_cnt; i++){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
             int ASC = (int)aa_out[i][j];
@@ -237,6 +236,6 @@ void fnMake_tree(){
             }
         }
         printf("\n");
-    }*/
+    }
 }
 
