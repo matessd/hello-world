@@ -105,11 +105,12 @@ void fnRead_proc(FILE* fp){
     sscanf(line_buff,"%s",tmp);
     //puts(tmp);
     int len = strlen(tmp);
+    puts(line_buff[len]);
     for(; line_buff[len]==' '; len++);
     strcpy(name, &line_buff[len]);
     len = strlen(name);
     name[len-1] = '\0';
-    puts(name);
+    //puts(name);
     
     //read pid
     fnRead_line(fp, line_buff, PID_LINE);
