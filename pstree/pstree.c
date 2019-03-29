@@ -215,7 +215,7 @@ void fnMake_tree(){
     strcpy(&aa_chSpec[2][0],"│ ");
     strcpy(&aa_chSpec[3][0],"├─");
     strcpy(&aa_chSpec[4][0],"└─");
-    strcpy(&aa_chSpec[4][0],"──");
+    strcpy(&aa_chSpec[5][0],"──");
     for(int i=0; i<line_cnt; i++){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
