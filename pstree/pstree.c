@@ -103,10 +103,11 @@ void fnRead_proc(FILE* fp){
     fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
     sscanf(line_buff,"%s",tmp);
-    //puts(tmp);
     int len = strlen(tmp);
-    printf("%c\n",line_buff[len]);
-    for(; line_buff[len]==' '; len++);
+    //printf("%c\n",line_buff[len]);
+    for(; line_buff[len]==' '; len++){
+        puts("1");
+    }
     strcpy(name, &line_buff[len]);
     len = strlen(name);
     name[len-1] = '\0';
