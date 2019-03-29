@@ -103,13 +103,13 @@ void fnRead_proc(FILE* fp){
     fnRead_line(fp, line_buff, NAME_LINE);
     char name[256];
     sscanf(line_buff,"%s",tmp);
-    puts(tmp);
+    //puts(tmp);
     int len = strlen(tmp);
-    for(len+=1; line_buff[len]==' '; len++);
+    for(; line_buff[len]==' '; len++);
     strcpy(name, &line_buff[len]);
     len = strlen(name);
     name[len-1] = '\0';
-    //puts(name);
+    puts(name);
     
     //read pid
     fnRead_line(fp, line_buff, PID_LINE);
