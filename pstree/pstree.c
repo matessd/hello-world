@@ -207,7 +207,7 @@ void fnMake_tree(){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
             int ASC = (int)aa_out[i][j];
-            if((int)aa_out[i][j]<=0x4){
+            if((int)aa_out[i][j]<=0x5){
                 printf("%s",&aa_chSpec[ASC][0]);
                 j++;
             }else{
