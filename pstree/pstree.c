@@ -106,7 +106,7 @@ void fnRead_proc(FILE* fp){
     int len = strlen(tmp);
     printf("%c\n",line_buff[len]);
     for(len=len; line_buff[len]==' '; len++){
-        //puts("1");
+        puts("1");
     }
     strcpy(name, &line_buff[len]);
     len = strlen(name);
