@@ -194,8 +194,7 @@ int fnDFS(int pid,  char* name, int x, int y){
     x += width;
     int ret = (width==0)?1:x-x0;
     if(ret>1){
-        //strcpy(&aa_out[x-width][y],"└");
-        //aa_out[x][y+3] = ' ';
+        aa_out[x-width][y] = (char) 0x4;
     }
     return ret;
 }
