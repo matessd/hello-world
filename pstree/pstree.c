@@ -174,7 +174,6 @@ int fnDFS(int pid,  char* name, int x, int y){
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 if(width==0){
                     aa_out[x][y] = (char)0x1;
-                    y+=1;
                     //这是特殊符号，内存一个占3个char
                     //但是打印出来只占一空格
                     //所以下一行只要空出一格对齐
