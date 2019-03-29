@@ -105,7 +105,7 @@ void fnRead_proc(FILE* fp){
     sscanf(line_buff,"%s",tmp);
     //puts(tmp);
     int len = strlen(tmp);
-    puts(line_buff[len]);
+    puts(&line_buff[len]);
     for(; line_buff[len]==' '; len++);
     strcpy(name, &line_buff[len]);
     len = strlen(name);
