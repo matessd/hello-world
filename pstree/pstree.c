@@ -168,30 +168,24 @@ int fnDFS(int pid,  char* name, int x, int y){
     //printf("%d&\n",y);
     int width = 0;
     int x0 = x;
-    int dy = 0;
     while(loop_flag){
         for(int i=1; i<=a_pid_num; i++){
             int child_pid = a_process[i].pid;
             if(a_process[i].ppid==pid && a_vis[child_pid]==false){
                 if(width==0){
-                    strcpy(&aa_out[x][y],"─┬─");
-                    aa_out[x][y+9] = ' ';
+                    aa_out[x][y] = (char)0x1;
+                    y+=1;
                     //这是特殊符号，内存一个占3个char
                     //但是打印出来只占一空格
                     //所以下一行只要空出一格对齐
-                    y += 1;
-                    dy = 8;
                 }else{
                     for(int j=1; j<width; j++){
-                        strcpy(&aa_out[x+j][y],"│");
-                        aa_out[x+j][y+3] = ' ';
+                        aa_out[x+j][y] = (char) 0x2;
                     }
                     x+=width;
-                    strcpy(&aa_out[x][y],"├─");
-                    aa_out[x][y+6] = ' ';
-                    dy = 6;
+                    aa_out[x][y] = (char)0x3;
                 }
-                width = fnDFS(child_pid, a_process[i].name, x, y+dy);
+                width = fnDFS(child_pid, a_process[i].name, x, y);
                 break;
             }
             if(i==a_pid_num)
@@ -207,14 +201,27 @@ int fnDFS(int pid,  char* name, int x, int y){
     return ret;
 }
 
+char aa_chSpec[5][10];
 void fnMake_tree(){
     //a_pid_num不可能连2个都没有
     qsort(a_process+2,a_pid_num-1,sizeof(a_process[0]),cmp);
     memset(aa_out,' ',sizeof(aa_out));
     int line_cnt = fnDFS(1,a_process[1].name, 0, 0);
+    strcpy(&aa_chSpec[1][0],"─┬─");
+    strcpy(&aa_chSpec[2][0],"│");
+    strcpy(&aa_chSpec[3][0],"├─");
+    strcpy(&aa_chSpec[4][0],"└─");
     for(int i=0; i<line_cnt; i++){
-        puts(&aa_out[i][0]);
-    }   
+        int j = -1;
+        while(aa_out[i][++j]!=NULL){
+            int ASC = (int)aa_out[i][j];
+            if((int)aa_out[j]<=0x4){
+                printf("%s",&aa_chSpec[ASC][0]);
+            }else{
+                puts(aa_out[i][j]);
+            }
+        }
+        printf("\n");
+    }
 }
-
 
