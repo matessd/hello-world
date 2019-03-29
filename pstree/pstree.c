@@ -107,7 +107,7 @@ void fnRead_proc(FILE* fp){
     for(len+=1; line_buff[len]==' '; len++);
     strcpy(name, &line_buff[len]);
     len = strlen(name);
-    name[len] = '\0';
+    name[len-1] = '\0';
     puts(name);
     
     //read pid
