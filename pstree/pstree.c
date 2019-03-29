@@ -213,9 +213,9 @@ void fnMake_tree(){
     strcpy(&aa_chSpec[4][0],"└─");
     for(int i=0; i<line_cnt; i++){
         int j = -1;
-        while(aa_out[i][++j]!=NULL){
+        while(aa_out[i][++j]!='\0'){
             int ASC = (int)aa_out[i][j];
-            if((int)aa_out[j]<=0x4){
+            if((int)aa_out[i][j]<=0x4){
                 printf("%s",&aa_chSpec[ASC][0]);
             }else{
                 puts(aa_out[i][j]);
