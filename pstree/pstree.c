@@ -106,6 +106,7 @@ void fnRead_proc(FILE* fp){
     int len = strlen(tmp);
     for(; line_buff[len]==' '; len++);
     strcpy(name, &line_buff[len]);
+    puts(&line_buff[len]);
     
     //read pid
     fnRead_line(fp, line_buff, PID_LINE);
@@ -219,7 +220,7 @@ void fnMake_tree(){
     strcpy(&aa_chSpec[3][0],"├─");
     strcpy(&aa_chSpec[4][0],"└─");
     strcpy(&aa_chSpec[5][0],"──");
-    for(int i=0; i<line_cnt; i++){
+    /*for(int i=0; i<line_cnt; i++){
         int j = -1;
         while(aa_out[i][++j]!='\0'){
             int ASC = (int)aa_out[i][j];
@@ -231,6 +232,6 @@ void fnMake_tree(){
             }
         }
         printf("\n");
-    }
+    }*/
 }
 
