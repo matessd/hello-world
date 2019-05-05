@@ -30,15 +30,16 @@ void co_init() {
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  struct co* new = coroutines[0];//(struct co *)malloc(sizeof(struct co));
+  struct co* new = (struct co *)malloc(sizeof(struct co));
+  printf("%x\n",(int)(intptr_t)new);
   assert(new);
   current = new;
-  //for(int i=1; i<5; i++){
-      //if(coroutines[i]==NULL){
-          //coroutines[1] = current;
-          //break;
-      //}
-  //}
+  for(int i=1; i<5; i++){
+      if(coroutines[i]==NULL){
+          coroutines[i] = current;
+          break;
+      }
+  }
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%s\n",name);
