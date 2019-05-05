@@ -54,13 +54,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       //printf("%x\n",(int)__stack);
       g_func = func;
       g_arg = arg;
-      current->if_run = 1;
+      current->if_run = 0;
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
                    "g"(__stack));//从这一步开始(包括这步)后面所有的变量都只能用全局的，不然因为它的栈帧有问题，会segmentation fault
       g_func(g_arg);
       //current->if_run = 0;
-      asm volatile("mov %1," SP ";mov %0," "$0x0": "=i"(current->if_run): "g"(__stack_backup));
+      asm volatile("mov %0," SP : : "g"(__stack_backup));
       //current->if_run = 0;
   }
   //func(arg); // Test #2 hangs
@@ -73,7 +73,9 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   //assert(0);
+  //current->if_run = 1;
   if(setjmp(current->buf)==0){
+       current->if_run = 1;
        for(int i=0; i<5; i++){
            g_cnt = (g_cnt+1)%5;
            if(coroutines[g_cnt]!=NULL)
@@ -81,10 +83,11 @@ void co_yield() {
        }
        //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
+       current->if_run = 0;
        longjmp(current->buf,1);
-  }/*else{
-       return;
-  }*/
+  }else{
+       current->if_run = 0;
+  }
 }
 
 void co_wait(struct co *thd) {
@@ -92,6 +95,7 @@ void co_wait(struct co *thd) {
   while(thd->if_run){
       if(setjmp(current->buf)==0){
           current = thd;
+          current->if_run = 0;
           longjmp(current->buf,1);
       }/*else{
           current = coroutines[0];
