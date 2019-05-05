@@ -20,7 +20,8 @@ struct co {
 struct co *current = NULL;
 struct co *coroutines[5];
 int g_cnt = 0;
-void *__stack_backup[5];
+void *__stack_backup;
+void *__stack;
 
 void co_init() {
     for(int i=0; i<5; i++)
@@ -31,7 +32,6 @@ void co_init() {
 
 struct co* co_start(const char *name, func_t func, void *arg) {
   struct co* new = (struct co *)malloc(sizeof(struct co));
-  printf("%x\n",(int)(intptr_t)new);
   assert(new);
   current = new;
   for(int i=1; i<5; i++){
@@ -49,15 +49,15 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       //stack -= stack%16;
       //printf("%x\n",(int)stack);
       /*asm volatile("mov " SP ", %0; mov %1, " SP :
-                   "=g"(__stack_backup[0]) :
+                   "=g"(__stack_backup) :
                    "g"(stack + sizeof(current->stack)));*/
       //assert(0);
       func(arg);
-      /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
+      /*asm volatile("mov %0," SP : : "g"(__stack_backup));*/
   }
   //func(arg); // Test #2 hangs
   else{
-      /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
+      /*asm volatile("mov %0," SP : : "g"(__stack_backup));*/
       current = coroutines[0];
   } 
   return new;
