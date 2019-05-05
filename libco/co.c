@@ -59,11 +59,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
                    "=g"(__stack_backup) :
                    "g"(__stack));//从这一步开始(包括这步)后面所有的变量都只能用全局的，不然因为它的栈帧有问题，会segmentation fault
       g_func(g_arg);
-      current->if_run = 0;
-      asm volatile("mov %0," SP : : "g"(__stack_backup));
-      return NULL;
       //current->if_run = 0;
-      //assert(0);
+      asm volatile("mov %0," SP : : "g"(__stack_backup));
+      current->if_run = 0;
+      return NULL;
   }
   //func(arg); // Test #2 hangs
   /*else{
