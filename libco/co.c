@@ -63,7 +63,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       asm volatile("mov %0," SP : : "g"(__stack_backup));
       current->if_run = 0;
       //return NULL;
-      assert(0);
+      //assert(0);
   }
   //func(arg); // Test #2 hangs
   /*else{
