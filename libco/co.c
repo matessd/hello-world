@@ -98,6 +98,7 @@ void co_wait(struct co *thd) {
           current = coroutines[0];
       }*/
   }
+  printf("**\n");
   free(thd);
   for(int i=1; i<5; i++){
       if(coroutines[i]==thd){
