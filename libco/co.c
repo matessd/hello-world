@@ -13,7 +13,7 @@
 
 struct co {
     int if_run;
-    char stack[4096*1024];
+    char stack[4096];
     jmp_buf buf;
 };
 
@@ -57,7 +57,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
                    "=g"(__stack_backup) :
                    "g"(__stack));
       g_func(g_arg);
-      current->if_run = 0;
+      //current->if_run = 0;
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
   //func(arg); // Test #2 hangs
