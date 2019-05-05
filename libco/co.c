@@ -15,9 +15,10 @@ struct co {
     int if_run;
     char stack[4096];
     jmp_buf buf;
-};
+}*main_cor;
 
 struct co *current = NULL;
+struct co *new_co;
 struct co *coroutines[5];
 int g_cnt = 0;
 void *__stack_backup;
@@ -28,14 +29,14 @@ void *g_arg;
 void co_init() {
     for(int i=0; i<5; i++)
         coroutines[i] = NULL;
-    current = coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
-    assert(current);
+    coroutines[0] = main_cor;
+    assert(coroutines[0]);
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  struct co* new = (struct co *)malloc(sizeof(struct co));
-  assert(new);
-  current = new;
+  new_co = (struct co *)malloc(sizeof(struct co));
+  assert(new_co);
+  current = new_co;
   for(int i=1; i<5; i++){
       if(coroutines[i]==NULL){
           coroutines[i] = current;
@@ -55,18 +56,18 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       current->if_run = 1;
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
-                   "g"(__stack));
+                   "g"(__stack));//从这一步开始(包括这步)后面所有的变量都只能用全局的，不然因为它的栈帧有问题，会segmentation fault
       g_func(g_arg);
-      //current->if_run = 0;
+      current->if_run = 0;
       asm volatile("mov %0," SP : : "g"(__stack_backup));
-      assert(0);
+      //assert(0);
   }
   //func(arg); // Test #2 hangs
-  else{
-      /*asm volatile("mov %0," SP : : "g"(__stack_backup));*/
+  /*else{
+      asm volatile("mov %0," SP : : "g"(__stack_backup));
       current = coroutines[0];
-  } 
-  return new;
+  }*/ 
+  return new_co;
 }
 
 void co_yield() {
@@ -80,20 +81,20 @@ void co_yield() {
        //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
        longjmp(current->buf,1);
-  }else{
+  }/*else{
        return;
-  }
+  }*/
 }
 
 void co_wait(struct co *thd) {
-  current = coroutines[0];
+  //current = coroutines[0];
   while(thd->if_run){
       if(setjmp(current->buf)==0){
           current = thd;
           longjmp(current->buf,1);
-      }else{
+      }/*else{
           current = coroutines[0];
-      }
+      }*/
   }
   free(thd);
   for(int i=1; i<5; i++){
