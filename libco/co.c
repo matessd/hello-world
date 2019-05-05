@@ -13,7 +13,7 @@
 
 struct co {
     int if_run;
-    char stack[4096];
+    char stack[4096*1024];
     jmp_buf buf;
 };
 
@@ -79,9 +79,9 @@ void co_yield() {
        //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
        longjmp(current->buf,1);
-  }//else{
-       //return;
-  //}
+  }else{
+       return;
+  }
 }
 
 void co_wait(struct co *thd) {
