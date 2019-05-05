@@ -22,6 +22,8 @@ struct co *coroutines[5];
 int g_cnt = 0;
 void *__stack_backup;
 intptr_t __stack;
+func_t g_func;
+void *g_arg;
 
 void co_init() {
     for(int i=0; i<5; i++)
@@ -51,7 +53,9 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
                    "g"(__stack));
-      func(arg);
+      g_func = func;
+      g_arg = arg;
+      g_func(g_arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
   //func(arg); // Test #2 hangs
