@@ -48,7 +48,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       //printf("%x\n",(int)(intptr_t)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
-                   "g"(__stack + sizeof(current->stack));
+                   "g"(__stack + sizeof(current->stack)));
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
