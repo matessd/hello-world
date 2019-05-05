@@ -20,13 +20,13 @@ struct co {
 struct co *current = NULL;
 struct co *coroutines[5];
 int g_cnt = 0;
-void *__stack_backup;
-void *__stack;
+void *__stack_backup[5];
 
 void co_init() {
     for(int i=0; i<5; i++)
         coroutines[i] = NULL;
-    current = coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
+    coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
+    current = coroutines[0];
     assert(current);
 }
 
@@ -35,26 +35,29 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   assert(new);
   current = new;
   for(int i=1; i<5; i++){
-      if(coroutines[i]==NULL){
+      if(!coroutines[i]){
           coroutines[i] = current;
           break;
       }
   }
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
-      intptr_t n__stack = (intptr_t)current->stack;
+      //printf("%s\n",name);
+      //intptr_t tst = current->stack;
       //printf("%x\n",(int)(intptr_t)current->stack);
-      //n__stack -= (intptr_t)n__stack%16;
-      //printf("%x\n",(int)(intptr_t)__stack);
+      intptr_t stack = (intptr_t)current->stack;
+      stack -= stack%16;
+      //printf("%x\n",(int)stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
-                   "=g"(__stack_backup) :
-                   "g"(n__stack + sizeof(current->stack)));
+                   "=g"(__stack_backup[0]) :
+                   "g"(stack + sizeof(current->stack)));
+      //assert(0);
       func(arg);
-      asm volatile("mov %0," SP : : "g"(__stack_backup));
+      asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
   }
   //func(arg); // Test #2 hangs
   else{
-      asm volatile("mov %0," SP : : "g"(__stack_backup));
+      asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
       current = coroutines[0];
   } 
   return new;
