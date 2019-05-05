@@ -74,10 +74,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   //assert(0);
-  for(int i=0; i<5; i++){
+  /*for(int i=0; i<5; i++){
       if(coroutines[i]==current)
           printf("%d**",i);
-  }
+  }*/
   if(setjmp(current->buf)==0){
        current->if_run = 1;
        for(int i=0; i<5; i++){
@@ -85,7 +85,7 @@ void co_yield() {
            if(coroutines[g_cnt]!=NULL)
                break;
        }
-       printf("%d\n",g_cnt);
+       //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
        current->if_run = 0;
        longjmp(current->buf,1);
