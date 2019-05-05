@@ -25,13 +25,12 @@ void *__stack_backup[5];
 void co_init() {
     for(int i=0; i<5; i++)
         coroutines[i] = NULL;
-    coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
-    current = coroutines[0];
+    current = coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
     assert(current);
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  /*struct co* new = (struct co *)malloc(sizeof(struct co));
+  struct co* new = (struct co *)malloc(sizeof(struct co));
   assert(new);
   current = new;
   for(int i=1; i<5; i++){
@@ -39,14 +38,14 @@ struct co* co_start(const char *name, func_t func, void *arg) {
           coroutines[i] = current;
           break;
       }
-  }*/
+  }
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%s\n",name);
       //intptr_t tst = current->stack;
       //printf("%x\n",(int)(intptr_t)current->stack);
-      intptr_t stack = (intptr_t)current->stack;
-      stack -= stack%16;
+      //intptr_t stack = (intptr_t)current->stack;
+      //stack -= stack%16;
       //printf("%x\n",(int)stack);
       /*asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup[0]) :
@@ -60,7 +59,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
       current = coroutines[0];
   } 
-  return NULL;
+  return new;
 }
 
 void co_yield() {
