@@ -48,16 +48,16 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       intptr_t stack = (intptr_t)current->stack;
       stack -= stack%16;
       //printf("%x\n",(int)stack);
-      asm volatile("mov " SP ", %0; mov %1, " SP :
+      /*asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup[0]) :
-                   "g"(stack + sizeof(current->stack)));
+                   "g"(stack + sizeof(current->stack)));*/
       //assert(0);
       func(arg);
-      asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
+      /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
   }
   //func(arg); // Test #2 hangs
   else{
-      asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
+      /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
       current = coroutines[0];
   } 
   return new;
