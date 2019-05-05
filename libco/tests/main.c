@@ -17,7 +17,7 @@ static int get_count() {
 static void work_loop(void *arg) {
     const char *s = (const char*)arg;
     for (int i = 0; i < 100; ++i) {
-        printf("%s%d  \n", s, get_count());
+        printf("%s%d  ", s, get_count());
         add_count();
         co_yield();
     }
@@ -99,6 +99,7 @@ static void test_2() {
 
     struct co *thd1 = co_start("producer-1", producer, queue);
     struct co *thd2 = co_start("producer-2", producer, queue);
+    assert(0);
     struct co *thd3 = co_start("consumer-1", consumer, queue);
     struct co *thd4 = co_start("consumer-2", consumer, queue);
 
