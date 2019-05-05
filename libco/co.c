@@ -33,12 +33,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   struct co* new = (struct co *)malloc(sizeof(struct co));
   assert(new);
   current = new;
-  for(int i=1; i<5; i++){
-      if(coroutines[i]==NULL){
-          coroutines[i] = current;
-          break;
-      }
-  }
+  //for(int i=1; i<5; i++){
+      //if(coroutines[i]==NULL){
+          coroutines[1] = current;
+          //break;
+      //}
+  //}
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%s\n",name);
