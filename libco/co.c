@@ -31,7 +31,7 @@ void co_init() {
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  struct co* new = (struct co *)malloc(sizeof(struct co));
+  /*struct co* new = (struct co *)malloc(sizeof(struct co));
   assert(new);
   current = new;
   for(int i=1; i<5; i++){
@@ -39,7 +39,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
           coroutines[i] = current;
           break;
       }
-  }
+  }*/
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%s\n",name);
@@ -60,7 +60,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       /*asm volatile("mov %0," SP : : "g"(__stack_backup[0]));*/
       current = coroutines[0];
   } 
-  return new;
+  return NULL;
 }
 
 void co_yield() {
