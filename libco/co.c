@@ -44,7 +44,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup[0]) :
                    "g"(current->stack + sizeof(current->stack)));
-      assert(0);
+      //assert(0);
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
   }
@@ -57,6 +57,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 }
 
 void co_yield() {
+  assert(0);
   if(setjmp(current->buf)==0){
        current->if_run = 1;
        for(int i=0; i<5; i++){
