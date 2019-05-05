@@ -3,6 +3,7 @@
 #include <setjmp.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdint.h>
 
 #if defined(__i386__)
     #define SP "%%esp"
