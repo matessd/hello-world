@@ -61,14 +61,16 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       g_func(g_arg);
       //current->if_run = 0;
       asm volatile("mov %0," SP : : "g"(__stack_backup));
-      //current->if_run = 0;
+      current->if_run = 0;
       //return NULL;
+      assert(0);
   }
   //func(arg); // Test #2 hangs
   /*else{
       asm volatile("mov %0," SP : : "g"(__stack_backup));
       current = coroutines[0];
   }*/ 
+
   return new_co;
 }
 
@@ -98,7 +100,7 @@ void co_wait(struct co *thd) {
           current = coroutines[0];
       }*/
   }
-  printf("**\n");
+  //printf("**\n");
   free(thd);
   for(int i=1; i<5; i++){
       if(coroutines[i]==thd){
