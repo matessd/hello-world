@@ -45,10 +45,11 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       __stack = (intptr_t)current->stack;
       //printf("%x\n",(int)(intptr_t)current->stack);
       __stack -= __stack%16;
+      __stack += current->stack;
       //printf("%x\n",(int)(intptr_t)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
-                   "g"(__stack + sizeof(current->stack)));
+                   "g"(__stack));
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
