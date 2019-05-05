@@ -26,12 +26,12 @@ void co_init() {
         coroutines[i] = NULL;
     coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
     current = coroutines[0];
-    assert(current!=NULL);
+    assert(current);
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
   struct co* new = (struct co *)malloc(sizeof(struct co));
-  assert(new!=NULL);
+  assert(new);
   current = new;
   for(int i=1; i<5; i++){
       if(!coroutines[i]){
@@ -62,7 +62,7 @@ void co_yield() {
        current->if_run = 1;
        for(int i=0; i<5; i++){
            g_cnt = (g_cnt+1)%5;
-           if(!coroutines[g_cnt])
+           if(coroutines[g_cnt]!=NULL)
                break;
        }
        printf("%d\n",g_cnt);
