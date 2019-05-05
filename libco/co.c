@@ -55,7 +55,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   }
   //func(arg); // Test #2 hangs
   else{
-      /*asm volatile("mov %0," SP : : "g"(__stack_backup));*/
+      asm volatile("mov %0," SP : : "g"(__stack_backup));
       current = coroutines[0];
   } 
   return new;
