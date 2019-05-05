@@ -44,10 +44,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%s\n",name);
       //intptr_t tst = current->stack;
-      printf("%x\n",(int)(intptr_t)current->stack);
+      //printf("%x\n",(int)(intptr_t)current->stack);
+      intptr_t stack = (intptr_t)current->stack;
+      stack -= or_stack%16;
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup[0]) :
-                   "g"(current->stack + sizeof(current->stack)));
+                   "g"(stack + sizeof(current->stack)));
       //assert(0);
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
