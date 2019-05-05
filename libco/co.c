@@ -35,7 +35,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   assert(new);
   current = new;
   for(int i=1; i<5; i++){
-      if(!coroutines[i]){
+      if(coroutines[i]==NULL){
           coroutines[i] = current;
           break;
       }
