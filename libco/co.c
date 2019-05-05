@@ -20,7 +20,7 @@ struct co {
 struct co *current = NULL;
 struct co *coroutines[5];
 int g_cnt = 0;
-void *__stack_backup[5];
+void *__stack_backup;
 intptr_t __stack;
 
 void co_init() {
@@ -47,10 +47,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       __stack -= __stack%16;
       //printf("%x\n",(int)(intptr_t)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
-                   "=g"(__stack_backup[0]) :
+                   "=g"(__stack_backup) :
                    "g"(__stack + sizeof(current->stack)));
       func(arg);
-      asm volatile("mov %0," SP : : "g"(__stack_backup[0]));
+      asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
   //func(arg); // Test #2 hangs
   else{
