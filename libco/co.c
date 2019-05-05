@@ -13,7 +13,7 @@
 
 struct co {
     int if_run;
-    char stack[4096];
+    char stack[4096*1024];
     jmp_buf buf;
 };
 
