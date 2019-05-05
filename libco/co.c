@@ -41,6 +41,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   }
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
+      printf("%s\n",name);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup[0]) :
                    "g"(current->stack + sizeof(current->stack)));
@@ -65,7 +66,7 @@ void co_yield() {
            if(coroutines[g_cnt]!=NULL)
                break;
        }
-       printf("%d\n",g_cnt);
+       //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
        longjmp(current->buf,1);
   }else{
@@ -85,7 +86,7 @@ void co_wait(struct co *thd) {
       }
   }
   free(thd);
-  for(int i=0; i<5; i++){
+  for(int i=1; i<5; i++){
       if(coroutines[i]==thd){
           coroutines[i]=NULL;
           break;
