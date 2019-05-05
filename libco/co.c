@@ -62,7 +62,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       //current->if_run = 0;
       asm volatile("mov %0," SP : : "g"(__stack_backup));
       //current->if_run = 0;
-      long_jmp(coroutines[0]->buf,1);
+      longjmp(coroutines[0]->buf,1);
   }
   //func(arg); // Test #2 hangs
   /*else{
