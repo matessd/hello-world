@@ -15,8 +15,9 @@ struct co {
     int if_run;
     char stack[4096];
     jmp_buf buf;
-}*main_cor;
+};
 
+struct co main_cor;
 struct co *current = NULL;
 struct co *new_co;
 struct co *coroutines[5];
@@ -29,7 +30,7 @@ void *g_arg;
 void co_init() {
     for(int i=0; i<5; i++)
         coroutines[i] = NULL;
-    coroutines[0] = main_cor;
+    coroutines[0] = &main_cor;
     assert(coroutines[0]);
 }
 
