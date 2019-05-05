@@ -26,7 +26,7 @@ void co_init() {
         coroutines[i] = NULL;
     coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
     current = coroutines[0];
-    assert(!current);
+    assert(current!=NULL);
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
