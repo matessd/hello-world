@@ -79,9 +79,9 @@ void co_yield() {
        //printf("%d\n",g_cnt);
        current = coroutines[g_cnt];
        longjmp(current->buf,1);
-  }else{
-       return;
-  }
+  }//else{
+       //return;
+  //}
 }
 
 void co_wait(struct co *thd) {
