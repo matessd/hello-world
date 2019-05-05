@@ -43,13 +43,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
       //printf("%x\n",(int)(intptr_t)current->stack);
-      __stack = current->stack;
+      intptr_t n__stack = current->stack;
       //printf("%x\n",(int)(intptr_t)current->stack);
-      __stack -= (intptr_t)__stack%16;
+      n__stack -= (intptr_t)n__stack%16;
       //printf("%x\n",(int)(intptr_t)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
-                   "g"(current->stack + sizeof(current->stack)));
+                   "g"(n__stack + sizeof(current->stack)));
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
