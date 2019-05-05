@@ -21,7 +21,7 @@ struct co *current = NULL;
 struct co *coroutines[5];
 int g_cnt = 0;
 void *__stack_backup;
-char *__stack;
+intptr_t __stack;
 
 void co_init() {
     for(int i=0; i<5; i++)
@@ -42,13 +42,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   }
   //assert(0);
   if(setjmp(coroutines[0]->buf)==0){
-      __stack = current->stack;
+      __stack = (intptr_t)current->stack;
       //printf("%x\n",(int)(intptr_t)current->stack);
-      __stack -= (intptr_t)__stack%16;
+      __stack -= __stack%16;
       //printf("%x\n",(int)(intptr_t)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
-                   "g"((intptr_t)__stack + sizeof(current->stack)));
+                   "g"(__stack + sizeof(current->stack));
       func(arg);
       asm volatile("mov %0," SP : : "g"(__stack_backup));
   }
