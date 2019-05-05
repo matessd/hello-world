@@ -47,7 +47,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
       __stack -= __stack%16;
       __stack += sizeof(current->stack);//这一步如果按照讲义那样，汇编时会先赋值给sp，再加
       //printf("%x\n",(int)(intptr_t)__stack);
-      printf("%x\n",(int)__stack);
+      //printf("%x\n",(int)__stack);
       asm volatile("mov " SP ", %0; mov %1, " SP :
                    "=g"(__stack_backup) :
                    "g"(__stack));
