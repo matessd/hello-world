@@ -24,7 +24,8 @@ void *__stack_backup[5];
 void co_init() {
     for(int i=0; i<5; i++)
         coroutines[i] = NULL;
-    current = coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
+    coroutines[0] = (struct co*)malloc(sizeof(struct co));//泄漏？
+    current = corouties[0];
     assert(!current);
 }
 
