@@ -101,7 +101,13 @@ void co_wait(struct co *thd) {
   //current = coroutines[0];
   while(thd->if_run){
       if(setjmp(current->buf)==0){
-          current = thd;
+          int cur = 0;
+          while(1){
+              cur = rand()%4 + 1;
+              if(coroutines[cur]!=NULL && coroutines[cur]!=current)
+                  break;
+          }
+          current = coroutines[cur];
           current->if_run = 0;
           longjmp(current->buf,1);
       }/*else{
