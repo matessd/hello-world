@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdint.h>
+#include <time.h>
 
 #if defined(__i386__)
     #define SP "%%esp"
@@ -32,6 +33,7 @@ void co_init() {
         coroutines[i] = NULL;
     coroutines[0] = &main_cor;
     assert(coroutines[0]);
+    srand(time(NULL));
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
@@ -74,19 +76,20 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   //assert(0);
-  /*for(int i=0; i<5; i++){
-      if(coroutines[i]==current)
-          printf("%d**",i);
-  }*/
   if(setjmp(current->buf)==0){
        current->if_run = 1;
-       for(int i=0; i<5; i++){
+       int cur = 0;
+       while(1){
+           cur = rand()%5;
+           if(coroutines[cur]!=NULL)
+              break; 
+       }
+       /*for(int i=0; i<5; i++){
            g_cnt = (g_cnt+1)%5;
            if(coroutines[g_cnt]!=NULL)
                break;
-       }
-       //printf("%d\n",g_cnt);
-       current = coroutines[g_cnt];
+       }*/
+       current = coroutines[cur];
        current->if_run = 0;
        longjmp(current->buf,1);
   }else{
