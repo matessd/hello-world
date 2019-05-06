@@ -22,7 +22,7 @@ struct co main_cor;
 struct co *current = NULL;
 struct co *new_co;
 struct co *coroutines[5];
-int g_cnt = 0;
+//int g_cnt = 0;
 void *__stack_backup;
 intptr_t __stack;
 func_t g_func;
