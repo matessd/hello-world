@@ -1,7 +1,7 @@
 #include <game.h>
-//#include "klib.h"
+#include <klib.h>
 void init_screen();
-void draw_rect(int x, int y, int w, int h, uint32_t color);
+void new_draw_rect(int x, int y, int w, int h, uint32_t color);
 void init_game();
 void game_draw(int block_num, uint32_t color);
 //void splash(int x,y);
@@ -26,8 +26,6 @@ int main() {
   init_game();
   for(int i=0; i<9; i++)
       game_draw(i, 0xffffff);
-  while(1);
-  //printf("%d>>%d\n",w/SIDE,w%SIDE);
   /*unsigned long time, frames=0, next_frame=0, next_refresh=0;
   bool redraw = false;
   while(1){
@@ -60,6 +58,7 @@ void init_screen() {
   w = info.width;
   h = info.height;
 
+  printf("%d>>%d\n",w/SIDE,w%SIDE);
 }
 
 void init_game(){
@@ -74,10 +73,10 @@ void init_game(){
 }
 
 void game_draw(int block_num, uint32_t color){
-    draw_rect(block_pos[block_num][0], block_pos[block_num][1], 50, 50, color);
+    new_draw_rect(block_pos[block_num][0], block_pos[block_num][1], 50, 50, color);
 }
 
-void draw_rect(int x, int y, int w, int h, uint32_t color) {
+void new_draw_rect(int x, int y, int w, int h, uint32_t color) {
   uint32_t pixels[w * h]; // WARNING: allocated on stack
   _DEV_VIDEO_FBCTL_t event = {
     .x = x, .y = y, .w = w, .h = h, .sync = 1,
