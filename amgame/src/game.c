@@ -1,13 +1,13 @@
 #include <game.h>
-#include "klib.h"
+//#include "klib.h"
 void init_screen();
 //void splash();
 //void read_key();
 
 #define FPS 30
 #define HZ 100
-int w, h;
-int road_w;//my
+int w, h, road_w;//my
+int game_ctl;
 
 int main() {
   // Operating system is a C program
