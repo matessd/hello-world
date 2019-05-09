@@ -74,7 +74,7 @@ void init_game(){
 }
 
 void game_draw(int block_num, uint32_t color){
-    new_draw_rect(block_pos[block_num][0], block_pos[block_num][1], 100, 100, color);
+    new_draw_rect(block_pos[block_num][0], block_pos[block_num][1], 90, 90, color);
 }
 
 void new_draw_rect(int x, int y, int w, int h, uint32_t color) {
