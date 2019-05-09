@@ -1,5 +1,5 @@
 #include <game.h>
-#include <klib.h>
+#include "klib.h"
 void init_screen();
 //void splash();
 //void read_key();
@@ -19,7 +19,7 @@ int main() {
     read_key();
   }*/
   //below is my
-  my_printf("%d>>%d\n",w/SIDE,w%SIDE);
+  printf("%d>>%d\n",w/SIDE,w%SIDE);
   /*unsigned long time, frames=0, next_frame=0, next_refresh=0;
   bool redraw = false;
   while(1){
