@@ -26,6 +26,7 @@ int main() {
   init_game();
   for(int i=0; i<9; i++)
       game_draw(i, 0xffffff);
+  while(1);
   /*unsigned long time, frames=0, next_frame=0, next_refresh=0;
   bool redraw = false;
   while(1){
