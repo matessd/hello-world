@@ -24,7 +24,6 @@ int main() {
   }*/
   //below is my
   init_game();
-  while(1);
   for(int i=0; i<9; i++)
       game_draw(i, 0xffffff);
   while(1);
