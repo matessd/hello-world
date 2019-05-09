@@ -1,13 +1,17 @@
 #include <game.h>
 //#include "klib.h"
 void init_screen();
-//void splash();
+void draw_rect(int x, int y, int w, int h, uint32_t color);
+void init_game();
+void game_draw(int block_num, uint32_t color);
+//void splash(int x,y);
 //void read_key();
 
 #define FPS 30
 #define HZ 100
-int w, h, road_w;//my
-int game_ctl;
+int mouse_cnt=0;
+//game_init
+int block_pos[9][2];
 
 int main() {
   // Operating system is a C program
@@ -19,7 +23,10 @@ int main() {
     read_key();
   }*/
   //below is my
-  printf("%d>>%d\n",w/SIDE,w%SIDE);
+  init_game();
+  for(int i=0; i<9; i++)
+      game_draw(i, 0xffffff);
+  //printf("%d>>%d\n",w/SIDE,w%SIDE);
   /*unsigned long time, frames=0, next_frame=0, next_refresh=0;
   bool redraw = false;
   while(1){
@@ -45,6 +52,7 @@ int main() {
   }
 }*/
 
+int w,h;
 void init_screen() {
   _DEV_VIDEO_INFO_t info = {0};
   _io_read(_DEV_VIDEO, _DEVREG_VIDEO_INFO, &info, sizeof(info));
@@ -53,7 +61,22 @@ void init_screen() {
 
 }
 
-/*void draw_rect(int x, int y, int w, int h, uint32_t color) {
+void init_game(){
+    int cnt = 0;
+    for(int x=0; x<=w-w/3; x+=w/3){
+        for(int y=0; y<=h-h/3; y+=h/3){
+            block_pos[cnt][0]=x;
+            block_pos[cnt][1]=y;
+            cnt++;
+        }
+    }
+}
+
+void game_draw(int block_num, uint32_t color){
+    draw_rect(block_pos[block_num][0], block_pos[block_num][1], w/3, h/3, color);
+}
+
+void draw_rect(int x, int y, int w, int h, uint32_t color) {
   uint32_t pixels[w * h]; // WARNING: allocated on stack
   _DEV_VIDEO_FBCTL_t event = {
     .x = x, .y = y, .w = w, .h = h, .sync = 1,
@@ -63,7 +86,7 @@ void init_screen() {
     pixels[i] = color;
   }
   _io_write(_DEV_VIDEO, _DEVREG_VIDEO_FBCTL, &event, sizeof(event));
-}*/
+}
 
 /*void splash() {
   for (int x = 0; x * SIDE <= w; x ++) {
