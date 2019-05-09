@@ -19,7 +19,7 @@ int main() {
     read_key();
   }*/
   //below is my
-  printf("%d>>%d\n",w/SIDE,w%SIDE);
+  my_printf("%d>>%d\n",w/SIDE,w%SIDE);
   /*unsigned long time, frames=0, next_frame=0, next_refresh=0;
   bool redraw = false;
   while(1){
