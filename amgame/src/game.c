@@ -49,7 +49,8 @@ int main() {
     next_ctl += 1000/ctlHZ;
     game_ctl();
     if(time >= next_gen){
-        gen_mouse();
+        if(kill_cnt+mouse_cnt<20)
+            gen_mouse();
         next_gen += 1000/genHZ;
     }
     if(time >= next_refresh){
