@@ -87,9 +87,9 @@ void init_screen() {
   _io_read(_DEV_VIDEO, _DEVREG_VIDEO_INFO, &info, sizeof(info));
   w = info.width;
   h = info.height;
-  if(w/3>=80 && h/3>=80)
+  if(w/3>80 && h/3>80)
       BLOCK_SIZE = 80;
-  else BLOCK_SIZE = 80;
+  else BLOCK_SIZE = (w/3<h/3)?w/3:h/3;
   //printf("%d>>%d\n",w/SIDE,w%SIDE);
 }
 
