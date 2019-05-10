@@ -59,6 +59,7 @@ int main() {
     }
     if(game_over==1) break;
   }
+  game_draw();
   return 0;
 }
 
