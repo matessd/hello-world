@@ -52,11 +52,11 @@ int main() {
         gen_mouse();
         next_gen += 1000/genHZ;
     }
-    if(game_over==1) break;
     if(time >= next_refresh){
         next_refresh += 1000/FPS;
         game_draw();
     }
+    if(game_over==1) break;
   }
   return 0;
 }
