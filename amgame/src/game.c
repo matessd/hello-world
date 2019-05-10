@@ -1,7 +1,7 @@
 #include <game.h>
 #include <klib.h>
 #define FPS 30
-#define genHZ 2//每秒生成两次地鼠
+#define genHZ 3//每秒生成两次地鼠
 #define ctlHZ 100//每秒处理100次输入
 //函数
 void init_screen();
