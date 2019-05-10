@@ -1,8 +1,9 @@
 #include <game.h>
 #include <klib.h>
 #define FPS 30
-#define genHZ 3//每秒生成两次地鼠
-#define ctlHZ 100//每秒处理100次输入
+#define genHZ 3//每秒生成多少次地鼠
+#define ctlHZ 100//每秒处理多少次输入
+#define WIN_CNT 30//胜利要求的地鼠数量
 //函数
 void init_screen();
 void new_draw_rect(int x, int y, int w, int h, uint32_t color);
@@ -25,7 +26,7 @@ int block_pos[9][2];
 int block_state[9];//每格状态
 //game_ctl
 int game_over=0;//是否退出游戏循环
-int game_win=0;//游戏输赢
+//int game_win=0;//游戏输赢
 
 int main() {
   // Operating system is a C program
@@ -49,7 +50,7 @@ int main() {
     next_ctl += 1000/ctlHZ;
     game_ctl();
     if(time >= next_gen){
-        if(kill_cnt+mouse_cnt<20)
+        if(kill_cnt+mouse_cnt<WIN_CNT)
             gen_mouse();
         next_gen += 1000/genHZ;
     }
@@ -144,7 +145,7 @@ void game_ctl(){
         game_over = 1;
         printf("Lose! You beat the wrong place\n");
     }
-    if(kill_cnt==20){
+    if(kill_cnt==WIN_CNT){
         game_over = 1;
         printf("Win! You have killed all 20 mice\n");
     }
