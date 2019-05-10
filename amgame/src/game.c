@@ -103,7 +103,7 @@ void init_game(){
 
 void game_draw(){
     for(int i=0; i<9; i++){
-        if(block_state[i]==0) new_draw_rect(block_pos[i][0], block_pos[i][1], 88, 80, 0xffffff);
+        if(block_state[i]==0) new_draw_rect(block_pos[i][0], block_pos[i][1], 80, 80, 0xffffff);
         else  new_draw_rect(block_pos[i][0], block_pos[i][1], 80, 80, 0xff0000);
     }
 }
