@@ -129,7 +129,7 @@ void game_ctl(){
     for(int i=0; i<9; i++){
         if(scan_code[i]==keycode){
             if(block_state[i]==1){
-                kill_cnt++;
+                kill_cnt--;
                 block_state[i]=0;
             }else{
                 wrong_beat = 1;
