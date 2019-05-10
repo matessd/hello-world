@@ -15,6 +15,7 @@ void game_ctl();
 //int read_key();
 
 //全局变量
+int BLOCK_SIZE;//每格的大小，用于应对不同分辨率
 static int scan_code[]={
     _KEY_1, _KEY_2, _KEY_3, _KEY_4, _KEY_5,
     _KEY_6, _KEY_7, _KEY_8, _KEY_9,
@@ -86,7 +87,9 @@ void init_screen() {
   _io_read(_DEV_VIDEO, _DEVREG_VIDEO_INFO, &info, sizeof(info));
   w = info.width;
   h = info.height;
-
+  if(w/3>=80 && h/3>=80)
+      BLOCK_SIZE = 80;
+  else BLOCK_SIZE = 80;
   //printf("%d>>%d\n",w/SIDE,w%SIDE);
 }
 
@@ -105,8 +108,8 @@ void init_game(){
 
 void game_draw(){
     for(int i=0; i<9; i++){
-        if(block_state[i]==0) new_draw_rect(block_pos[i][0], block_pos[i][1], 80, 80, 0xffffff);
-        else  new_draw_rect(block_pos[i][0], block_pos[i][1], 80, 80, 0xff0000);
+        if(block_state[i]==0) new_draw_rect(block_pos[i][0], block_pos[i][1], BLOCK_SIZE, BLOCK_SIZE, 0xffffff);
+        else  new_draw_rect(block_pos[i][0], block_pos[i][1], BLOCK_SIZE, BLOCK_SIZE, 0xff0000);
     }
 }
 
