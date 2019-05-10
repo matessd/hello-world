@@ -97,8 +97,8 @@ void init_game(){
     int cnt = 0;
     for(int y=0; y<=h-h/3; y+=h/3){
         for(int x=0; x<=w-w/3; x+=w/3){
-            block_pos[cnt][0]=x;
-            block_pos[cnt][1]=y;
+            block_pos[cnt][0]=x+(w/3-BLOCK_SIZE)/2;
+            block_pos[cnt][1]=y+(h/3-BLOCK_SIZE)/2;
             cnt++;
         }
     }
