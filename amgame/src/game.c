@@ -11,7 +11,7 @@ void game_draw();
 void gen_mouse();
 void game_ctl();
 //void splash(int x,y);
-int read_key();
+//int read_key();
 
 //全局变量
 static int scan_code[]={
@@ -61,21 +61,21 @@ int main() {
   return 0;
 }
 
-int read_key() {
+/*int read_key() {
   _DEV_INPUT_KBD_t event = { .keycode = _KEY_NONE };
-  /*#define KEYNAME(key) \
+  #define KEYNAME(key) \
     [_KEY_##key] = #key,
   static const char *key_names[] = {
     _KEYS(KEYNAME)
-  };*/
+  };
   _io_read(_DEV_INPUT, _DEVREG_INPUT_KBD, &event, sizeof(event));
-  /*if (event.keycode != _KEY_NONE && event.keydown) {
+  if (event.keycode != _KEY_NONE && event.keydown) {
     puts("Key pressed: ");
     puts(key_names[event.keycode]);
     puts("\n");
-  }*/
+  }
   return event.keycode;
-}
+}*/
 
 int w,h;
 void init_screen() {
