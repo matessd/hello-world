@@ -11,7 +11,7 @@ typedef struct{
     double time;
 }Node;
 Node a_list[256];
-char buf[1024];
+char buf[10];
 int main(int argc, char *argv[]) {
     int filedes[2];
     if(pipe( filedes )!=0){
