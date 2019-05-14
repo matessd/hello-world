@@ -14,8 +14,8 @@ int list_cnt = 0;
 char buf[1024];
 
 int cmp(const void*a, const void *b){
-    int aa = ((Node*)a)->time;
-    int bb = ((Node*)b)->time;
+    double aa = ((Node*)a)->time;
+    double bb = ((Node*)b)->time;
     if(bb>aa)
         return 1;
     else return -1;
