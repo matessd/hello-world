@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
         char name[128];
         while(scanf("%[^\n]",buf)!=EOF){
             double tmp=1;
-            scanf("%s\(",name);
-            scanf("\<%lf\>",&tmp);
+            sscanf(buf,"%s(",name);
+            sscanf(buf,"<%lf>",&tmp);
             printf("%s\n",name);
             printf("%lf\n",tmp);
         }
