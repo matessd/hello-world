@@ -18,9 +18,7 @@ int cmp(const void*a, const void *b){
     int bb = ((Node*)b)->time;
     if(bb>aa)
         return 1;
-    else if(bb<aa)
-        return -1;
-    else return 0;
+    else return -1;
 }
 
 void readin(){
