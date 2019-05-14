@@ -39,8 +39,10 @@ void output(){
 
 void loop(){
   char name[128];
+  int if_time_long=0;
   while(scanf("%[^\n]%*c",buf)!=EOF){ 
     if(g_time+2<=time(0)){
+      if_time_long=1;
       time(&g_time);
       output();
       init();
@@ -67,6 +69,8 @@ void loop(){
     //printf("%s\n",name);
     //printf("%lf\n",tmp);
   }
+  if(if_time_long==0)
+    output();
 }
 
 int main(int argc, char *argv[]) {
@@ -84,7 +88,6 @@ int main(int argc, char *argv[]) {
     dup2(filedes[0],0);
     init();
     loop();
-    output();
   }
   else if(pid == 0){
     //child
