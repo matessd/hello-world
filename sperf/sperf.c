@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include <fcnt1.h>
+#include <fcntl.h>
 //#include <sys/types.h>
 //#include <sys/stat.h>
 double g_tot = 0;//总时间
