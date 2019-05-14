@@ -44,8 +44,9 @@ int main(int argc, char *argv[]) {
 
         int null_fd = open("/dev/null",O_RDWR);
         assert(null_fd>=0);
-        printf("%d\n",null_fd);
+        //printf("%d\n",null_fd);
         dup2(null_fd,1);//stdout
+        printf("1**********\n");
         close(1);
         //dup2(1, filedes[1]);
         execve("/usr/bin/strace",argv_send,envp);
