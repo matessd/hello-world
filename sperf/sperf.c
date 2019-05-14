@@ -11,6 +11,7 @@ typedef struct{
     double time;
 }Node;
 Node a_list[256];
+int list_cnt = 0;
 char buf[1024];
 int main(int argc, char *argv[]) {
     int filedes[2];
@@ -26,15 +27,15 @@ int main(int argc, char *argv[]) {
         close(filedes[1]);
         dup2(filedes[0],0);
         char name[128];
-        while(scanf("%[^\n]",buf)!=EOF){
-            scanf("%c",name);//把回车读掉
-            double tmp=1;
+        while(scanf("%[^\n]%*c",buf)!=EOF){
+            //scanf("%c",name);//把回车读掉
+            double dgt=1;
             puts(buf);
             sscanf(buf,"%[^(]",name);
             //char tmpp[1024];
-            sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&tmp);
-            printf("%s\n",name);
-            printf("%lf\n",tmp);
+            sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
+            //printf("%s\n",name);
+            //printf("%lf\n",tmp);
         }
     }
     else if(pid == 0){
