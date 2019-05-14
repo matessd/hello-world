@@ -10,9 +10,11 @@ int main(int argc, char *argv[]) {
     pid=fork();        
     assert(pid>=0);
     if (pid > 0){
+        //father
         
     }
     else if(pid == 0){
+        //child
         assert(argc>1);
         char *argv_send[128];
         argv_send[0] = "strace";
@@ -26,7 +28,7 @@ int main(int argc, char *argv[]) {
         //printf("%s\n",argv_send[0]);
         int ret =execve("/usr/bin/strace",argv_send,envp);
         assert(ret!=-1);
+        printf("11****\n");
     }
-    //printf("%s\n",argv[1]);
     return 0;
 }
