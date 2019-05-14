@@ -13,7 +13,7 @@ typedef struct{
 Node a_list[256];
 int list_cnt = 0;
 time_t g_time = 0;
-char buf[1024];
+//char buf[1024];
 
 int cmp(const void*a, const void *b){
   double aa = ((Node*)a)->time;
