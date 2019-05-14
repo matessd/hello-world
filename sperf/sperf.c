@@ -33,7 +33,7 @@ void output(){
     qsort(&a_list[0],list_cnt,sizeof(a_list[0]),cmp);
     printf("\033[2J");
     for(int i=0; i<list_cnt; i++){
-      printf("%s:%.0lf%%\n",a_list[i].name,a_list[i].time/g_tot*100);
+      printf("%s:%.0lf%%",a_list[i].name,a_list[i].time/g_tot*100);
     }
 }
 
