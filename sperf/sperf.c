@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         }
         argv_send[argc+1] = NULL;
         printf("%s\n",argv_send[0]);
-        int ret =execve("/usr/bin/strace",argv_send,NULL);
+        int ret =execve("/usr/bin/strace",argv_send);
         assert(ret!=-1);
     }
     //printf("%s\n",argv[1]);
