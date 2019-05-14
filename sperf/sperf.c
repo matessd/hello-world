@@ -26,10 +26,13 @@ int main(int argc, char *argv[]) {
         close(filedes[1]);
         dup2(filedes[0],0);
         //int cnt = read(filedes[0], buf, sizeof(buf));
-        fgets(buf, 100, stdin);
+        //fgets(buf, 100, stdin);
+        int cnt = 0;
+        while(scanf("%c",&buf)!=EOF)
+            cnt++;
         double tmp=1;
         scanf("<%lf>",&tmp);
-        printf("%s\n",buf);
+        printf("%d\n",cnt);
         printf("%lf\n",tmp);
     }
     else if(pid == 0){
