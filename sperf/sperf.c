@@ -24,9 +24,13 @@ int main(int argc, char *argv[]) {
     if (pid > 0){
         //father
         close(filedes[1]);
-        int cnt = read(filedes[0], buf, sizeof(buf));
-        printf("%d\n",cnt);
-        puts(buf);
+        dup2(filedes[0],0);
+        //int cnt = read(filedes[0], buf, sizeof(buf));
+        scanf("%s(",buf);
+        double tmp;
+        scanf("<%lf>",&tmp);
+        printf("%s\n",buf);
+        printf("%lf\n",tmp);
     }
     else if(pid == 0){
         //child
@@ -44,10 +48,10 @@ int main(int argc, char *argv[]) {
         int null_fd = open("/dev/null",O_RDWR);
         assert(null_fd>=0);
         dup2(filedes[1],2);
-        dup2(filedes[1],1);
+        dup2(null_fd,1);
         close(filedes[0]);
         execve("/usr/bin/strace",argv_send,envp);
-        printf("execve error, should not reach here\n");
+        //printf("execve error, should not reach here\n");
     }
     return 0;
 }
