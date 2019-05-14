@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         
         char *envp[] = {"PATH=/bin",NULL};
 
-        int null_fd = open("/dev/null",O_WRONLY);
+        int null_fd = open("/dev/null",O_RDWR);
         assert(null_fd>=0);
         printf("%d\n",null_fd);
         assert(dup2(null_fd,1)==1);//stdout
