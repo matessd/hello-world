@@ -4,6 +4,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <time.h>
 double g_tot = 0;//总时间
 typedef struct{
   char name[64];
