@@ -28,13 +28,13 @@ int main(int argc, char *argv[]) {
         char name[128];
         while(scanf("%[^\n]",buf)!=EOF){
             scanf("%c",name);//把回车读掉
-            //double tmp=1;
+            double tmp=1;
             //puts(buf);
             sscanf(buf,"%[^(]",name);
             char tmpp[1024];
-            sscanf(buf,"%*[^<]%[^>]",tmpp);
+            sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&tmp);
             printf("%s\n",name);
-            printf("%s\n",tmpp);
+            printf("%lf\n",tmp);
         }
     }
     else if(pid == 0){
