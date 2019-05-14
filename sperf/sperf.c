@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     else if(pid == 0){
         assert(argc>1);
         char *argv_send[] = argv[1];
-        execve("/bin/strace","strace","-T", argv_send, argv_send,NULL);
+        execve("/bin/strace",["strace","-T", argv_send],NULL);
     }
     //printf("%s\n",argv[1]);
     return 0;
