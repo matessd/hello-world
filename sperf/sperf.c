@@ -23,9 +23,9 @@ int main(int argc, char *argv[]) {
     assert(pid>=0);
     if (pid > 0){
         //father
-        close(files[1]);
-        close(files[0]);
-        read(files[0], buf, sizeof(buf));
+        close(filedes[1]);
+        close(filedes[0]);
+        read(filedes[0], buf, sizeof(buf));
         printf("%s",buf);
     }
     else if(pid == 0){
