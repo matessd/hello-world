@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
         readin();
         qsort(&a_list[0],list_cnt,sizeof(a_list[0]),cmp);
         for(int i=0; i<list_cnt; i++){
-            printf("\033[34m %s:%.0lf%%\n",a_list[i].name,a_list[i].time/g_tot*100);
+            printf("\033[2J %s:%.0lf%%\n",a_list[i].name,a_list[i].time/g_tot*100);
         }
     }
     else if(pid == 0){
