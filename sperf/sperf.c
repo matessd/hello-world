@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
     assert(pid>=0);
     if (pid > 0){
         //father
-        //close(filedes[1]);
-        //close(filedes[0]);
+        close(filedes[1]);
+        close(filedes[0]);
         read(filedes[0], buf, sizeof(buf));
         printf("%s>>>>>>>>\n",buf);
     }
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
         int null_fd = open("/dev/null",O_WRONLY);
         assert(null_fd>=0);
-        dup2(null_fd,1);//stdout
+        assert(dup2(null_fd,1)==1);//stdout
         //dup2(1, filedes[1]);
         execve("/usr/bin/strace",argv_send,envp);
         printf("execve error, should not reach here\n");
