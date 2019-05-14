@@ -3,8 +3,6 @@
 #include <assert.h>
 #include <string.h>
 #include <fcntl.h>
-//#include <sys/types.h>
-//#include <sys/stat.h>
 double g_tot = 0;//总时间
 typedef struct{
     char name[64];
@@ -13,6 +11,16 @@ typedef struct{
 Node a_list[256];
 int list_cnt = 0;
 char buf[1024];
+
+int cmp(const void*a, const void *b){
+    int aa = ((Node*)a)->time;
+    int bb = ((Node*)b)->time;
+    if(bb>aa)
+        return 1;
+    else if(bb<aa)
+        return -1;
+    else return 0;
+}
 
 void readin(){
     char name[128];
@@ -55,6 +63,7 @@ int main(int argc, char *argv[]) {
         close(filedes[1]);
         dup2(filedes[0],0);
         readin();
+        qsort(&a_list[0],list_cnt,sizeof(a_list[0]),cmp);
         for(int i=0; i<list_cnt; i++){
             printf("%s:%.0lf%%\n",a_list[i].name,a_list[i].time/g_tot*100);
         }
