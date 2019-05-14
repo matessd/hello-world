@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         char name[128];
         while(scanf("%s",buf)!=EOF){
             double tmp=1;
-            scanf("%s(",&name);
+            scanf("%s(",name);
             scanf("<%lf>",&tmp);
             printf("%s\n",name);
             printf("%lf\n",tmp);
