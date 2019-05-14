@@ -15,14 +15,14 @@ int main(int argc, char *argv[]) {
     else if(pid == 0){
         assert(argc>1);
         char *argv_send[128];
-        argv_send[0] = "./strace";
+        argv_send[0] = "strace";
         argv_send[1] = "-T";
         for(int i=1; i<argc; i++){
             argv_send[i+1] = argv[i];
         }
         argv_send[argc+1] = NULL;
         printf("%s\n",argv_send[0]);
-        int ret =execve("/bin/strace",argv_send,NULL);
+        int ret =execve("/usr/bin/strace",argv_send,NULL);
         assert(ret!=-1);
     }
     //printf("%s\n",argv[1]);
