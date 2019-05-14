@@ -13,6 +13,34 @@ typedef struct{
 Node a_list[256];
 int list_cnt = 0;
 char buf[1024];
+
+void readin(){
+    char name[128];
+    while(scanf("%[^\n]%*c",buf)!=EOF){ 
+        //scanf("%c",name);//把回车读掉 
+        double dgt=1;
+        int flg = 0;
+        sscanf(buf,"%[^(]",name);
+        sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
+        if(strcmp(name,"exit_group")==0)
+                break;
+        g_tot+=dgt;
+        for(int i=0; i<list_cnt; i++){
+            if(strcmp(a_list[i].name,name)==0){
+                flg=1; a_list[i].time+=dgt;
+                 break;
+            }
+        }
+        if(flg==0){
+            list_cnt++;
+            strcpy(a_list[list_cnt-1].name,name);
+            a_list[list_cnt-1].time = dgt;
+        }
+        //printf("%s\n",name);
+        //printf("%lf\n",tmp);
+    }
+}
+
 int main(int argc, char *argv[]) {
     int filedes[2];
     if(pipe( filedes )!=0){
@@ -26,16 +54,9 @@ int main(int argc, char *argv[]) {
         //father
         close(filedes[1]);
         dup2(filedes[0],0);
-        char name[128];
-        while(scanf("%[^\n]%*c",buf)!=EOF){
-            //scanf("%c",name);//把回车读掉
-            double dgt=1;
-            puts(buf);
-            sscanf(buf,"%[^(]",name);
-            //char tmpp[1024];
-            sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
-            //printf("%s\n",name);
-            //printf("%lf\n",tmp);
+        readin();
+        for(int i=0; i<list_cnt; i++){
+            printf("%s:%.0lf/%/%\n",a_list[i].name,a_list[i].time/g_tot*100);
         }
     }
     else if(pid == 0){
