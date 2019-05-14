@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         char *envp[] = {"PATH=/bin",NULL};
 
         int null_fd = open("/dev/null",O_WRONLY);
-        dup2(null_fd,1);//stdout
+        dup2(1,null_fd);//stdout
         //dup2(1, filedes[1]);
         execve("/usr/bin/strace",argv_send,envp);
         printf("execve error, should not reach here\n");
