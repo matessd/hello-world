@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <assert.h>
 int main(int argc, char *argv[]) {
-    int filedes[2];
+    /*int filedes[2];
     char buf[80];
     pid_t pid;
     
-    pipe( filedes );
+    pipe( filedes );*/
     pid=fork();        
     if (pid > 0){
         
