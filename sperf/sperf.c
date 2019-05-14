@@ -29,10 +29,11 @@ int main(int argc, char *argv[]) {
         while(scanf("%[^\n]",buf)!=EOF){
             scanf("%c",name);//把回车读掉
             double tmp=1;
-            sscanf(buf,"%s(",name);
-            sscanf(buf,"<%lf>",&tmp);
-            printf("%s\n",name);
-            printf("%lf\n",tmp);
+            puts(buf);
+            //sscanf(buf,"%s(",name);
+            //sscanf(buf,"<%lf>",&tmp);
+            //printf("%s\n",name);
+            //printf("%lf\n",tmp);
         }
     }
     else if(pid == 0){
