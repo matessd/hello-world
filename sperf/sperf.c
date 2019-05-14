@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         //father
         read(filedes[0], buf, sizeof(buf));
         //buf[127] = '\0';
-        printf("%s>>>>>>>>\n",buf);
+        puts(buf);
     }
     else if(pid == 0){
         //child
