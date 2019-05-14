@@ -52,6 +52,10 @@ void loop(){
     int flg = 0;
     sscanf(buf,"%[^(]",name);
     sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
+    if(name[0]==')'){
+      puts(buf);
+      break;
+    }
     if(strcmp(name,"exit_group")==0)
       break;
     g_tot+=dgt;
