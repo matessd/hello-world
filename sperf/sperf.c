@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
             scanf("%c",name);//把回车读掉
             double tmp=1;
             puts(buf);
-            sscanf(buf,"%[(%s)]",name);
+            sscanf(buf,"%[(]",name);
             sscanf(buf,"<%lf>",&tmp);
             printf("%s\n",name);
             printf("%lf\n",tmp);
