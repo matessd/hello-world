@@ -8,13 +8,14 @@ int main(int argc, char *argv[]) {
     pipe( filedes );*/
     pid_t pid;
     pid=fork();        
+    assert(pid>=0);
     if (pid > 0){
         
     }
     else if(pid == 0){
         assert(argc>1);
         char *argv_send[128];
-        argv_send[0] = "strace";
+        argv_send[0] = "./strace";
         argv_send[1] = "-T";
         for(int i=1; i<argc; i++){
             argv_send[i+1] = argv[i];
