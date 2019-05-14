@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     dup2(filedes[1],2);
     dup2(null_fd,1);
     close(filedes[0]);
-    execve("/usr/bin/strace",argv_send,envp);
+    execve(STRACE-BIN,argv_send,envp);
     //printf("execve error, should not reach here\n");
   }
   return 0;
