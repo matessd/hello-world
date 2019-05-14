@@ -40,7 +40,7 @@ void output(){
 void loop(){
   char name[128];
   int if_time_long=0;
-  while(scanf("%[^>\n]%*c",buf)!=EOF){ 
+  while(scanf("%[^>\n]%*c%*c",buf)!=EOF){ 
     if(g_time+2<=time(0)){
       if_time_long=1;
       time(&g_time);
