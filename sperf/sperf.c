@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
     }
     argv_send[argc+1] = NULL;
 
-    char *envp[] = {"PATH=/bin",NULL};
+    char *envp[] = {0,NULL};
 
     int null_fd = open("/dev/null",O_RDWR);
     assert(null_fd>=0);
