@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
         int null_fd = open("/dev/null",O_WRONLY);
         dup2(null_fd,1);//stdout
-        dup2(1, filedes[1]);
+        //dup2(1, filedes[1]);
         execve("/usr/bin/strace",argv_send,envp);
         printf("execve error, should not reach here\n");
     }
