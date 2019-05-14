@@ -1,17 +1,29 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
+double g_tot = 0;//总时间
+typedef struct{
+    char name[64];
+    double time = 0;
+}Node;
+Node a_list[256];
+char buf[1024];
 int main(int argc, char *argv[]) {
-    /*int filedes[2];
-    char buf[80];
-    
-    pipe( filedes );*/
+    int filedes[2];
+    if(pipe( filedes )!=0){
+        printf("pipe create error\n");
+        return 0;
+    }
     pid_t pid;
     pid=fork();        
     assert(pid>=0);
     if (pid > 0){
         //father
-        
+        close(files[1]);
+        close(files[0]);
+        read(files[0], buf, sizeof(buf));
+        printf("%s",buf);
     }
     else if(pid == 0){
         //child
@@ -25,10 +37,12 @@ int main(int argc, char *argv[]) {
         argv_send[argc+1] = NULL;
         
         char *envp[] = {"PATH=/bin",NULL};
-        //printf("%s\n",argv_send[0]);
-        int ret =execve("/usr/bin/strace",argv_send,envp);
-        assert(ret!=-1);
-        printf("11****\n");
+
+        close(stdout);
+        dup2("/dev/null",stdout);
+        dup2(stdout, filedes[1]);
+        execve("/usr/bin/strace",argv_send,envp);
+        printf("execve error, should not reach here\n");
     }
     return 0;
 }
