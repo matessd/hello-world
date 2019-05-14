@@ -50,7 +50,7 @@ void loop(){
     //scanf("%c",name);//把回车读掉 
     double dgt=1;
     int flg = 0, ret=0;
-    ret = scanf("%[^(]",name);
+    ret = scanf("%[^(]%*c",name);
     if(ret==EOF) break;
     ret = scanf("%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
     if(ret==EOF) break;
