@@ -52,7 +52,7 @@ void loop(){
     int flg = 0, ret=0;
     ret = scanf("%[^(]%*c",name);
     if(ret==EOF) break;
-    ret = scanf("%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
+    ret = scanf("%*[^<]%*[^0-9]%lf%*[>]",&dgt);
     if(ret==EOF) break;
     /*puts(buf);
     if(name[0]=='0'){
