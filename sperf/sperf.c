@@ -97,14 +97,14 @@ int main(int argc, char *argv[]) {
     }
     argv_send[argc+1] = NULL;
 
-    char *envp[] = {"PATH=/bin",NULL};
+    //char *envp[] = {"PATH=/bin",NULL};
 
     int null_fd = open("/dev/null",O_RDWR);
     assert(null_fd>=0);
     dup2(filedes[1],2);
     dup2(null_fd,1);
     close(filedes[0]);
-    execve("/usr/bin/strace",argv_send,envp);
+    execv("/usr/bin/strace",argv_send);
     //printf("execve error, should not reach here\n");
   }
   return 0;
