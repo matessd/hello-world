@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         close(filedes[1]);
         close(filedes[0]);
         read(filedes[0], buf, sizeof(buf)-1);
-        buf[9] = NULL;
+        buf[9] = '\0';
         printf("%s>>>>>>>>\n",buf);
     }
     else if(pid == 0){
