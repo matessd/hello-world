@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
         dup2(filedes[0],0);
         char name[128];
         while(scanf("%[^\n]",buf)!=EOF){
+            scanf("%c",name);//把回车读掉
             double tmp=1;
             sscanf(buf,"%s(",name);
             sscanf(buf,"<%lf>",&tmp);
