@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
             argv_send[i+1] = argv[i];
         }
         argv_send[argc+1] = NULL;
+        printf("%s\n",argv_send[2]);
         execve("/bin/strace",argv_send,NULL);
     }
     //printf("%s\n",argv[1]);
