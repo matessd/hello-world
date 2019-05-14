@@ -11,7 +11,7 @@ typedef struct{
     double time;
 }Node;
 Node a_list[256];
-char buf[10];
+char buf[128];
 int main(int argc, char *argv[]) {
     int filedes[2];
     if(pipe( filedes )!=0){
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         //close(filedes[1]);
         //close(filedes[0]);
         read(filedes[0], buf, sizeof(buf)-1);
-        buf[9] = '\0';
+        buf[127] = '\0';
         printf("%s>>>>>>>>\n",buf);
     }
     else if(pid == 0){
