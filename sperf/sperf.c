@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
     assert(pid>=0);
     if (pid > 0){
         //father
-        read(filedes[0], buf, sizeof(buf));
-        //buf[127] = '\0';
+        int cnt = read(filedes[0], buf, sizeof(buf));
+        printf("%d\n",cnt);
         puts(buf);
     }
     else if(pid == 0){
@@ -42,10 +42,8 @@ int main(int argc, char *argv[]) {
 
         int null_fd = open("/dev/null",O_RDWR);
         assert(null_fd>=0);
-        //dup2(null_fd,2);//stdout
         dup2(filedes[1],2);
         dup2(null_fd,1);
-        //close(filedes[1]);
         execve("/usr/bin/strace",argv_send,envp);
         printf("execve error, should not reach here\n");
     }
