@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
             double tmp=1;
             //puts(buf);
             sscanf(buf,"%[^(]",name);
-            char tmpp[1024];
+            //char tmpp[1024];
             sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&tmp);
             printf("%s\n",name);
             printf("%lf\n",tmp);
