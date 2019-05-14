@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         //int cnt = read(filedes[0], buf, sizeof(buf));
         //fgets(buf, 100, stdin);
         int cnt = 0;
-        while(scanf("%c",&buf)!=EOF)
+        while(scanf("%c",buf)!=EOF)
             cnt++;
         double tmp=1;
         scanf("<%lf>",&tmp);
