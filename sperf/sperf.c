@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
         dup2(filedes[0],0);
         //int cnt = read(filedes[0], buf, sizeof(buf));
         scanf("%s(",buf);
-        double tmp;
+        double tmp=1;
         scanf("<%lf>",&tmp);
         printf("%s\n",buf);
         printf("%lf\n",tmp);
