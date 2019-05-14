@@ -21,8 +21,10 @@ int main(int argc, char *argv[]) {
             argv_send[i+1] = argv[i];
         }
         argv_send[argc+1] = NULL;
-        printf("%s\n",argv_send[0]);
-        int ret =execve("/usr/bin/strace",argv_send,[]);
+        
+        char *envp[] = {"PATH=/bin",NULL};
+        //printf("%s\n",argv_send[0]);
+        int ret =execve("/usr/bin/strace",argv_send,envp);
         assert(ret!=-1);
     }
     //printf("%s\n",argv[1]);
