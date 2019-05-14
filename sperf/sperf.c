@@ -25,15 +25,14 @@ int main(int argc, char *argv[]) {
         //father
         close(filedes[1]);
         dup2(filedes[0],0);
-        //int cnt = read(filedes[0], buf, sizeof(buf));
-        //fgets(buf, 100, stdin);
-        int cnt = 0;
-        while(scanf("%c",buf)!=EOF)
-            cnt++;
-        double tmp=1;
-        scanf("<%lf>",&tmp);
-        printf("%d\n",cnt);
-        printf("%lf\n",tmp);
+        char name[128];
+        while(scanf("%s",buf)!=EOF){
+            double tmp=1;
+            scanf("%s(",&name);
+            scanf("<%lf>",&tmp);
+            printf("%s\n",name);
+            printf("%lf\n",tmp);
+        }
     }
     else if(pid == 0){
         //child
