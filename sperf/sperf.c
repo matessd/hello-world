@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     assert(pid>=0);
     if (pid > 0){
         //father
+        close(filedes[1]);
         int cnt = read(filedes[0], buf, sizeof(buf));
         printf("%d\n",cnt);
         puts(buf);
@@ -44,6 +45,7 @@ int main(int argc, char *argv[]) {
         assert(null_fd>=0);
         dup2(filedes[1],2);
         dup2(null_fd,1);
+        close(filedes[0]);
         execve("/usr/bin/strace",argv_send,envp);
         printf("execve error, should not reach here\n");
     }
