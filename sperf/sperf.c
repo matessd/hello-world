@@ -4,9 +4,9 @@
 int main(int argc, char *argv[]) {
     /*int filedes[2];
     char buf[80];
-    pid_t pid;
     
     pipe( filedes );*/
+    pid_t pid;
     pid=fork();        
     if (pid > 0){
         
