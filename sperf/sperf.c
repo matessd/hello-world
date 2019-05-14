@@ -41,7 +41,7 @@ void loop(){
   char name[128];
   while(scanf("%[^\n]%*c",buf)!=EOF){ 
     if(g_time+2<=time(0)){
-      time(g_time);
+      time(&g_time);
       output();
       init();
     }
