@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
             //puts(buf);
             sscanf(buf,"%[^(]",name);
             //char tmpp[1024];
-            sscanf(buf,"%*[<]%lf%*[>]",&tmp);
+            sscanf(buf,"%*[<]%lf%[^<]",&tmp);
             printf("%s\n",name);
             printf("%lf\n",tmp);
         }
