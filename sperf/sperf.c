@@ -53,7 +53,7 @@ void loop(){
     sscanf(buf,"%[^(]",name);
     sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
     //puts(buf);
-    if(name[0]==')'){
+    if(name[0]=='0'){
       if_time_long=1;
       puts(buf);
       break;
