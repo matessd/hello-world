@@ -2,10 +2,13 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <fcnt1.h>
+//#include <sys/types.h>
+//#include <sys/stat.h>
 double g_tot = 0;//总时间
 typedef struct{
     char name[64];
-    double time = 0;
+    double time;
 }Node;
 Node a_list[256];
 char buf[1024];
