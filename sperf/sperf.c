@@ -40,7 +40,7 @@ void output(){
 void loop(){
   char name[128];
   int if_time_long=0;
-  while(scanf("%[^>]%*c%*c",buf)!=EOF){ 
+  while(1){ 
     if(g_time+2<=time(0)){
       if_time_long=1;
       time(&g_time);
@@ -49,15 +49,17 @@ void loop(){
     }
     //scanf("%c",name);//把回车读掉 
     double dgt=1;
-    int flg = 0;
-    sscanf(buf,"%[^(]",name);
-    sscanf(buf,"%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
-    puts(buf);
+    int flg = 0， ret=0;
+    ret = scanf("%[^(]",name);
+    if(ret==EOF) break;
+    ret = scanf("%*[^<]%*[^0-9]%lf%*[^>]",&dgt);
+    if(ret==EOF) break;
+    /*puts(buf);
     if(name[0]=='0'){
       if_time_long=1;
       puts(buf);
       break;
-    }
+    }*/
     if(strcmp(name,"exit_group")==0)
       break;
     g_tot+=dgt;
