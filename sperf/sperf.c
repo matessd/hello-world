@@ -9,6 +9,6 @@ int main(int argc, char *argv[]) {
     pid=fork();        
     if (pid > 0){}
     else if(pid == 0){}*/
-    printf("%s\n",argv);
+    printf("%s\n",argv[1]);
     return 0;
 }
