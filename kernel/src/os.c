@@ -1,6 +1,7 @@
 #include <common.h>
 #include <klib.h>
 #include <my_os.h>
+#include <mytest.h>
 
 static void os_init() {
   pmm->init();
