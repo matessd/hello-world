@@ -7,8 +7,7 @@ static uintptr_t pm_start, pm_end;
 #define MIN_LEN 12
 #define NEXT(x) ((palloc_node)((uintptr_t)x+x->size))
 //in x86-qemu.h
-LOCKDECL(alloc);
-LOCKDEF(alloc);
+#define LOCKDEF(alloc);
 typedef struct Node{
   struct Node* nxt;
   size_t size;//存有效数据大小，含结构体 
