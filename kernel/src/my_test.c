@@ -14,13 +14,13 @@ void pmm_test(){
       assert(0);
       return;
     }
-    sprintf(ptr[i], "hello%d\n",i);
-    printf("%d\n",i);
+    //sprintf(ptr[i], "hello%d\n",i);
+    //printf("%d\n",i);
     i++;
     test_unlock();
   }
   while(i>0){
-    printf("%s\n",ptr[--i]);
+    //printf("%s\n",ptr[--i]);
     pmm->free(ptr[i]);
   }
   assert(a_head->nxt==NULL);

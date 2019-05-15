@@ -26,6 +26,7 @@ static void pmm_init() {
 
 static void *kalloc(size_t size) {
   //my
+  printf("%d\n",size);
   alloc_lock();
   //assert(size>=0);
   if(size==0) return NULL;
