@@ -21,7 +21,7 @@
 //声明了NDEBUG后启动assert
 #define NDEBUG
 
-
+//alloc.c
 typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
