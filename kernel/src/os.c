@@ -17,6 +17,7 @@ static void hello() {
 static void os_run() {
   //os_lock();//my
   hello();
+  pmm_test();
   //os_unlock();//my
   _intr_write(1);
   while (1) {

@@ -49,6 +49,7 @@ static void *kalloc(size_t size) {
     }
     cur = cur->nxt;
   }
+  if(ret==NULL) return NULL;
   alloc_unlock();
   return ret+1;
 }
