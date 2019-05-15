@@ -1,5 +1,6 @@
 #include <common.h>
 #include <klib.h>
+#include <my_os.h>
 
 static void os_init() {
   pmm->init();
@@ -12,8 +13,11 @@ static void hello() {
   _putc("12345678"[_cpu()]); _putc('\n');
 }
 
+LOCKDEF(os) //my
 static void os_run() {
+  os_lock();
   hello();
+  os_unlock();
   _intr_write(1);
   while (1) {
     _yield();
