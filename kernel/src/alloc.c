@@ -61,6 +61,7 @@ static void kfree(void *ptr) {
   palloc_node cur = (palloc_node)ptr;
   if(cur==a_head){
     cur->st = ((uintptr_t)cur)+MIN_LEN;
+    cur->nxt = NULL;
     return;
   }
   palloc_node prev = cur->prev;
