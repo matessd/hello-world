@@ -2,10 +2,9 @@
 #include<common.h>
 #include<my_os.h>
 LOCKDEF(test)
-
+char *ptr[4096];
 void pmm_test(){
   srand(0);
-  char* ptr[4096];
   //size_t size;
   test_lock();
   for(int i=0; i<4096;i++){
@@ -19,7 +18,7 @@ void pmm_test(){
     printf("%s\n",ptr[i]);
     //test_unlock();
   }
-  for(int i=0; i<4096; i++)
-    printf("%s\n",ptr[i]);
+  //for(int i=0; i<4096; i++)
+    //printf("%s\n",ptr[i]);
   test_unlock();
 }
