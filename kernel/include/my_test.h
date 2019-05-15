@@ -3,7 +3,7 @@
 #include<my_os.h>
 LOCKDEF(test)
 char *ptr[1024];
-int test_i=0;
+int i=0;
 void pmm_test(){
   srand(0);
   //size_t size;
