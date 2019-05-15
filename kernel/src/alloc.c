@@ -42,7 +42,7 @@ static void *kalloc(size_t size) {
       
     }*/
   }
-  return NULL;
+  return ret;
 }
 
 static void kfree(void *ptr) {
