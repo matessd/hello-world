@@ -23,7 +23,7 @@ static void os_run() {
   _intr_write(1);
   pmm_test();//my
   //printf("NO!!n");
-  assert(0);
+  //assert(0);
   while (1) {
     _yield();
   }

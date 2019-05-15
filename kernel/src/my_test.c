@@ -7,8 +7,9 @@ volatile int i=0;
 void pmm_test(){
   //srand(0);
   //size_t size;
-  test_lock();
+  //test_lock();
   while(i<100){
+    test_lock();
     ptr[i] = pmm->alloc(1000);
     if(ptr[i]==NULL){
       assert(0);
@@ -17,11 +18,12 @@ void pmm_test(){
     sprintf(ptr[i], "hello%d\n",i);
     printf("%d\n",i);
     i++;
+    test_unlock();
   }
   while(i>0){
     printf("%s\n",ptr[--i]);
     pmm->free(ptr[i]);
   }
   assert(a_head->nxt==NULL);
-  test_unlock();
+  //test_unlock();
 }
