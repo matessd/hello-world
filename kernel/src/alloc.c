@@ -8,7 +8,7 @@ static uintptr_t pm_start, pm_end;
 LOCKDEF(alloc)
 
 typedef struct Node{
-  struct Node* nxt, prev;
+  struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
 }alloc_node,*palloc_node;
 volatile palloc_node a_head;
