@@ -21,7 +21,7 @@ static void os_run() {
   //assert(a_head->nxt==NULL);
   //os_unlock();//my
   _intr_write(1);
-  pmm_test();//my
+  //pmm_test();//my
   //printf("NO!!n");
   //assert(0);
   while (1) {

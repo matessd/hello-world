@@ -9,7 +9,7 @@ void pmm_test(){
   //size_t size;
   //test_lock();
   while(i<100){
-    test_lock();
+    //test_lock();
     ptr[i] = pmm->alloc(1000);
     if(ptr[i]==NULL){
       assert(0);
@@ -18,7 +18,7 @@ void pmm_test(){
     sprintf(ptr[i], "hello%d\n",i);
     printf("%d\n",i);
     i++;
-    test_unlock();
+    //test_unlock();
   }
   while(i>0){
     printf("%s\n",ptr[--i]);
