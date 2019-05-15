@@ -21,6 +21,7 @@ static void os_run() {
   //os_unlock();//my
   _intr_write(1);
   pmm_test();
+  printf("NO!!n");
   while (1) {
     _yield();
   }
