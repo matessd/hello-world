@@ -6,8 +6,8 @@ static uintptr_t pm_start, pm_end;
 //my
 #define MIN_LEN 12
 #define NEXT(x) ((palloc_node)((uintptr_t)x+x->size))
-typedef struct{
-  palloc_node nxt;
+typedef struct Node{
+  Node* nxt;
   size_t size;//存有效数据大小，含结构体 
   uintptr_t length;//整段长度，含未分配的
 }alloc_node,*palloc_node;
