@@ -4,7 +4,7 @@
 static uintptr_t pm_start, pm_end;
 
 //my
-#define MIN_LEN 16
+#define MIN_LEN ((uintptr_t)16)
 LOCKDEF(alloc)
 
 typedef struct Node{
