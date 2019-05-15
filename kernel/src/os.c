@@ -24,6 +24,7 @@ static void os_run() {
   while (1) {
     _yield();
   }
+  assert(0);
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
