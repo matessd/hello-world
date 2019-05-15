@@ -55,6 +55,7 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   //会不会free一个非链表元素？
+  if(ptr==NULL) return;
   alloc_lock();
   palloc_node cur = (palloc_node)ptr;
   if(cur==a_head){
