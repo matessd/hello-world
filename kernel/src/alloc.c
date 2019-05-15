@@ -4,7 +4,8 @@
 static uintptr_t pm_start, pm_end;
 
 //my
-#define MIN_LEN 16
+#define MIN_LEN 20
+#define INIT_VALUE 0xcccccccc
 LOCKDEF(alloc)
 
 /*typedef struct Node{
@@ -22,6 +23,7 @@ static void pmm_init() {
   a_head->prev = NULL;
   a_head->st = ((uintptr_t)a_head)+MIN_LEN;
   a_head->ed = pm_end;//不可用
+  a_head->fence = INIT_VALUE;
 }
 
 static void *kalloc(size_t size) {
@@ -51,6 +53,7 @@ static void *kalloc(size_t size) {
     cur = cur->nxt;
   }
   if(ret==NULL) return NULL;
+  ret->fence = INIT_VALUE;
   alloc_unlock();
   return ret+1;
 }
@@ -60,9 +63,10 @@ static void kfree(void *ptr) {
   if(ptr==NULL) return;
   alloc_lock();
   palloc_node cur = (palloc_node)ptr;
+  assert(cur->fence == INIT_VALUE);
+  cur->fence = 0;
   if(cur==a_head){
     cur->st = ((uintptr_t)cur)+MIN_LEN;
-    //cur->nxt = NULL;
     return;
   }
   palloc_node prev = cur->prev;

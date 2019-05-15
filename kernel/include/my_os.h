@@ -25,6 +25,7 @@
 typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
+  uint32_t fence;
 }alloc_node,*palloc_node;
 volatile palloc_node a_head;
 
