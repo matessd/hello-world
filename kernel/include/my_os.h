@@ -1,6 +1,7 @@
 #include<x86.h>
 #include<am.h>
 #define MAX_CPU 8
+//in x86-qemu.h
 #define LOCKDEF(name) \
   static volatile intptr_t name##_locked = 0; \
   static int name##_lock_flags[MAX_CPU]; \
@@ -16,3 +17,5 @@
     _atomic_xchg(&name##_locked, 0); \
     if (name##_lock_flags[_cpu()]) sti(); \
   }
+
+#define NDEBUG

@@ -28,7 +28,7 @@ static void pmm_init() {
 static void *kalloc(size_t size) {
   //my
   alloc_lock();
-  //assert(size>=0);
+  assert(size>=0);
   palloc_node ret = NULL;
   uint32_t valid_len = a_tail->length - a_tail->size;
   size_t new_size = size+MIN_LEN;
@@ -40,10 +40,10 @@ static void *kalloc(size_t size) {
     a_tail->length=a_tail->size;
     a_tail = ret;
   }else{
-    /*ret = a_head;
+    ret = a_head;
     while(ret!=NULL){
       
-    }*/
+    }
   }
   alloc_unlock();
   return ret;
