@@ -20,8 +20,8 @@ void pmm_test(){
     test_unlock();
   }
   while(i>0){
-    //printf("%s\n",ptr[--i]);
+    printf("%s\n",ptr[--i]);
     pmm->free(ptr[i]);
   }
-  assert(a_head->nxt==NULL);
+  assert(a_head->nxt->nxt==NULL);
 }
