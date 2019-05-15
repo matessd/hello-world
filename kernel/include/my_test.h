@@ -21,7 +21,7 @@ void pmm_test(){
   }
   while(i>0){
     printf("%s\n",ptr[--i]);
-    pmm->kfree(ptr[i]);
+    pmm->free(ptr[i]);
   }
   assert(a_head->nxt==NULL);
 }
