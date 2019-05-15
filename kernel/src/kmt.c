@@ -2,16 +2,34 @@
 #include<klib.h>
 #include<my_os.h>
 
-void kmt_init();
-int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg);
+void kmt_init(){
+  return;
+}
+int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
+  return 0;
+}
 
-void teardown(task_t *task);
-void spin_init(spinlock_t *lk, const char *name);
-void spin_lock(spinlock_t *lk);
-void spin_unlock(spinlock_t *lk);
-void sem_init(sem_t *sem, const char *name, int value);
-void sem_wait(sem_t *sem);
-void sem_signal(sem_t *sem);
+void teardown(task_t *task){
+  return;
+}
+void spin_init(spinlock_t *lk, const char *name){
+  return;
+}
+void spin_lock(spinlock_t *lk){
+  return;
+}
+void spin_unlock(spinlock_t *lk){
+  return;
+}
+void sem_init(sem_t *sem, const char *name, int value){
+  return;
+}
+void sem_wait(sem_t *sem){
+  return;
+}
+void sem_signal(sem_t *sem){
+  return;
+}
   
 MODULE_DEF(kmt) {
   .init = kmt_init,
