@@ -17,7 +17,7 @@ static void hello() {
 LOCKDEF(os) //my
 static void os_run() {
   //os_lock();//my
-  //hello();
+  hello();
   //os_unlock();//my
   _intr_write(1);
   pmm_test();//my
