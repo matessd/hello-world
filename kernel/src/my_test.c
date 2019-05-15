@@ -15,7 +15,7 @@ void pmm_test(){
       return;
     }
     sprintf(ptr[i], "hello%d\n",i);
-    printf("%s\n",ptr[i]);
+    printf("%d\n",i);
     i++;
     test_unlock();
   }
