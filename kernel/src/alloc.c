@@ -6,6 +6,7 @@ static uintptr_t pm_start, pm_end;
 //my
 #define MIN_LEN 12
 #define NEXT(x) ((palloc_node)((uintptr_t)x+x->size))
+LOCKDEF(alloc);//in x86-qemu.h
 typedef struct Node{
   struct Node* nxt;
   size_t size;//存有效数据大小，含结构体 
@@ -25,6 +26,7 @@ static void pmm_init() {
 
 static void *kalloc(size_t size) {
   //my
+  alloc_lock();
   assert(size>=0);
   palloc_node ret = NULL;
   uint32_t valid_len = a_tail->length - a_tail->size;
@@ -42,6 +44,7 @@ static void *kalloc(size_t size) {
       
     }*/
   }
+  alloc_unlock();
   return ret;
 }
 
