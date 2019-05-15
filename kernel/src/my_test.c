@@ -2,7 +2,7 @@
 #include<common.h>
 #include<my_os.h>
 LOCKDEF(test)
-char *ptr[100];
+volatile char *ptr[100];
 volatile int i=0;
 void pmm_test(){
   srand(0);
