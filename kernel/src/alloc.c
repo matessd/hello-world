@@ -10,7 +10,7 @@ static uintptr_t pm_start, pm_end;
 
 #define LOCKDEF(name) \
   static volatile intptr_t name##_locked = 0; \
-  static int name##_lock_flags[MAX_CPU]; \
+  static int name##_lock_flags[8]; \
   void name##_lock() { \
     name##_lock_flags[_cpu()] = get_efl() & FL_IF; \
     cli(); \
