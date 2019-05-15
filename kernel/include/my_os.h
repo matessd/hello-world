@@ -1,8 +1,9 @@
 #include<x86.h>
 #include<am.h>
+#define MAX_CPU 8
 #define LOCKDEF(name) \
   static volatile intptr_t name##_locked = 0; \
-  static int name##_lock_flags[8]; \
+  static int name##_lock_flags[MAX_CPU]; \
   void name##_lock() { \
     name##_lock_flags[_cpu()] = get_efl() & FL_IF; \
     cli(); \
