@@ -10,6 +10,7 @@ void pmm_test(){
       printf("fail on %d\n",i);
       return;
     }
+    printf("%s\n",ptr[i]);
     sprintf(ptr[i], "hello%d\n",i);
   }
   for(int i=0; i<4096; i++)
