@@ -2,12 +2,12 @@
 #include<common.h>
 #include<my_os.h>
 LOCKDEF(test)
-char *ptr[1024];
+char *ptr[800];
 int i=0;
 void pmm_test(){
   srand(0);
   //size_t size;
-  while(i<1024){
+  while(i<800){
     test_lock();
     ptr[i] = pmm->alloc(1000);
     if(ptr[i]==NULL){
