@@ -18,7 +18,7 @@ void pmm_test(){
     printf("%s\n",ptr[i]);
     //test_unlock();
   }
-  //for(int i=0; i<4096; i++)
-    //printf("%s\n",ptr[i]);
+  for(int i=0; i<4096; i++)
+    printf("%s\n",ptr[i]);
   test_unlock();
 }
