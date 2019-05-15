@@ -4,7 +4,7 @@
 static uintptr_t pm_start, pm_end;
 
 //my
-#define MIN_LEN ((uintptr_t)16)
+#define MIN_LEN 16
 LOCKDEF(alloc)
 
 typedef struct Node{
@@ -50,7 +50,7 @@ static void *kalloc(size_t size) {
     cur = cur->nxt;
   }
   alloc_unlock();
-  return ((uintptr_t)ret)+MIN_LEN;
+  return ret+1;
 }
 
 static void kfree(void *ptr) {
