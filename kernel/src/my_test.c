@@ -23,5 +23,5 @@ void pmm_test(){
     printf("%s\n",ptr[--i]);
     pmm->free(ptr[i]);
   }
-  assert(a_head->nxt->nxt==NULL);
+  assert(a_head->nxt->nxt->nxt==NULL);
 }
