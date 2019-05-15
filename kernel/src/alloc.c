@@ -62,7 +62,7 @@ static void kfree(void *ptr) {
   //会不会free一个非链表元素？
   if(ptr==NULL) return;
   alloc_lock();
-  palloc_node cur = (palloc_node)ptr;
+  palloc_node cur = ((palloc_node)ptr)-1;
   assert(cur->fence == INIT_VALUE);
   cur->fence = 0;
   if(cur==a_head){
