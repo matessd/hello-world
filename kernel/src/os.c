@@ -16,12 +16,12 @@ static void hello() {
 
 LOCKDEF(os) //my
 static void os_run() {
-  os_lock();//my
+  //os_lock();//my
   hello();
-  os_unlock();//my
+  //os_unlock();//my
   _intr_write(1);
   pmm_test();
-  printf("NO!!n");
+  //printf("NO!!n");
   while (1) {
     _yield();
   }

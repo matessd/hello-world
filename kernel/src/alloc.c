@@ -7,11 +7,11 @@ static uintptr_t pm_start, pm_end;
 #define MIN_LEN 16
 LOCKDEF(alloc)
 
-typedef struct Node{
+/*typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
 }alloc_node,*palloc_node;
-volatile palloc_node a_head;
+volatile palloc_node a_head;*/
 
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;

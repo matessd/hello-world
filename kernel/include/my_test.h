@@ -2,23 +2,26 @@
 #include<common.h>
 #include<my_os.h>
 LOCKDEF(test)
-char *ptr[4096];
+char *ptr[1024];
+int test_i=0;
 void pmm_test(){
   srand(0);
   //size_t size;
-  test_lock();
-  for(int i=0; i<4096;i++){
-    ptr[i] = pmm->alloc(200);
+  while(i<1024){
+    ptr[i] = pmm->alloc(1000);
     if(ptr[i]==NULL){
-      printf("fail on %d\n",i);
+      assert(0);
       return;
     }
-    //test_lock();
+    test_lock();
     sprintf(ptr[i], "hello%d\n",i);
     printf("%s\n",ptr[i]);
-    //test_unlock();
+    test_unlock();
+    i++;
   }
-  for(int i=0; i<4096; i++)
-    printf("%s\n",ptr[i]);
-  test_unlock();
+  while(i>0){
+    printf("%s\n",ptr[--i]);
+    pmm->kfree(ptr[i]);
+  }
+  assert(a_head->nxt==NULL);
 }
