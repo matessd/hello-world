@@ -32,12 +32,12 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  printf("0\n");
+  printf("%d\n",(int)context);
   return context;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
-  printf("1\n");
+  //printf("1\n");
 }
 
 MODULE_DEF(os) {
