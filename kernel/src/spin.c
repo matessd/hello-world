@@ -21,7 +21,7 @@ void spin_init(spinlock_t *lk, const char *name){
 void spin_lock(spinlock_t *lk){
   pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk))
-    panic("acquire");
+    dpanic("acquire");
 
   // The xchg is atomic.
   while(_atomic_xchg(&lk->locked, 1) != 0);
@@ -38,7 +38,7 @@ void spin_lock(spinlock_t *lk){
 
 void spin_unlock(spinlock_t *lk){
   if(!holding(lk))
-    panic("release");
+    dpanic("release");
   lk->cpu = 0;
 
   // Tell the C compiler and the processor to not move loads or stores
@@ -74,17 +74,17 @@ int holding(spinlock_t *lk){
 
 void pushcli(void){
   uint32_t efl = get_efl();
-  intr_write(0) //cli
+  _intr_write(0) //cli
   if(mycpu()->ncli == 0)
     mycpu()->intena = efl & FL_IF;
   mycpu()->ncli += 1;
 }
 
 void popcli(void){
-  if(intr_read())
-    panic("popcli - interruptible");
+  if(_intr_read())
+    dpanic("popcli - interruptible");
   if(--mycpu()->ncli < 0)
-    panic("popcli");
+    dpanic("popcli");
   if(mycpu()->ncli == 0 && mycpu()->intena)
-    intr_write(1);
+    _intr_write(1);
 }

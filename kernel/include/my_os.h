@@ -34,3 +34,17 @@ typedef struct Cli_state{
   int ncli, intena;
 }cli_sta;
 cli_sta cpu_cli[8];
+
+//for debug
+static inline void dputs(const char *s) {
+  for (; *s; s++) {
+    _putc(*s);
+  }
+}
+#define dpanic(s) \
+  do { \
+    dputs("AM dPanic: "); dputs(s); \
+    dputs(" @ " __FILE__ ":" TOSTRING(__LINE__) "  \n"); \
+    _halt(1); \
+  } while(0)
+
