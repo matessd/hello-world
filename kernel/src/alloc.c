@@ -36,7 +36,7 @@ static void pmm_init() {
 static void *kalloc(size_t size) {
   //my
   //printf("%d\n",size);
-  spin_lock(alloc_lk);
+  kmt->spin_lock(alloc_lk);
   //assert(size>=0);
   if(size==0) return NULL;
   palloc_node ret = NULL;
@@ -61,13 +61,13 @@ static void *kalloc(size_t size) {
   }
   if(ret==NULL) return NULL;
   ret->fence = INIT_VALUE;
-  spin_unlock(alloc_lk);
+  kmt->spin_unlock(alloc_lk);
   return ret+1;
 }
 
 static void kfree(void *ptr) {
   if(ptr==NULL) return;
-  spin_lock(alloc_lk);
+  kmt->spin_lock(alloc_lk);
   palloc_node cur = ((palloc_node)ptr)-1;
   assert(cur->fence == INIT_VALUE);//保证free有效性
   cur->fence = 0;
@@ -81,7 +81,7 @@ static void kfree(void *ptr) {
   prev->ed = cur->ed;
   prev->nxt = nxt;
   if(nxt!=NULL) nxt->prev = prev;
-  spin_unlock(alloc_lk);
+  kmt->spin_unlock(alloc_lk);
 }
 
 MODULE_DEF(pmm) {
