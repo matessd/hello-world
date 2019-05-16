@@ -64,8 +64,8 @@ static void *kalloc(size_t size) {
   }
   if(ret==NULL) return NULL;
 
-  //清零，为了tty
-  memset(ret+1,0,size);
+  //清零，为了tty和input.c
+  //memset(ret+1,0,size);
 
   ret->fence = INIT_VALUE;
   kmt->spin_unlock(alloc_lk);
