@@ -7,6 +7,8 @@ static uintptr_t pm_start, pm_end;
 #define MIN_LEN 20
 #define INIT_VALUE 0xcccccccc
 LOCKDEF(alloc)
+/*spinlock_t Os_lk;
+spinlock_t *os_lk;*/
 
 /*typedef struct Node{
   struct Node* nxt, *prev;
@@ -27,6 +29,7 @@ static void pmm_init() {
   //my spin_lock
   for(int i=0; i<8; i++)
     cpu_cli[i].ncli = 0;
+  kmt->spin_init(os_lk, "os_lk");
 }
 
 static void *kalloc(size_t size) {

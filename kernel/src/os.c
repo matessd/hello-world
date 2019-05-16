@@ -17,10 +17,10 @@ static void hello() {
 }
 
 static void os_run() {
-  //os_lock();//my
+  kmt->spin_lock(os_lk);//my
   hello();
+  kmt->spin_unlock(os_lk);//my
   //assert(a_head->nxt==NULL);
-  //os_unlock();//my
   _intr_write(1);
   //pmm_test();//my
   while (1) {
