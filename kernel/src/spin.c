@@ -28,8 +28,3 @@ void spin_unlock(spinlock_t *lk){
   return;
 }
   
-MODULE_DEF(kmt) {
-  .spin_init = spin_init,
-  .spin_lock = spin_lock,
-  .spin_unlock = spin_unlock,
-};
