@@ -41,6 +41,8 @@ static inline void dputs(const char *s) {
     _putc(*s);
   }
 }
+#define STRINGIFY(s) #s
+#define TOSTRING(s) STRINGIFY(s)
 #define dpanic(s) \
   do { \
     dputs("AM dPanic: "); dputs(s); \
