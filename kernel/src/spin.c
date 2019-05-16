@@ -5,7 +5,7 @@
   int ncli, intena;
 }cpu_cli[8];*/
 
-cli_sta* my_cpu(){
+cli_sta* mycpu(){
   return &cpu_cli[_cpu()];
 }
 int holding(spinlock_t *lk);
@@ -74,7 +74,7 @@ int holding(spinlock_t *lk){
 
 void pushcli(void){
   uint32_t efl = get_efl();
-  _intr_write(0) //cli
+  _intr_write(0); //cli
   if(mycpu()->ncli == 0)
     mycpu()->intena = efl & FL_IF;
   mycpu()->ncli += 1;
