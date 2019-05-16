@@ -34,7 +34,7 @@ volatile palloc_node a_head;
 typedef struct Cli_state{
   int ncli, intena;
 }cli_sta;
-extern cli_sta cpu_cli[8];
+extern volatile cli_sta cpu_cli[8];
 
 extern spinlock_t *os_lk;
 
