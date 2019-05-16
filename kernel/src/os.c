@@ -17,7 +17,7 @@ static void hello() {
 }
 
 spinlock_t Os_lk;
-spinlock_t *os_lk=Os_lk;
+spinlock_t *os_lk=&Os_lk;
 static void os_run() {
   //kmt->spin_lock(os_lk);//my
   hello();
