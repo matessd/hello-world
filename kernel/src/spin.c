@@ -8,6 +8,9 @@
 cli_sta* my_cpu(){
   return &cpu_cli[_cpu()];
 }
+int holding(spinlock_t *lk);
+void pushcli(void);
+void popcli(void);
 
 void spin_init(spinlock_t *lk, const char *name){  
   lk->name = name;
