@@ -62,6 +62,10 @@ static void *kalloc(size_t size) {
     cur = cur->nxt;
   }
   if(ret==NULL) return NULL;
+
+  //清零，为了tty
+  memset(ret+1,0,size);
+
   ret->fence = INIT_VALUE;
   kmt->spin_unlock(alloc_lk);
   return ret+1;
