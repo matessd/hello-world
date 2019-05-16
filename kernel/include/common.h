@@ -5,7 +5,11 @@
 #include <nanos.h>
 
 struct task {};
-struct spinlock {};
+//spin.c
+struct spinlock{
+  char *name;
+  uint32_t lock_ed, cpu;
+};
 struct semaphore {};
 
 #endif
