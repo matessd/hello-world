@@ -30,7 +30,7 @@ typedef struct Node{
 volatile palloc_node a_head;
 
 //spin.c
-struct spinlock{
+spinlock_t={
   char *name;
   uint32_t lock_ed, cpu;
 };
