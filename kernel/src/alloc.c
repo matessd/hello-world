@@ -16,6 +16,9 @@ typedef struct Node{
 }alloc_node,*palloc_node;
 volatile palloc_node a_head;*/
 
+spinlock_t Alloc_lk;
+spinlock_t *alloc_lk=&Alloc_lk;
+
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
   pm_end   = (uintptr_t)_heap.end;
