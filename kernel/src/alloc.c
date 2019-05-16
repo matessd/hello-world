@@ -17,7 +17,7 @@ volatile palloc_node a_head;*/
 
 spinlock_t Alloc_lk;
 spinlock_t *alloc_lk=&Alloc_lk;
-volatile cli_sta cpu_cli[8];
+cli_sta cpu_cli[8];
 
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
