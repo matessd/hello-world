@@ -29,4 +29,8 @@ typedef struct Node{
 }alloc_node,*palloc_node;
 volatile palloc_node a_head;
 
-
+//spin.c
+typedef struct Cli_state{
+  int ncli, intena;
+}cli_sta;
+cli_sta cpu_cli[8];

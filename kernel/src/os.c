@@ -13,7 +13,7 @@ static void hello() {
     _putc(*ptr);
   }
   _putc("12345678"[_cpu()]); _putc('\n');
-  printf("%d**\n",_cpu());//my
+  //printf("%d**\n",_cpu());//my
 }
 
 static void os_run() {
@@ -23,8 +23,6 @@ static void os_run() {
   //os_unlock();//my
   _intr_write(1);
   //pmm_test();//my
-  //printf("NO!!n");
-  //assert(0);
   while (1) {
     _yield();
   }

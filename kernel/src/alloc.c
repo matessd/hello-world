@@ -24,6 +24,9 @@ static void pmm_init() {
   a_head->st = ((uintptr_t)a_head)+MIN_LEN;
   a_head->ed = pm_end;//不可用
   a_head->fence = INIT_VALUE;
+  //my spin_lock
+  for(int i=0; i<8; i++)
+    cpu_cli[i].ncli = 0;
 }
 
 static void *kalloc(size_t size) {
@@ -59,11 +62,10 @@ static void *kalloc(size_t size) {
 }
 
 static void kfree(void *ptr) {
-  //会不会free一个非链表元素？
   if(ptr==NULL) return;
   alloc_lock();
   palloc_node cur = ((palloc_node)ptr)-1;
-  assert(cur->fence == INIT_VALUE);
+  assert(cur->fence == INIT_VALUE);//保证free有效性
   cur->fence = 0;
   if(cur==a_head){
     cur->st = ((uintptr_t)cur)+MIN_LEN;
