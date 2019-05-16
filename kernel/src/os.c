@@ -13,7 +13,7 @@ static void hello() {
     _putc(*ptr);
   }
   _putc("12345678"[_cpu()]); _putc('\n');
-  printf("%d**\n",_cpu());
+  printf("%d**\n",_cpu());//my
 }
 
 static void os_run() {

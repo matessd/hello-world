@@ -33,4 +33,5 @@ volatile palloc_node a_head;
 spinlock_t{
   char *name;
   uint32_t lock_ed, cpu;
-}
+};
+
