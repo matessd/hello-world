@@ -1,7 +1,7 @@
 #include<klib.h>
 #include<common.h>
 #include<my_os.h>
-LOCKDEF(test)
+//LOCKDEF(test)
 char *ptr[100];
 volatile int i=0;
 void pmm_test(){
