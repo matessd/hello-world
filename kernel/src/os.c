@@ -7,14 +7,15 @@ static void os_init() {
   pmm->init();
 }
 
+//LOCKDEF(os) //my
 static void hello() {
   for (const char *ptr = "Hello from CPU #"; *ptr; ptr++) {
     _putc(*ptr);
   }
   _putc("12345678"[_cpu()]); _putc('\n');
+  printf("%d**\n",_cpu());
 }
 
-//LOCKDEF(os) //my
 static void os_run() {
   //os_lock();//my
   hello();
