@@ -8,7 +8,7 @@ struct task {};
 //spin.c
 struct spinlock{
   const char *name;
-  uint32_t locked, cpu;
+  intptr_t locked, cpu;
 };
 struct semaphore {};
 
