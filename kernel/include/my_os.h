@@ -1,6 +1,6 @@
 #include<x86.h>
 #include<am.h>
-#define MAX_CPU 8
+//#define MAX_CPU 8
 //in x86-qemu.h
 /*#define LOCKDEF(name) \
   static volatile intptr_t name##_locked = 0; \

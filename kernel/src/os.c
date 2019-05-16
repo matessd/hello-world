@@ -1,7 +1,7 @@
 #include <common.h>
 #include <klib.h>
-#include <my_os.h>
-#include <my_test.h>
+//#include <my_os.h>
+//#include <my_test.h>
 
 static void os_init() {
   pmm->init();
@@ -16,8 +16,8 @@ static void hello() {
   //printf("%d**\n",_cpu());//my
 }
 
-spinlock_t Os_lk;
-spinlock_t *os_lk=Os_lk;
+//spinlock_t Os_lk;
+//spinlock_t *os_lk=Os_lk;
 static void os_run() {
   //kmt->spin_lock(os_lk);//my
   hello();
