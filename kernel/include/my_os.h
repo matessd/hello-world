@@ -36,7 +36,7 @@ typedef struct Cli_state{
 }cli_sta;
 cli_sta cpu_cli[8];
 
-extern spin_lock_t os_lk;
+extern spinlock_t os_lk;
 
 //for debug
 static inline void dputs(const char *s) {
