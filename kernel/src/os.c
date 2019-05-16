@@ -17,9 +17,9 @@ static void hello() {
 }
 
 static void os_run() {
-  kmt->spin_lock(os_lk);//my
+  //kmt->spin_lock(os_lk);//my
   hello();
-  kmt->spin_unlock(os_lk);//my
+  //kmt->spin_unlock(os_lk);//my
   //assert(a_head->nxt==NULL);
   _intr_write(1);
   //pmm_test();//my

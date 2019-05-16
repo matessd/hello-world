@@ -6,11 +6,11 @@ static uintptr_t pm_start, pm_end;
 //my
 #define MIN_LEN 20
 #define INIT_VALUE 0xcccccccc
-LOCKDEF(alloc)
-/*spinlock_t Os_lk;
-spinlock_t *os_lk;*/
+/*LOCKDEF(alloc)
+spinlock_t Os_lk;
+spinlock_t *os_lk;
 
-/*typedef struct Node{
+typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
 }alloc_node,*palloc_node;
@@ -30,12 +30,13 @@ static void pmm_init() {
   for(int i=0; i<8; i++)
     cpu_cli[i].ncli = 0;
   kmt->spin_init(os_lk, "os_lk");
+  kmt->spin_init(alloc_lk, "alloc_lk");
 }
 
 static void *kalloc(size_t size) {
   //my
   //printf("%d\n",size);
-  alloc_lock();
+  spin_lock(alloc_lk);
   //assert(size>=0);
   if(size==0) return NULL;
   palloc_node ret = NULL;
@@ -60,13 +61,13 @@ static void *kalloc(size_t size) {
   }
   if(ret==NULL) return NULL;
   ret->fence = INIT_VALUE;
-  alloc_unlock();
+  spin_unlock(alloc_lk);
   return ret+1;
 }
 
 static void kfree(void *ptr) {
   if(ptr==NULL) return;
-  alloc_lock();
+  spin_lock(alloc_lk);
   palloc_node cur = ((palloc_node)ptr)-1;
   assert(cur->fence == INIT_VALUE);//保证free有效性
   cur->fence = 0;
@@ -80,7 +81,7 @@ static void kfree(void *ptr) {
   prev->ed = cur->ed;
   prev->nxt = nxt;
   if(nxt!=NULL) nxt->prev = prev;
-  alloc_unlock();
+  spin_unlock(alloc_lk);
 }
 
 MODULE_DEF(pmm) {
