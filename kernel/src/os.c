@@ -1,6 +1,6 @@
 #include <common.h>
 #include <klib.h>
-//#include <my_os.h>
+#include <my_os.h>
 //#include <my_test.h>
 
 static void os_init() {
