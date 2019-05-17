@@ -32,7 +32,7 @@ static void pmm_init() {
   //my spin_lock
   for(int i=0; i<8; i++)
     cpu_cli[i].ncli = 0;
-  kmt->spin_init(os_lk, "os_lk");
+  //kmt->spin_init(os_lk, "os_lk");
   kmt->spin_init(alloc_lk, "alloc_lk");
 }
 
