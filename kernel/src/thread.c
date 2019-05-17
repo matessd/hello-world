@@ -8,20 +8,47 @@ void teardown(task_t *task){
   return;
 }
 
+void add_tail(task_t *task){
+  task_t *cur = task_head;
+  if(cur==NULL){
+    task_head = task;
+    task->nxt = NULL;
+    return;
+  }
+  while(cur->nxt){
+    cur = cur->nxt;
+  }
+  cur->nxt = task;
+}
+
+void add_head(task_t *task){
+  task_t *cur = task_head;
+  if(cur==NULL){
+    task_head = task;
+    task->nxt = NULL;
+    return;
+  }
+  task_head = task;
+  task->nxt = cur;
+}
+
+void del_head(){
+  task_head = task_head->nxt;
+}
+
 _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
-  if(!current) current->context = *context;
+  assert(!current);
+  if(!current) {
+    current->context = *context;
+    add_tail(current);
+  }
   return context;
 }
 
-_Context *kmt_context_switch(_Event ev, _Context *context){  
-  while((current - tasks) % _ncpu() != _cpu()){
-    if (!current || current + 1 == &tasks[LENGTH(tasks)]) {
-      current = &tasks[0];
-    } else {
-      current++;
-    }
-  }
-  //printf("\n[cpu-%d] Schedule: %s\n", _cpu(), current->name);
+_Context *kmt_context_switch(_Event ev, _Context *context){ 
+  assert(task_head)!=NULL;
+  current = task_head;
+  del_head(); 
   return &current->context;
 }

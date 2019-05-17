@@ -10,9 +10,10 @@ struct task {
   int32_t id;
   char *name;
   _Context context;
-  uint32_t fence1;
+  struct task *nxt;
+  uint32_t fence;
   char stack[STK_SZ];
-  uint32_t fence2;
+  //uint32_t fence2;
 };
 //spin.c
 struct spinlock{
