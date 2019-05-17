@@ -48,6 +48,10 @@ typedef struct{
 extern volatile int n_handler;
 
 //thread.c
+#define LENGTH(arr) (sizeof(arr)/sizeof(arr[0]))
+task_t *tasks[100];//假设100个线程，多设点
+task_t *Current_task[8];
+#define current (Current_task[_cpu()])
 _Context *kmt_context_save(_Event ev, _Context *context);
 _Context *kmt_context_switch(_Event ev, _Context *context);
 
