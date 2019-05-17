@@ -71,10 +71,10 @@ int holding(spinlock_t *lk){
 // are off, then pushcli, popcli leaves them off.
 
 void pushcli(void){
-  uint32_t efl = get_efl();
+  uint32_t intena = _intr_read();
   _intr_write(0); //cli
   if(mycpu()->ncli == 0)
-    mycpu()->intena = efl & FL_IF;
+    mycpu()->intena = intena;
   mycpu()->ncli += 1;
 }
 

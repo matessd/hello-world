@@ -1,4 +1,4 @@
-#include<x86.h>
+//#include<x86.h>
 #include<am.h>
 #include<common.h>
 #include<klib.h>
