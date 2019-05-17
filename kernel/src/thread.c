@@ -1,7 +1,13 @@
 #include<my_os.h>
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-  kcontext((_Area){task,task+1}, entry, arg);
-  if(intr_read())
+  _kcontext((_Area){task,task+1}, entry, arg);
+  task->name = name;
+  //cpu个数一开始是0吗？
+  if(_ncpu()==0)
+  add_head(task);
+  if(_intr_read()){
+    yield();
+  }
   return 0;
 }
 
