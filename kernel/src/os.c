@@ -32,7 +32,8 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  printf("%d\n",(int)context);
+  //printf("%d\n",(int)context);
+  assert(ev.event!=_EVENT_NULL);
   return context;
 }
 
