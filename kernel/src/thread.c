@@ -1,6 +1,7 @@
 #include<my_os.h>
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-   
+  kcontext((_Area){task,task+1}, entry, arg);
+  if(intr_read())
   return 0;
 }
 
@@ -38,8 +39,8 @@ void del_head(){
 
 _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
-  assert(!current);
-  if(!current) {
+  //assert(current!=NULL);
+  if(current) {
     current->context = *context;
     add_tail(current);
   }
@@ -47,7 +48,8 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
-  assert(!task_head);
+  //assert(task_head!=NULL);
+  if(task_head==NULL) return context;
   current = task_head;
   del_head(); 
   return &current->context;

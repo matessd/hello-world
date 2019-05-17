@@ -7,9 +7,9 @@
 //my
 #define STK_SZ 4096
 struct task {
+  _Context context;
   int32_t id;
   char *name;
-  _Context context;
   struct task *nxt;
   uint32_t fence;
   char stack[STK_SZ];
