@@ -41,7 +41,7 @@ extern cli_sta cpu_cli[8];//要加volatile吗?
 //trap,irq
 typedef struct{
   int seq;
-  _Event ev;
+  int ev;
   handler_t handler;
 }irq_handler;
 extern volatile int n_handler;
