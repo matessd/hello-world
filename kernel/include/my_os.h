@@ -48,7 +48,7 @@ typedef struct{
 extern volatile int n_handler;
 
 //thread.c
-int ntask = 0;
+int ntask;
 void add_tail(task_t *task);
 void add_head(task_t *task);
 void del_head();
