@@ -48,8 +48,8 @@ typedef struct{
 extern volatile int n_handler;
 
 //thread.c
-void add_tail(task_t task);
-void add_head(task_t task);
+void add_tail(task_t *task);
+void add_head(task_t *task);
 void del_head();
 task_t *Task_head[8];
 task_t *Current_task[8];
