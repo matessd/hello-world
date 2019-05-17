@@ -1,6 +1,7 @@
 #include<x86.h>
 #include<am.h>
 #include<common.h>
+#include<klib.h>
 //#define MAX_CPU 8
 //in x86-qemu.h
 /*#define LOCKDEF(name) \
@@ -45,8 +46,10 @@ typedef struct{
   handler_t handler;
 }irq_handler;
 extern volatile int n_handler;
-//extern irq_handler handlers[10];
 
+//thread.c
+_Context *kmt_context_save(_Event ev, _Context *context);
+_Context *kmt_context_switch(_Event ev, _Context *context);
 
 //for debug
 static inline void dputs(const char *s) {

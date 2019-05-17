@@ -1,16 +1,13 @@
-#include<klib.h>
 #include<my_os.h>
 
 void kmt_init(){
+  os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
+  os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
   return;
 }
-int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-  return 0;
-}
+int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg);
 
-void teardown(task_t *task){
-  return;
-}
+void teardown(task_t *task);
 
 void spin_init(spinlock_t *lk, const char *name);
 void spin_lock(spinlock_t *lk);

@@ -1,4 +1,3 @@
-#include<klib.h>
 #include<my_os.h>
 /*typedef struct Cpu_cli{
   int ncli, intena;

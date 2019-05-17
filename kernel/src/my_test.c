@@ -1,4 +1,3 @@
-#include<klib.h>
 #include<my_os.h>
 //LOCKDEF(test)
 char *ptr[100];
