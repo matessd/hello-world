@@ -47,7 +47,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
-  assert(task_head)!=NULL;
+  assert(!task_head);
   current = task_head;
   del_head(); 
   return &current->context;
