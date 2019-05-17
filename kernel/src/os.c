@@ -16,8 +16,9 @@ static void hello() {
   //printf("%d**\n",_cpu());//my
 }
 
-spinlock_t Os_lk;
-spinlock_t *os_lk=&Os_lk;
+//spinlock_t Os_lk;
+//spinlock_t *os_lk=&Os_lk;
+
 static void os_run() {
   //kmt->spin_lock(os_lk);//my
   hello();
@@ -31,14 +32,43 @@ static void os_run() {
   assert(0);
 }
 
+irq_handler handlers[10];//中断处理程序
+volatile int n_handler = 0;
+
 static _Context *os_trap(_Event ev, _Context *context) {
   //printf("%d\n",(int)ev.event);
-  //assert(ev.event!=_EVENT_NULL);
-  return NULL;
+  //assert(ev.event!=_EVENT_NULL);  
+  _Context *ret = NULL;
+  for(int i=0; i<n_handler; i++) {
+    if (handlers[i].ev == _EVENT_NULL || handlers[i].ev == ev.event) {
+      _Context *next = handlers[i].handler(ev, context);
+      if (next) ret = next;
+    }
+  }
+  return ret;
+  //return context;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
   //printf("1\n");
+  int cur = 0;
+  for(int i=0; i<n_handler; i++){
+    if(seq>handlers[i].seq)
+      cur++;
+    else break;
+  }
+  irq_handler hand = (irq_handler){seq,event,handler};
+  if(cur==n_handler)
+    handlers[cur] = hand;
+  else{
+    irq_handler tmp = NULL;
+    while(cur<n_handler){
+      tmp = handlers[cur];
+      handlers[cur++] = hand;
+    }
+    handlers[cur] = tmp;
+  }
+  n_handler++;
 }
 
 MODULE_DEF(os) {

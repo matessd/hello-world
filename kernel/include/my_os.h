@@ -36,7 +36,17 @@ typedef struct Cli_state{
 }cli_sta;
 extern cli_sta cpu_cli[8];//要加volatile吗?
 
-extern spinlock_t *os_lk;
+//extern spinlock_t *os_lk;
+
+//trap,irq
+typedef struct{
+  int seq;
+  _Event ev;
+  handler_t handler;
+}irq_handler;
+extern volatile int n_handler;
+//extern irq_handler handlers[10];
+
 
 //for debug
 static inline void dputs(const char *s) {
