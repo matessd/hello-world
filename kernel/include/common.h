@@ -9,7 +9,7 @@
 struct task {
   _Context context;
   int32_t id;
-  char *name;
+  const char *name;
   struct task *nxt;
   uint32_t fence;
   char stack[STK_SZ];

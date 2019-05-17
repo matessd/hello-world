@@ -6,7 +6,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   if(_ncpu()==0)
   add_head(task);
   if(_intr_read()){
-    yield();
+    _yield();
   }
   return 0;
 }
