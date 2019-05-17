@@ -32,9 +32,9 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  printf("%d\n",(int)ev.event);
+  //printf("%d\n",(int)ev.event);
   //assert(ev.event!=_EVENT_NULL);
-  return context;
+  return NULL;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
