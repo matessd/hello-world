@@ -1,10 +1,12 @@
 #include<my_os.h>
+int ntask = 0;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
+  //默认在中断打开前create
   _kcontext((_Area){task,task+1}, entry, arg);
   task->name = name;
-  //cpu个数一开始是0吗？
-  if(_ncpu()==0)
-  add_head(task);
+  //cpu个数一开始就不是0
+  int i = ntask++ %_ncpu();
+  add_head(task, i);
   if(_intr_read()){
     _yield();
   }
@@ -28,14 +30,14 @@ void add_tail(task_t *task){
   cur->nxt = task;
 }
 
-void add_head(task_t *task){
-  task_t *cur = task_head;
+void add_head(task_t *task, int i){
+  task_t *cur = Task_head[i];
   if(cur==NULL){
-    task_head = task;
+    Task_head[i] = task;
     task->nxt = NULL;
     return;
   }
-  task_head = task;
+  Task_head[i] = task;
   task->nxt = cur;
 }
 

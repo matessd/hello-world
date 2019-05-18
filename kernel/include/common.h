@@ -20,6 +20,14 @@ struct spinlock{
   const char *name;
   intptr_t locked, cpu;
 };
-struct semaphore {};
+//NPROC定多大比较好？
+#define NPROC 100
+struct semaphore {  
+  int value;
+  spinlock_t lk;
+  task_t *queue[NPROC];
+  int end;
+  int start;
+};
 
 #endif
