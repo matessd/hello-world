@@ -48,7 +48,7 @@ void add_tail(task_t *task){
 }
 
 void add_head(task_t *task, int i){
-  printf("%s\n",task->name);
+  //printf("%s\n",task->name);
   task_t *cur = Task_head[i];
   assert(cur!=task);
   if(cur==NULL){
@@ -84,6 +84,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
         assert(tmp!=current);*/
     //在sem睡眠队列中
     if(current->sleep_flg==0){
+      printf("%s\n",current->name);
       add_tail(current);
     }
   }
