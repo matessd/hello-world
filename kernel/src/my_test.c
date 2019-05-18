@@ -26,6 +26,12 @@ void pmm_test(){
   //test_unlock();
 }
 
+void idle(){
+  while(1){
+    _yield();
+  }
+}
+
 void echo_task(void *name) {
   device_t *tty = dev_lookup(name);
   while (1) {
