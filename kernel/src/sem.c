@@ -2,7 +2,7 @@
 void sem_init(sem_t *sem, const char *name, int value){
   sem->value = value;
   kmt->spin_init(&sem->lk, name);
-  end = start = 0;
+  sem->end = sem->start = 0;
   return;
 }
 void sem_wait(sem_t *sem){
