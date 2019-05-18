@@ -117,6 +117,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
     }
     //printf("1\n");
   }
+  assert(current!=NULL);
   //current = task_head;
   //assert(task_head!=NULL);
   //del_head(); 
