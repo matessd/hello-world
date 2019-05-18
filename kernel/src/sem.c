@@ -1,8 +1,8 @@
 #include<my_os.h>
 void sem_init(sem_t *sem, const char *name, int value){
   sem->value = value;
-  kmt->spin_init(&sem->lk1, name);
-  kmt->spin_init(&sem->lk2, name);
+  kmt->spin_init(&sem->lk, name);
+  //kmt->spin_init(&sem->lk2, name);
   sem->end = sem->start = 0;
   return;
 }
