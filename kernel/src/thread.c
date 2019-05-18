@@ -67,7 +67,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   printf("%d\n",_cpu());
   if(current) {
     current->context = *context;
-    task_t tmp = task_head;
+    task_t *tmp = task_head;
     while(tmp->nxt!=NULL){
       assert(tmp!=current);
     }
