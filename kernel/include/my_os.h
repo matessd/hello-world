@@ -49,7 +49,7 @@ typedef struct{
 extern volatile int n_handler;
 
 //thread.c
-extern int ntask;
+extern volatile int ntask;
 void add_tail(task_t *task);//for create and save
 void add_head(task_t *task, int i);//for sem
 void del_head();//for switch
