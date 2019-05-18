@@ -250,8 +250,8 @@ void tty_task(void *arg) {
             .current = tty->display,
           };
           tty_mark_all(tty);
-          fb->ops->write(fb, 0, &info, sizeof(struct display_info));
-          ttydev->ops->write(ttydev, 0, "", 0);
+          //fb->ops->write(fb, 0, &info, sizeof(struct display_info));
+          //ttydev->ops->write(ttydev, 0, "", 0);
         }
       }
       if (ev.ctrl) {
@@ -261,7 +261,7 @@ void tty_task(void *arg) {
         char ch = ev.data;
         tty_t *tty = ttydev->ptr;
         if (tty_cook(tty, ch) == 0) {
-          ttydev->ops->write(ttydev, 0, &ch, 1);
+          //ttydev->ops->write(ttydev, 0, &ch, 1);
         }
       }
     } else {
