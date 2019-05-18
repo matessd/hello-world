@@ -24,7 +24,7 @@ struct spinlock{
 #define NPROC 100
 struct semaphore {  
   volatile int value;
-  spinlock_t lk;
+  spinlock_t lk1, lk2;
   task_t *queue[NPROC];
   int end;
   int start;

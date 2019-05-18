@@ -1,12 +1,13 @@
 #include<my_os.h>
 void sem_init(sem_t *sem, const char *name, int value){
   sem->value = value;
-  kmt->spin_init(&sem->lk, name);
+  kmt->spin_init(&sem->lk1, name);
+  kmt->spin_init(&sem->lk2, name);
   sem->end = sem->start = 0;
   return;
 }
 void sem_wait(sem_t *sem){
-  kmt->spin_lock(&sem->lk);
+  kmt->spin_lock(&sem->lk1);
   sem->value--;
   if (sem->value < 0) {
     assert(task_head!=NULL);
@@ -18,11 +19,11 @@ void sem_wait(sem_t *sem){
     _yield();
     //kmt->spin_lock(&sem->lk);
   }
-  kmt->spin_unlock(&sem->lk);
+  kmt->spin_unlock(&sem->lk1);
   return;
 }
 void sem_signal(sem_t *sem){
-  kmt->spin_lock(&sem->lk);
+  kmt->spin_lock(&sem->lk2);
   sem->value++;
   int yield_flg = 0;
   assert(sem->value>=0);
@@ -36,6 +37,6 @@ void sem_signal(sem_t *sem){
   }
   //kmt->spin_unlock(&sem->lk);
   if(yield_flg) _yield();
-  kmt->spin_unlock(&sem->lk);
+  kmt->spin_unlock(&sem->lk2);
   return;
 }
