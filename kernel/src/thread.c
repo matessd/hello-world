@@ -14,7 +14,8 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  int cnt = ntask++ %_ncpu();
+  int cnt = ntask %_ncpu();
+  ntask++;
   printf("%d**\n",cnt);
   task->id = ntask++;
   //如果多处理器好了这样会不会有问题？
