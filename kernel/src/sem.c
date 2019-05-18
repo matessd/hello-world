@@ -9,6 +9,7 @@ void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
   sem->value--;
   if (sem->value < 0) {
+    assert(task_head!=NULL);
     current->sleep_flg = 1;
     sem->queue[sem->end] = current;
     sem->end = (sem->end + 1) % NPROC;
