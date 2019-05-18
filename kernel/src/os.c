@@ -42,9 +42,9 @@ static _Context *os_trap(_Event ev, _Context *context) {
   _Context *ret = NULL;
   for(int i=0; i<n_handler; i++) {
     if (handlers[i].ev == _EVENT_NULL || handlers[i].ev == ev.event) {
-      //printf("%d\n",i);
+      printf("%d\n",i);
       _Context *next = handlers[i].handler(ev, context);
-      //printf("%d**\n",i);
+      printf("%d**\n",i);
       if (next) ret = next;
     }
   }
