@@ -15,9 +15,9 @@ void sem_wait(sem_t *sem){
     sem->queue[sem->end] = current;
     sem->end = (sem->end + 1) % NPROC;
     //先解锁？
-    //kmt->spin_unlock(&sem->lk);
+    kmt->spin_unlock(&sem->lk);
     _yield();
-    //kmt->spin_lock(&sem->lk);
+    kmt->spin_lock(&sem->lk);
   }
   kmt->spin_unlock(&sem->lk);
   return;
