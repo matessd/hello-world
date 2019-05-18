@@ -25,6 +25,7 @@ void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
   sem->value++;
   int yield_flg = 0;
+  assert(sem->value>=0);
   if (sem->value <= 0) {
     sem->queue[sem->start]->sleep_flg = 0;
     yield_flg = 1;
