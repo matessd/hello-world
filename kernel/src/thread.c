@@ -36,7 +36,7 @@ void teardown(task_t *task){
 }
 
 void add_tail(task_t *task){
-  kmt->spin_lock(task_lk);
+  //kmt->spin_lock(task_lk);
   task_t *cur = task_head;
   if(task_head==NULL){
     task_head = task;
@@ -50,12 +50,12 @@ void add_tail(task_t *task){
   }
   cur->nxt = task;
   task->nxt = NULL;
-  kmt->spin_unlock(task_lk);
+  //kmt->spin_unlock(task_lk);
 }
 
 void add_head(task_t *task){
   //printf("%s\n",task->name); 
-  kmt->spin_lock(task_lk); 
+  //kmt->spin_lock(task_lk); 
   task_t *cur = task_head;
   assert(cur!=task);
   if(cur==NULL){
@@ -67,16 +67,16 @@ void add_head(task_t *task){
   //task_t *tmp_head = Task_head
   task_head = task;
   task->nxt = cur;
-  kmt->spin_unlock(task_lk);
+  //kmt->spin_unlock(task_lk);
 }
 
 task_t *del_head(){
-  kmt->spin_lock(task_lk);
+  //kmt->spin_lock(task_lk);
   task_t *tmp_head = task_head;
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
-  kmt->spin_unlock(task_lk);
+  //kmt->spin_unlock(task_lk);
   return tmp_head;
 }
 
@@ -99,7 +99,9 @@ _Context *kmt_context_save(_Event ev, _Context *context){
     //在sem睡眠队列中
     if(current->sleep_flg==0){
       //printf("%s\n",current->name);
+      kmt->spin_lock(task_lk);
       add_tail(current);
+      kmt->spin_unlock(task_lk);
     }
   }
   //printf("%d&&&&\n",_cpu());
@@ -111,7 +113,9 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
   //printf("2\n");
   //printf("current: %s\n",task_head->name);
   //if(task_head==NULL) return context;
-  //current = task_head;
-  //del_head(); 
-  return &del_head()->context;
+  kmt->spin_lock(task_lk);
+  current = task_head;
+  del_head(); 
+  kmt->spin_unlock(task_lk);
+  return &current->context;
 }
