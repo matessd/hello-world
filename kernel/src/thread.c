@@ -55,13 +55,13 @@ void del_head(){
 _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
-  if(current==NULL)
-    printf("current: \n");
+  //if(current==NULL)
+    //printf("current: \n");
   if(current) {
     current->context = *context;
     add_tail(current);
   }
-  return context;
+  return NULL;
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
