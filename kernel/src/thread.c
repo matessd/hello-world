@@ -33,7 +33,7 @@ void add_tail(task_t *task){
     return;
   }
   while(cur->nxt){
-    printf("%s\n",cur->nxt->name);
+    //printf("%s\n",cur->nxt->name);
     cur = cur->nxt;
   }
   cur->nxt = task;
@@ -42,6 +42,7 @@ void add_tail(task_t *task){
 
 void add_head(task_t *task, int i){
   task_t *cur = Task_head[i];
+  assert(cur!=task);
   if(cur==NULL){
     Task_head[i] = task;
     task->nxt = NULL;
