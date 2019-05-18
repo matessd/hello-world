@@ -1,5 +1,5 @@
 #include<my_os.h>
-volatile int ntask = 0;
+volatile int ntask;
 spinlock_t Task_lk;
 spinlock_t *task_lk = &Task_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
@@ -14,7 +14,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  int cnt = ntask %_ncpu();
+  int cnt = ntask%_ncpu();
   ntask += 1;
   printf("%d**\n",ntask);
   task->id = ntask++;
