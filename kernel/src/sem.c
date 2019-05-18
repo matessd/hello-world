@@ -9,6 +9,8 @@ void sem_init(sem_t *sem, const char *name, int value){
 void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
   sem->value--;
+  printf("current: %s\n",current->name);
+  printf("value: %d\n",sem->value);
   if (sem->value < 0) {
     assert(task_head!=NULL);
     current->sleep_flg = 1;
