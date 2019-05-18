@@ -16,7 +16,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
 
   kmt->spin_lock(task_lk);
   int cnt = Ntask++%_ncpu();
-  printf("%d**\n",cnt);
+  //printf("%d**\n",cnt);
   task->id = cnt;
   //如果多处理器好了这样会不会有问题？
   //add_head(task,cnt);
@@ -81,8 +81,8 @@ void del_head(){
 
 _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
-  //printf("**cur: %s\n",current->name);
-  //printf("cpu: %d\n",_cpu());
+  printf("**cur: %s\n",current->name);
+  printf("cpu: %d\n",_cpu());
   //assert(current->fence)
   if(current) {
     assert(current->fence == FENCE);
@@ -104,7 +104,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   //assert(task_head!=NULL);
-  //printf("current: %s\n",task_head->name);
+  printf("current: %s\n",task_head->name);
 
   //kmt->spin_lock(task_lk);
   for(int i=Curr[_cpu()]; ;i=(i+1)%ntask[_cpu()]){
