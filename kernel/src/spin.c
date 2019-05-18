@@ -39,6 +39,7 @@ void spin_lock(spinlock_t *lk){
 }
 
 void spin_unlock(spinlock_t *lk){
+  printf("unlock: %s\n",lk->name);
   if(!holding(lk))
     dpanic("release");
   lk->cpu = 0;
