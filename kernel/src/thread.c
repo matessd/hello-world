@@ -15,13 +15,13 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  int cnt = Ntask%_ncpu();
+  int cnt = Ntask++%_ncpu();
   //printf("%d**\n",ntask);
-  task->id = Ntask++;
+  task->id = cnt;
   //如果多处理器好了这样会不会有问题？
   //add_head(task,cnt);
   //current = task;
-  ntask[_cpu()]++;
+  ntask[cnt]++;
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
