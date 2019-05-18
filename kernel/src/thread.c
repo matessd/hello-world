@@ -16,6 +16,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   add_head(task,i);
   //printf("%d\n",_intr_read());
   if(_intr_read()){
+    assert(0);
     _yield();
   }
   return 0;
