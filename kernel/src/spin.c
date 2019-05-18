@@ -56,8 +56,8 @@ void spin_unlock(spinlock_t *lk){
   // This code can't use a C assignment, since it might
   // not be atomic. A real OS would use C atomics here.
   //asm volatile("movl $0, %0" : "+m" (lk->locked) : );
-  asm volatile("movl $0, %0" : "+m" (lk->locked) : );
-  //_atomic_xchg(&lk->locked, 0);
+  //asm volatile("movl $0, %0" : "+m" (lk->locked) : );
+  _atomic_xchg(&lk->locked, 0);
 
   popcli();
   return;

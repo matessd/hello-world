@@ -18,7 +18,7 @@ struct task {
 //spin.c
 struct spinlock{
   const char *name;
-  intptr_t locked, cpu;
+  volatile intptr_t locked, cpu;
 };
 //NPROC定多大比较好？
 #define NPROC 1024
