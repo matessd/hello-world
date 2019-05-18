@@ -110,7 +110,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
 
   //kmt->spin_lock(task_lk);
   for(int i=Curr[_cpu()]; ;i=(i+1)%ntask[_cpu()]){
-    //printf("%d\n",i);
+    printf("%d\n",i);
     assert(tasks[_cpu()][i]!=NULL);
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
