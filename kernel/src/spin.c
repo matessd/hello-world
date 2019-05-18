@@ -18,8 +18,11 @@ void spin_init(spinlock_t *lk, const char *name){
 
 void spin_lock(spinlock_t *lk){
   pushcli(); // disable interrupts to avoid deadlock.
-  if(holding(lk))
-    dpanic("acquire");
+  if(holding(lk)){
+    //dpanic("acquire");
+    printf("acquire: %s\n",lk-name);
+    _halt(1);
+  }
 
   // The xchg is atomic.
   while(_atomic_xchg(&lk->locked, 1) != 0);
