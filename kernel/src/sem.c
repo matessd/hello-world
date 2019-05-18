@@ -14,7 +14,7 @@ void sem_wait(sem_t *sem){
   //printf("value: %d\n\n",sem->value);
   sem->value--;
   if (sem->value < 0) {
-    assert(task_head!=NULL);
+    //assert(task_head!=NULL);
     current->sleep_flg = 1;
     sem->queue[sem->end] = current;
     sem->end = (sem->end + 1) % NPROC;
