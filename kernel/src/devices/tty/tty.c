@@ -228,7 +228,7 @@ devops_t tty_ops = {
 void tty_task(void *arg) {
   device_t *in = dev_lookup("input");
   device_t *ttydev = dev_lookup("tty1");
-  device_t *fb = dev_lookup("fb");
+  //device_t *fb = dev_lookup("fb");
 
   tty_render(ttydev->ptr);
   while (1) {
@@ -246,9 +246,9 @@ void tty_task(void *arg) {
           ttydev = next;
           tty_t *tty = ttydev->ptr;
 
-          struct display_info info = {
+          /*struct display_info info = {
             .current = tty->display,
-          };
+          };*/
           tty_mark_all(tty);
           //fb->ops->write(fb, 0, &info, sizeof(struct display_info));
           //ttydev->ops->write(ttydev, 0, "", 0);
