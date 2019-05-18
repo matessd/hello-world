@@ -48,6 +48,7 @@ void add_tail(task_t *task){
 }
 
 void add_head(task_t *task, int i){
+  printf("%s\n",task->name);
   task_t *cur = Task_head[i];
   assert(cur!=task);
   if(cur==NULL){
@@ -92,7 +93,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   assert(task_head!=NULL);
-  printf("2\n");
+  //printf("2\n");
   //printf("current: %s\n",task_head->name);
   //if(task_head==NULL) return context;
   current = task_head;
