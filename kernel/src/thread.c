@@ -69,7 +69,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
   //if(current==NULL)
-  //printf("%d\n",_cpu());
+  printf("**cur: %s\n",current->name);
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
