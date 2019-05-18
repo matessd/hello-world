@@ -27,9 +27,9 @@ void pmm_test(){
 }
 
 void echo_task(void *name) {
-  device_t *tty = dev_lookup(name);
+  //device_t *tty = dev_lookup(name);
   while (1) {
-    char line[128], text[128];
+    //char line[128], text[128];
     //sprintf(text, "(%s) $ ", name); 
     //tty->ops->write(tty, 0, text, sizeof(text));
     //int nread = tty->ops->read(tty, 0, line, sizeof(line));
