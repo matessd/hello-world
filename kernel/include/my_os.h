@@ -56,7 +56,7 @@ void idle();
 extern volatile int ntask;
 void add_tail(task_t *task);//for create and save
 void add_head(task_t *task);//for sem
-void del_head();//for switch
+task_t *del_head();//for switch
 task_t *task_head;
 task_t *Current_task[8];
 #define current (Current_task[_cpu()])
