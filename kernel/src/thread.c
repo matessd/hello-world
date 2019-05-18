@@ -16,9 +16,11 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
   int i = ntask++ %_ncpu();
   //printf("%d^^\n",i);
-  kmt->spin_unlock(create_lk);
+  //kmt->spin_unlock(create_lk);
 
+  //assert(task)
   add_head(task,i);
+  kmt->spin_unlock(create_lk);
   //printf("%d\n",_intr_read());
   if(_intr_read()){
     //assert(0);
