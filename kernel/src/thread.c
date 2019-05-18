@@ -15,7 +15,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
 
   kmt->spin_lock(task_lk);
   int cnt = ntask++ %_ncpu();
-  //assert(task!=Task_head[i]);
+  printf("%d**\n",cnt);
   task->id = ntask++;
   //如果多处理器好了这样会不会有问题？
   add_head(task,cnt);
@@ -72,6 +72,7 @@ void del_head(){
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
+  assert()
   //kmt->spin_unlock(task_lk);
   //return tmp_head;
 }
