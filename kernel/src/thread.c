@@ -112,6 +112,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
       Curr[_cpu()] = i;
       break;
     }
+    printf("1\n");
   }
   //current = task_head;
   //assert(task_head!=NULL);
