@@ -89,32 +89,27 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
-      //printf("%s\n",current->name);
       /*task_t *tmp = task_head;
-        while(tmp->nxt!=NULL){
         assert(tmp!=current);
         assert(tmp!=tmp->nxt);
         }
         assert(tmp!=current);*/
     //在sem睡眠队列中
     if(current->sleep_flg==0){
-      //printf("%s\n",current->name);
       kmt->spin_lock(task_lk);
       add_tail(current);
       kmt->spin_unlock(task_lk);
     }
   }
-  //printf("%d&&&&\n",_cpu());
   return NULL;
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
-  assert(task_head!=NULL);
-  //printf("2\n");
+  //assert(task_head!=NULL);
   //printf("current: %s\n",task_head->name);
-  //if(task_head==NULL) return context;
   kmt->spin_lock(task_lk);
   current = task_head;
+  assert(task_head!=NULL);
   del_head(); 
   kmt->spin_unlock(task_lk);
   return &current->context;
