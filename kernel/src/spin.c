@@ -3,7 +3,7 @@
   int ncli, intena;
 }cpu_cli[8];*/
 volatile cli_sta cpu_cli[8];
-cli_sta* mycpu(){
+volatile cli_sta* mycpu(){
   return &cpu_cli[_cpu()];
 }
 int holding(spinlock_t *lk);
