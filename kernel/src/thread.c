@@ -77,7 +77,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
         assert(tmp!=tmp->nxt);
         }
         assert(tmp!=current);*/
-    //在sem睡眠队列中的就不放入链表了
+    //在sem睡眠队列中
     if(current->sleep_flg==0){
       add_tail(current);
     }
