@@ -10,6 +10,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //预防多处理器
   kmt->spin_lock(create_lk);
   task->id = ntask;
+  task->nxt = NULL;
   int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
   add_head(task,i);
@@ -45,6 +46,7 @@ void add_head(task_t *task, int i){
     task->nxt = NULL;
     return;
   }
+  //task_t *tmp_head = Task_head
   Task_head[i] = task;
   task->nxt = cur;
 }
@@ -59,12 +61,12 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
   //if(current==NULL)
-    printf("%d\n",_cpu());
+  printf("%d\n",_cpu());
   if(current) {
     current->context = *context;
     add_tail(current);
   }
-    printf("%d&&&&\n",_cpu());
+  printf("%d&&&&\n",_cpu());
   return NULL;
 }
 
