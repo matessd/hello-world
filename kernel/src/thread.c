@@ -13,6 +13,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->id = ntask;
   task->nxt = NULL;
   task->sleep_flg = 0;
+  task->fence = 0xcccccccc;
   int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
 

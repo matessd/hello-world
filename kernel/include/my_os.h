@@ -30,6 +30,7 @@ typedef struct Node{
   uintptr_t st,ed;//可分配区间
   uint32_t fence;
 }alloc_node,*palloc_node;
+#define FENCE 0xcccccccc
 volatile palloc_node a_head;
 
 //spin.c

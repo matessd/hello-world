@@ -3,7 +3,7 @@ static uintptr_t pm_start, pm_end;
 
 //my
 #define MIN_LEN 20
-#define INIT_VALUE 0xcccccccc
+//#define INIT_VALUE 0xcccccccc
 
 /*typedef struct Node{
   struct Node* nxt, *prev;
@@ -24,7 +24,7 @@ static void pmm_init() {
   a_head->prev = NULL;
   a_head->st = ((uintptr_t)a_head)+MIN_LEN;
   a_head->ed = pm_end;//不可用
-  a_head->fence = INIT_VALUE;
+  a_head->fence = FENCE;
   //my spin_lock
   for(int i=0; i<8; i++)
     cpu_cli[i].ncli = 0;
@@ -64,7 +64,7 @@ static void *kalloc(size_t size) {
   //清零，为了tty和input.c
   //memset(ret+1,0,size);
 
-  ret->fence = INIT_VALUE;
+  ret->fence = FENCE;
   kmt->spin_unlock(alloc_lk);
   return ret+1;
 }
@@ -73,7 +73,7 @@ static void kfree(void *ptr) {
   if(ptr==NULL) return;
   kmt->spin_lock(alloc_lk);
   palloc_node cur = ((palloc_node)ptr)-1;
-  assert(cur->fence == INIT_VALUE);//保证free有效性
+  assert(cur->fence == FENCE);//保证free有效性
   cur->fence = 0;
   if(cur==a_head){
     cur->st = ((uintptr_t)cur)+MIN_LEN;
