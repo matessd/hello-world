@@ -2,7 +2,7 @@
 /*typedef struct Cpu_cli{
   int ncli, intena;
 }cpu_cli[8];*/
-
+volatile cli_sta cpu_cli[8];
 cli_sta* mycpu(){
   return &cpu_cli[_cpu()];
 }
