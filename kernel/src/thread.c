@@ -18,7 +18,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //printf("%d^^\n",i);
   //kmt->spin_unlock(create_lk);
 
-  //assert(task)
+  assert(task!=Task_head[i]);
   add_head(task,i);
   kmt->spin_unlock(create_lk);
   //printf("%d\n",_intr_read());
