@@ -25,6 +25,7 @@ struct spinlock{
 struct semaphore {  
   volatile int value;
   spinlock_t lk;
+  const char* name;
   task_t *queue[NPROC];
   int end;
   int start;

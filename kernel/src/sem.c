@@ -1,6 +1,7 @@
 #include<my_os.h>
 void sem_init(sem_t *sem, const char *name, int value){
   sem->value = value;
+  sem->name = name;
   kmt->spin_init(&sem->lk, name);
   //kmt->spin_init(&sem->lk2, name);
   sem->end = sem->start = 0;
@@ -8,6 +9,7 @@ void sem_init(sem_t *sem, const char *name, int value){
 }
 void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
+  printf("name: %s\n",sem->name);
   printf("wait: %s\n",current->name);
   printf("value: %d\n\n",sem->value);
   sem->value--;
