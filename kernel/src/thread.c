@@ -9,7 +9,8 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //cpu个数一开始就不是0
   //预防多处理器
   kmt->spin_lock(create_lk);
-  //int i = ntask++ %_ncpu();
+  task->id = ntask;
+  int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
   add_tail(task);
   //printf("%d\n",_intr_read());
@@ -54,6 +55,7 @@ void del_head(){
 _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
+  printf("current:%d**)\n",(int)current);
   if(current) {
     current->context = *context;
     add_tail(current);
