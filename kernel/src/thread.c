@@ -15,7 +15,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->sleep_flg = 0;
   task->fence = FENCE;
   int i = ntask++ %_ncpu();
-  printf("%d^^\n",i);
+  //printf("%d^^\n",i);
   kmt->spin_unlock(create_lk);
 
   add_head(task,i);
@@ -71,6 +71,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
   //if(current==NULL)
   printf("**cur: %s\n",current->name);
+  printf("%d\n",(int)current);
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
