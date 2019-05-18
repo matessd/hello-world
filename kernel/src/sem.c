@@ -16,7 +16,7 @@ void sem_wait(sem_t *sem){
     _yield();
     kmt->spin_lock(&sem->lk);
   }
-  kme->spin_unlock(&sem->lk);
+  kmt->spin_unlock(&sem->lk);
   return;
 }
 void sem_signal(sem_t *sem){
@@ -30,7 +30,7 @@ void sem_signal(sem_t *sem){
     sem->queue[sem->start] = NULL;
     sem->start = (sem->start + 1) % NPROC;
   }
-  spin_unlock(&sem->lk);
+  kmt->spin_unlock(&sem->lk);
   if(wake_flg) _yield();
   return;
 }
