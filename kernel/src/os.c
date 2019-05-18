@@ -1,6 +1,10 @@
 #include <my_os.h>
 #include <my_test.h>
-
+void idle(){
+  while(1){
+    _yield();
+  }
+}
 static void os_init() {
   pmm->init();
   kmt->init();
