@@ -22,8 +22,8 @@ void sem_wait(sem_t *sem){
     kmt->spin_unlock(&sem->lk);
     _yield();
     //kmt->spin_lock(&sem->lk);
-  }
-  //kmt->spin_unlock(&sem->lk);
+  }else 
+    kmt->spin_unlock(&sem->lk);
   return;
 }
 void sem_signal(sem_t *sem){
@@ -45,6 +45,5 @@ void sem_signal(sem_t *sem){
     sem->start = (sem->start + 1) % NPROC;
   }
   kmt->spin_unlock(&sem->lk);
-  //if(yield_flg) _yield();
   return;
 }
