@@ -72,7 +72,6 @@ void del_head(){
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
-  assert()
   //kmt->spin_unlock(task_lk);
   //return tmp_head;
 }
