@@ -71,6 +71,7 @@ void del_head(){
 _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
   //if(current==NULL)
+  printf("cpu: %d\n",_cpu());
   printf("**cur: %s\n",current->name);
   //printf("1\n");
   if(current) {
