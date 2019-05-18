@@ -1,5 +1,6 @@
 #include<my_os.h>
-volatile int ntask;
+volatile int Ntask;
+volatile int ntask[8];
 spinlock_t Task_lk;
 spinlock_t *task_lk = &Task_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
@@ -14,11 +15,13 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  int cnt = ntask%_ncpu();
+  int cnt = Ntask%_ncpu();
   //printf("%d**\n",ntask);
-  task->id = ntask++;
+  task->id = Ntask++;
   //如果多处理器好了这样会不会有问题？
-  add_head(task,cnt);
+  //add_head(task,cnt);
+  //current = task;
+  ntask[_cpu()]++;
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
@@ -31,7 +34,7 @@ void teardown(task_t *task){
   return;
 }
 
-void add_tail(task_t *task){
+/*void add_tail(task_t *task){
   //kmt->spin_lock(task_lk);
   task_t *cur = task_head;
   if(task_head==NULL){
@@ -74,7 +77,7 @@ void del_head(){
   task_head = nxt;
   //kmt->spin_unlock(task_lk);
   //return tmp_head;
-}
+}*/
 
 _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
@@ -90,11 +93,11 @@ _Context *kmt_context_save(_Event ev, _Context *context){
         }
         assert(tmp!=current);*/
     //在sem睡眠队列中
-    if(current->sleep_flg==0){
+    /*)if(current->sleep_flg==0){
       //kmt->spin_lock(task_lk);
       add_tail(current);
       //kmt->spin_unlock(task_lk);
-    }
+    }*/
   }
   return NULL;
 }
@@ -104,9 +107,14 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
   //printf("current: %s\n",task_head->name);
 
   //kmt->spin_lock(task_lk);
-  current = task_head;
-  assert(task_head!=NULL);
-  del_head(); 
+  for(int i=Curr[_cpu()]; ;i=(i+1)%ntask){
+    if(tasks[_cpu()][i]->sleep_flg==0){
+      Curr[_cpu()] = i;
+    }
+  }
+  //current = task_head;
+  //assert(task_head!=NULL);
+  //del_head(); 
   //kmt->spin_unlock(task_lk);
 
   return &current->context;

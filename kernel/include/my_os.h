@@ -53,14 +53,18 @@ extern volatile int n_handler;
 //thread.c
 extern spinlock_t *task_lk;
 void idle();
-extern volatile int ntask;
-void add_tail(task_t *task);//for save
-void add_head(task_t *task, int cnt);//for sem and create
-void del_head();//for switch
-task_t *Task_head[8];
+extern volatile int Ntask;
+extern volatile int ntask[8];
+//void add_tail(task_t *task);//for save
+//void add_head(task_t *task, int cnt);//for sem and create
+//void del_head();//for switch
+//task_t *Task_head[8];
+#define MAX_TA 20
+task_t *tasks[8][MAX_TA];
+int Curr[8];
 task_t *Current_task[8];
 #define current (Current_task[_cpu()])
-#define task_head (Task_head[_cpu()]) 
+//#define task_head (Task_head[_cpu()]) 
 _Context *kmt_context_save(_Event ev, _Context *context);
 _Context *kmt_context_switch(_Event ev, _Context *context);
 
