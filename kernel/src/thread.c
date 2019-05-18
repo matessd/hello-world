@@ -33,6 +33,7 @@ void add_tail(task_t *task){
     return;
   }
   while(cur->nxt){
+    printf("%s\n",cur->nxt->name);
     cur = cur->nxt;
   }
   cur->nxt = task;
