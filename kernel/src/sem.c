@@ -37,7 +37,7 @@ void sem_signal(sem_t *sem){
   if (sem->value <= 0) {
     sem->queue[sem->start]->sleep_flg = 0;
 
-    printf("%s\n",sem->queue[sem->start]->name);
+    printf("sem: %s\n",sem->queue[sem->start]->name);
     //kmt->spin_lock(task_lk);
     add_head(sem->queue[sem->start], _cpu());
     //kmt->spin_unlock(task_lk);
