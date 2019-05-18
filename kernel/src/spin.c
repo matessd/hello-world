@@ -22,7 +22,7 @@ void spin_lock(spinlock_t *lk){
   pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk)){
     //dpanic("acquire");
-    printf("acquire: %s %d\n",lk->name,_cpu());
+    printf("acquire: %s %d\n",lk->name,lk->cpu);
     _halt(1);
   }
 
