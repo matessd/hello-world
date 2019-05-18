@@ -21,9 +21,9 @@ void sem_wait(sem_t *sem){
     //先解锁？
     kmt->spin_unlock(&sem->lk);
     _yield();
-    //kmt->spin_lock(&sem->lk);
+    kmt->spin_lock(&sem->lk);
   }
-  //kmt->spin_unlock(&sem->lk);
+  kmt->spin_unlock(&sem->lk);
   return;
 }
 void sem_signal(sem_t *sem){
