@@ -13,7 +13,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->id = ntask;
   task->nxt = NULL;
   task->sleep_flg = 0;
-  task->fence = 0xcccccccc;
+  task->fence = FENCE;
   int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
 
@@ -71,6 +71,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //if(current==NULL)
   //printf("%d\n",_cpu());
   if(current) {
+    assert(current->fence == FENCE);
     current->context = *context;
       /*task_t *tmp = task_head;
         while(tmp->nxt!=NULL){
