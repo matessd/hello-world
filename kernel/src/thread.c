@@ -108,11 +108,12 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
 
   //kmt->spin_lock(task_lk);
   for(int i=Curr[_cpu()]; ;i=(i+1)%ntask[_cpu()]){
+    printf("%d\n",i);
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
       break;
     }
-    printf("1\n");
+    //printf("1\n");
   }
   //current = task_head;
   //assert(task_head!=NULL);
