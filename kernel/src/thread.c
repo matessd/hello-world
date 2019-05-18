@@ -56,7 +56,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
   //if(current==NULL)
-    //printf("current: \n");
+    printf("%d\n",_cpu());
   if(current) {
     current->context = *context;
     add_tail(current);
