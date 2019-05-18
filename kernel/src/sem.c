@@ -9,6 +9,7 @@ void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
   sem->value--;
   if (sem->value < 0) {
+    current->sleep_flg = 1;
     sem->queue[sem->end] = current;
     sem->end = (sem->end + 1) % NPROC;
     //先解锁？
@@ -22,15 +23,16 @@ void sem_wait(sem_t *sem){
 void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
   sem->value++;
-  int wake_flg = 0;
+  int yield_flg = 0;
   if (sem->value <= 0) {
-    wake_flg = 1;
+    sem->queue[sem->start]->sleep_flg = 0;
+    yield_flg = 1;
     add_head(sem->queue[sem->start], _cpu());
     //wakeup(s->queue[s->start]);
     sem->queue[sem->start] = NULL;
     sem->start = (sem->start + 1) % NPROC;
   }
   kmt->spin_unlock(&sem->lk);
-  if(wake_flg) _yield();
+  if(yield_flg) _yield();
   return;
 }

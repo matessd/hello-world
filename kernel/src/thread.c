@@ -11,6 +11,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   kmt->spin_lock(create_lk);
   task->id = ntask;
   task->nxt = NULL;
+  task->sleep_flg = 0;
   int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
   add_head(task,i);
@@ -34,7 +35,7 @@ void add_tail(task_t *task){
     return;
   }
   while(cur->nxt){
-    printf("%s\n",cur->nxt->name);
+    //printf("%s\n",cur->nxt->name);
     assert(cur!=cur->nxt);
     cur = cur->nxt;
   }
@@ -68,13 +69,16 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   printf("%d\n",_cpu());
   if(current) {
     current->context = *context;
-    /*task_t *tmp = task_head;
-    while(tmp->nxt!=NULL){
-      assert(tmp!=current);
-      assert(tmp!=tmp->nxt);
+      /*task_t *tmp = task_head;
+        while(tmp->nxt!=NULL){
+        assert(tmp!=current);
+        assert(tmp!=tmp->nxt);
+        }
+        assert(tmp!=current);*/
+    //在sem睡眠队列中的就不保存了
+    if(current->sleep_flg==0){
+      add_tail(current);
     }
-    assert(tmp!=current);*/
-    add_tail(current);
   }
   printf("%d&&&&\n",_cpu());
   return NULL;
