@@ -5,7 +5,7 @@
 #include <nanos.h>
 
 //my
-#define STK_SZ 4096
+#define STK_SZ 4096*100
 struct task {
   _Context context;
   int32_t id, sleep_flg;
