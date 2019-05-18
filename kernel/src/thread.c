@@ -81,7 +81,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   printf("**cur: %s\n",current->name);
   printf("cpu: %d\n",_cpu());
   if(current) {
-    assert(current->fence == FENCE);
+    //assert(current->fence == FENCE);
     current->context = *context;
       /*task_t *tmp = task_head;
         assert(tmp!=current);
