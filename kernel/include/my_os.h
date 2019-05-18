@@ -54,8 +54,8 @@ extern volatile int n_handler;
 extern spinlock_t *task_lk;
 void idle();
 extern volatile int ntask;
-void add_tail(task_t *task);//for create and save
-void add_head(task_t *task);//for sem
+void add_tail(task_t *task);//for save
+void add_head(task_t *task, int cnt);//for sem and create
 void del_head();//for switch
 task_t *Task_head[8];
 task_t *Current_task[8];

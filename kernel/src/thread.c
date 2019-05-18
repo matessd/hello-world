@@ -67,7 +67,7 @@ void add_head(task_t *task){
 
 void del_head(){
   //kmt->spin_lock(task_lk);
-  task_t *tmp_head = task_head;
+  //task_t *tmp_head = task_head;
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
