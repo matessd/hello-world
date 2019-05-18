@@ -1,11 +1,16 @@
 #include<my_os.h>
-int ntask = 0;
+volatile int ntask = 0;
+spinlock_t Create_lk;
+spinlock_t *create_lk = &Create_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
   //默认在中断打开前create
   _kcontext((_Area){task,task+1}, entry, arg);
   task->name = name;
   //cpu个数一开始就不是0
+  //预防多处理器
+  kmt->spin_lock(create->lk);
   int i = ntask++ %_ncpu();
+  kmt->spin_unlock(create->lk);
   add_head(task, i);
   if(_intr_read()){
     _yield();

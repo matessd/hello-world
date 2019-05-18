@@ -38,6 +38,7 @@ typedef struct Cli_state{
 extern cli_sta cpu_cli[8];//要加volatile吗?
 
 //extern spinlock_t *os_lk;
+extern spinlock_t *create_lk;
 
 //trap,irq
 typedef struct{

@@ -4,11 +4,8 @@ static uintptr_t pm_start, pm_end;
 //my
 #define MIN_LEN 20
 #define INIT_VALUE 0xcccccccc
-/*LOCKDEF(alloc)
-spinlock_t Os_lk;
-spinlock_t *os_lk;
 
-typedef struct Node{
+/*typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
 }alloc_node,*palloc_node;
@@ -33,6 +30,7 @@ static void pmm_init() {
     cpu_cli[i].ncli = 0;
   //kmt->spin_init(os_lk, "os_lk");
   kmt->spin_init(alloc_lk, "alloc_lk");
+  kmt->spin_init(create_lk, "create_lk");
 }
 
 static void *kalloc(size_t size) {
