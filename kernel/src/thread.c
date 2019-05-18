@@ -9,23 +9,19 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //cpu个数一开始就不是0
   //预防多处理器
 
-  task->id = ntask;
+  //task->id = ntask;
   task->nxt = NULL;
   task->sleep_flg = 0;
   task->fence = FENCE;
   //int i = ntask++ %_ncpu();
-  //task->cpu = i;
-  //printf("%d^^\n",i);
-  //kmt->spin_unlock(create_lk);
 
   kmt->spin_lock(task_lk);
   //assert(task!=Task_head[i]);
   task->id = ntask++;
   add_head(task);
   kmt->spin_unlock(task_lk);
-  //printf("%d\n",_intr_read());
+
   if(_intr_read()){
-    //assert(0);
     _yield();
   }
   return 0;
