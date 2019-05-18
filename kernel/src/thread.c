@@ -23,6 +23,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //current = task;
   //ntask[cnt]++;
   tasks[cnt][ntask[cnt]++] = task;
+  assert(tasks[0][0])!=NULL;
   //printf("%d %d\n",cnt,ntask[cnt]);
   kmt->spin_unlock(task_lk);
 
