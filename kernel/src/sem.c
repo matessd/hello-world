@@ -12,7 +12,7 @@ void sem_wait(sem_t *sem){
   //printf("value: %d\n\n",sem->value);
   sem->value--;
   if (sem->value < 0) {
-    //assert(task_head!=NULL);
+    assert(task_head!=NULL);
     current->sleep_flg = 1;
     sem->queue[sem->end] = current;
     sem->end = (sem->end + 1) % NPROC;
@@ -26,9 +26,11 @@ void sem_wait(sem_t *sem){
 }
 void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
-  //printf("sig: %s\n",current->name);
-  //printf("value: %d\n\n",sem->value);
+  printf("sig: %s\n",current->name);
+  printf("value: %d\n\n",sem->value);
+  int tmp = sem->value;
   sem->value++;
+  assert(sem->value>tmp);
   //int yield_flg = 0;
   //assert(sem->value>=0);
   if (sem->value <= 0) {
