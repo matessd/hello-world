@@ -70,6 +70,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
     task_t *tmp = task_head;
     while(tmp->nxt!=NULL){
       assert(tmp!=current);
+      assert(tmp!=tmp->nxt);
     }
     assert(tmp!=current);
     add_tail(current);
