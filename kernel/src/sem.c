@@ -29,18 +29,18 @@ void sem_signal(sem_t *sem){
   //printf("sig: %s\n",current->name);
   //printf("value: %d\n\n",sem->value);
   sem->value++;
-  int yield_flg = 0;
+  //int yield_flg = 0;
   //assert(sem->value>=0);
   if (sem->value <= 0) {
     sem->queue[sem->start]->sleep_flg = 0;
-    yield_flg = 1;
+    //yield_flg = 1;
     add_head(sem->queue[sem->start], _cpu());
     //wakeup(s->queue[s->start]);
     sem->queue[sem->start] = NULL;
     sem->start = (sem->start + 1) % NPROC;
   }
   kmt->spin_unlock(&sem->lk);
-  if(yield_flg) _yield();
+  //if(yield_flg) _yield();
   //kmt->spin_unlock(&sem->lk);
   return;
 }
