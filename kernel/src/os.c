@@ -37,7 +37,7 @@ irq_handler handlers[10];//中断处理程序
 volatile int n_handler = 0;
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  //printf("%d\n",(int)ev.event);
+  printf("%d\n",(int)ev.event);
   //assert(ev.event!=_EVENT_NULL);  
   _Context *ret = NULL;
   for(int i=0; i<n_handler; i++) {
