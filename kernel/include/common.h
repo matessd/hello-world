@@ -8,7 +8,7 @@
 #define STK_SZ 4096
 struct task {
   _Context context;
-  int32_t id, sleep_flg, cpu;
+  int32_t id, sleep_flg;
   const char *name;
   struct task *nxt;
   uint32_t fence;
