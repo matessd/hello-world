@@ -34,7 +34,7 @@ void add_tail(task_t *task){
     return;
   }
   while(cur->nxt){
-    //printf("%s\n",cur->nxt->name);
+    printf("%s\n",cur->nxt->name);
     assert(cur!=cur->nxt);
     cur = cur->nxt;
   }
@@ -68,12 +68,12 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   printf("%d\n",_cpu());
   if(current) {
     current->context = *context;
-    task_t *tmp = task_head;
+    /*task_t *tmp = task_head;
     while(tmp->nxt!=NULL){
       assert(tmp!=current);
       assert(tmp!=tmp->nxt);
     }
-    assert(tmp!=current);
+    assert(tmp!=current);*/
     add_tail(current);
   }
   printf("%d&&&&\n",_cpu());
