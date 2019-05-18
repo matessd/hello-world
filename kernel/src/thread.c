@@ -19,7 +19,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //kmt->spin_unlock(create_lk);
 
   kmt->spin_lock(task_lk);
-  assert(task!=Task_head[i]);
+  //assert(task!=Task_head[i]);
   task->id = ntask++;
   add_head(task);
   kmt->spin_unlock(task_lk);
