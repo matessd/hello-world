@@ -21,7 +21,7 @@ struct spinlock{
   intptr_t locked, cpu;
 };
 //NPROC定多大比较好？
-#define NPROC 100
+#define NPROC 1024
 struct semaphore {  
   volatile int value;
   spinlock_t lk;
