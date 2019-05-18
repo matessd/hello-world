@@ -65,8 +65,8 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
-  //assert(task_head!=NULL);
-  printf("current: %s\n",task_head->name);
+  assert(task_head!=NULL);
+  //printf("current: %s\n",task_head->name);
   if(task_head==NULL) return context;
   current = task_head;
   del_head(); 
