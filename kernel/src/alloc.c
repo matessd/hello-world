@@ -30,7 +30,7 @@ static void pmm_init() {
     cpu_cli[i].ncli = 0;
   //kmt->spin_init(os_lk, "os_lk");
   kmt->spin_init(alloc_lk, "alloc_lk");
-  kmt->spin_init(create_lk, "create_lk");
+  kmt->spin_init(task_lk, "task_lk");
 }
 
 static void *kalloc(size_t size) {
