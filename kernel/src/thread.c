@@ -52,6 +52,7 @@ void add_head(task_t *task, int i){
   task_t *cur = Task_head[i];
   assert(cur!=task);
   if(cur==NULL){
+    printf("")
     Task_head[i] = task;
     task->nxt = NULL;
     return;
@@ -76,6 +77,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
+      printf("%s\n",current->name);
       /*task_t *tmp = task_head;
         while(tmp->nxt!=NULL){
         assert(tmp!=current);
@@ -84,7 +86,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
         assert(tmp!=current);*/
     //在sem睡眠队列中
     if(current->sleep_flg==0){
-      printf("%s\n",current->name);
+      //printf("%s\n",current->name);
       add_tail(current);
     }
   }
