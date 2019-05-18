@@ -52,7 +52,7 @@ void add_head(task_t *task, int i){
   task_t *cur = Task_head[i];
   assert(cur!=task);
   if(cur==NULL){
-    printf("")
+    //printf("")
     Task_head[i] = task;
     task->nxt = NULL;
     return;
