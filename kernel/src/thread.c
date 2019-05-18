@@ -26,7 +26,7 @@ void teardown(task_t *task){
 
 void add_tail(task_t *task){
   task_t *cur = task_head;
-  if(cur==NULL){
+  if(task_head==NULL){
     task_head = task;
     task->nxt = NULL;
     return;
@@ -35,6 +35,7 @@ void add_tail(task_t *task){
     cur = cur->nxt;
   }
   cur->nxt = task;
+  task->nxt = NULL;
 }
 
 void add_head(task_t *task, int i){
