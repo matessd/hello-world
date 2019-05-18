@@ -8,7 +8,7 @@ void sem_init(sem_t *sem, const char *name, int value){
 }
 void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
-  printf("current: %s\n",current->name);
+  printf("wait: %s\n",current->name);
   printf("value: %d\n",sem->value);
   sem->value--;
   if (sem->value < 0) {
@@ -26,7 +26,7 @@ void sem_wait(sem_t *sem){
 }
 void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
-  printf("current: %s\n",current->name);
+  printf("sig: %s\n",current->name);
   printf("value: %d\n",sem->value);
   sem->value++;
   //int yield_flg = 0;
