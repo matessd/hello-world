@@ -35,6 +35,7 @@ void add_tail(task_t *task){
   }
   while(cur->nxt){
     //printf("%s\n",cur->nxt->name);
+    assert(cur!=cur->nxt);
     cur = cur->nxt;
   }
   cur->nxt = task;
