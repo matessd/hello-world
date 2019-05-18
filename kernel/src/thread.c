@@ -55,7 +55,8 @@ void del_head(){
 _Context *kmt_context_save(_Event ev, _Context *context){
   //Can current be NULL?
   //assert(current!=NULL);
-  printf("current:%d**)\n",(int)current);
+  if(current)
+    printf("current: %s\n",current->id);
   if(current) {
     current->context = *context;
     add_tail(current);
