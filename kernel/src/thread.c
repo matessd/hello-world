@@ -71,7 +71,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
   //if(current==NULL)
   printf("**cur: %s\n",current->name);
-  printf("%d\n",(int)current);
+  printf("1\n");
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
@@ -92,6 +92,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   assert(task_head!=NULL);
+  printf("2\n");
   //printf("current: %s\n",task_head->name);
   //if(task_head==NULL) return context;
   current = task_head;
