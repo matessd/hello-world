@@ -61,6 +61,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
     current->context = *context;
     add_tail(current);
   }
+    printf("%d&&&&\n",_cpu());
   return NULL;
 }
 
