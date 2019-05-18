@@ -13,7 +13,7 @@ void popcli(void);
 void spin_init(spinlock_t *lk, const char *name){  
   lk->name = name;
   lk->locked = 0;
-  lk->cpu = 0;
+  lk->cpu = -1;
 }
 
 void spin_lock(spinlock_t *lk){
@@ -43,7 +43,7 @@ void spin_unlock(spinlock_t *lk){
   //printf("unlock: %s %d\n",lk->name,_cpu());
   if(!holding(lk))
     dpanic("release");
-  lk->cpu = 0;
+  lk->cpu = -1;
 
   // Tell the C compiler and the processor to not move loads or stores
   // past this point, to ensure that all the stores in the critical
