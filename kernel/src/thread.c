@@ -21,7 +21,8 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //如果多处理器好了这样会不会有问题？
   //add_head(task,cnt);
   //current = task;
-  ntask[cnt]++;
+  //ntask[cnt]++;
+  tasks[cnt][ntask[cnt]++] = task;
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
@@ -108,7 +109,8 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
 
   //kmt->spin_lock(task_lk);
   for(int i=Curr[_cpu()]; ;i=(i+1)%ntask[_cpu()]){
-    printf("%d\n",i);
+    //printf("%d\n",i);
+    assert(tasks[_cpu()][i]!=NULL);
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
       break;
