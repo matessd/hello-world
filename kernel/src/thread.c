@@ -8,9 +8,9 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->name = name;
   //cpu个数一开始就不是0
   //预防多处理器
-  kmt->spin_lock(create->lk);
+  kmt->spin_lock(create_lk);
   int i = ntask++ %_ncpu();
-  kmt->spin_unlock(create->lk);
+  kmt->spin_unlock(create_lk);
   add_head(task, i);
   if(_intr_read()){
     _yield();
