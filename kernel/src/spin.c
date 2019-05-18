@@ -17,7 +17,7 @@ void spin_init(spinlock_t *lk, const char *name){
 }
 
 void spin_lock(spinlock_t *lk){
-  //printf("lock: %s\n",lk->name);
+  printf("lock: %s\n",lk->name);
   pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk)){
     //dpanic("acquire");
