@@ -13,7 +13,7 @@ void popcli(void);
 void spin_init(spinlock_t *lk, const char *name){  
   lk->name = name;
   lk->locked = 0;
-  lk->cpu = 0;
+  lk->cpu = -1;
 }
 
 void spin_lock(spinlock_t *lk){
@@ -23,7 +23,7 @@ void spin_lock(spinlock_t *lk){
   if(holding(lk)){
     //dpanic("acquire");
     printf("acquire: %s %d\n",lk->name,lk->cpu);
-    //_halt(1);
+    _halt(1);
   }
 
   // The xchg is atomic.
