@@ -1,7 +1,7 @@
 #include<my_os.h>
 volatile int ntask = 0;
-spinlock_t Create_lk;
-spinlock_t *create_lk = &Create_lk;
+spinlock_t Task_lk;
+spinlock_t *task_lk = &Task_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
   //默认在中断打开前create
   _kcontext((_Area){task,task+1}, entry, arg);
@@ -9,19 +9,20 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //cpu个数一开始就不是0
   //预防多处理器
 
-  kmt->spin_lock(create_lk);
   task->id = ntask;
   task->nxt = NULL;
   task->sleep_flg = 0;
   task->fence = FENCE;
-  int i = ntask++ %_ncpu();
+  //int i = ntask++ %_ncpu();
   //task->cpu = i;
   //printf("%d^^\n",i);
   //kmt->spin_unlock(create_lk);
 
+  kmt->spin_lock(task_lk);
   assert(task!=Task_head[i]);
-  add_head(task,i);
-  kmt->spin_unlock(create_lk);
+  task->id = ntask++;
+  add_head(task);
+  kmt->spin_unlock(task_lk);
   //printf("%d\n",_intr_read());
   if(_intr_read()){
     //assert(0);
@@ -35,6 +36,7 @@ void teardown(task_t *task){
 }
 
 void add_tail(task_t *task){
+  kmt->spin_lock(task_lk);
   task_t *cur = task_head;
   if(task_head==NULL){
     task_head = task;
@@ -48,27 +50,34 @@ void add_tail(task_t *task){
   }
   cur->nxt = task;
   task->nxt = NULL;
+  kmt->spin_unlock(task_lk);
 }
 
-void add_head(task_t *task, int i){
-  //printf("%s\n",task->name);
-  task_t *cur = Task_head[i];
+void add_head(task_t *task){
+  //printf("%s\n",task->name); 
+  kmt->spin_lock(task_lk); 
+  task_t *cur = task_head;
   assert(cur!=task);
   if(cur==NULL){
     //printf("")
-    Task_head[i] = task;
+    task_head = task;
     task->nxt = NULL;
     return;
   }
   //task_t *tmp_head = Task_head
-  Task_head[i] = task;
+  task_head = task;
   task->nxt = cur;
+  kmt->spin_unlock(task_lk);
 }
 
-void del_head(){
+task_t *del_head(){
+  kmt->spin_lock(task_lk);
+  task_t *tmp_head = task_head;
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
+  kmt->spin_unlock(task_lk);
+  return tmp_head;
 }
 
 _Context *kmt_context_save(_Event ev, _Context *context){
@@ -102,7 +111,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
   //printf("2\n");
   //printf("current: %s\n",task_head->name);
   //if(task_head==NULL) return context;
-  current = task_head;
-  del_head(); 
-  return &current->context;
+  //current = task_head;
+  //del_head(); 
+  return &del_head()->context;
 }
