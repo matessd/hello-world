@@ -62,7 +62,7 @@ extern volatile int ntask[8];
 #define MAX_TA 20
 task_t *tasks[8][MAX_TA];
 int Curr[8];
-#define current (tasks[_cpu()][Curr[_cpu()]])
+#define current tasks[_cpu()][Curr[_cpu()]]
 //task_t *Current_task[8];
 //#define current (Current_task[_cpu()])
 //#define task_head (Task_head[_cpu()]) 
