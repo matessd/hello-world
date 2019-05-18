@@ -4,7 +4,7 @@ spinlock_t Create_lk;
 spinlock_t *create_lk = &Create_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
   //默认在中断打开前create
-  _kcontext((_Area){task->stack,task+1}, entry, arg);
+  _kcontext((_Area){task,task+1}, entry, arg);
   task->name = name;
   //cpu个数一开始就不是0
   //预防多处理器
