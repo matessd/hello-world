@@ -37,7 +37,7 @@ void sem_signal(sem_t *sem){
 
     //printf("sem: %s\n",sem->queue[sem->start]->name);
     //kmt->spin_lock(task_lk);
-    add_tail(sem->queue[sem->start]);
+    //add_tail(sem->queue[sem->start]);
     //kmt->spin_unlock(task_lk);
 
     sem->queue[sem->start] = NULL;
