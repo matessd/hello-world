@@ -28,6 +28,7 @@ void sem_wait(sem_t *sem){
 }
 void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
+  printf("name: %s\n",sem->name);
   printf("sig: %s\n",current->name);
   printf("value: %d\n\n",sem->value);
   int tmp = sem->value;
