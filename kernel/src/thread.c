@@ -11,7 +11,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   kmt->spin_lock(create_lk);
   int i = ntask++ %_ncpu();
   kmt->spin_unlock(create_lk);
-  add_head(task, i);
+  add_tail(task);
   //printf("%d\n",_intr_read());
   if(_intr_read()){
     _yield();
