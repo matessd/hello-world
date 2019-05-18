@@ -31,15 +31,13 @@ void sem_signal(sem_t *sem){
   //printf("name: %s\n",sem->name);
   //printf("sig: %s\n",current->name);
   //printf("value: %d\n\n",sem->value);
-  int tmp = sem->value;
   sem->value++;
-  assert(sem->value>tmp);
   if (sem->value <= 0) {
     sem->queue[sem->start]->sleep_flg = 0;
 
     //printf("sem: %s\n",sem->queue[sem->start]->name);
     //kmt->spin_lock(task_lk);
-    add_head(sem->queue[sem->start], _cpu());
+    add_tail(sem->queue[sem->start]);
     //kmt->spin_unlock(task_lk);
 
     sem->queue[sem->start] = NULL;
