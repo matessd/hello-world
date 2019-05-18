@@ -8,8 +8,8 @@ void sem_init(sem_t *sem, const char *name, int value){
 }
 void sem_wait(sem_t *sem){
   kmt->spin_lock(&sem->lk);
-  //printf("wait: %s\n",current->name);
-  //printf("value: %d\n\n",sem->value);
+  printf("wait: %s\n",current->name);
+  printf("value: %d\n\n",sem->value);
   sem->value--;
   if (sem->value < 0) {
     assert(task_head!=NULL);
@@ -26,8 +26,8 @@ void sem_wait(sem_t *sem){
 }
 void sem_signal(sem_t *sem){
   kmt->spin_lock(&sem->lk);
-  //printf("sig: %s\n",current->name);
-  //printf("value: %d\n\n",sem->value);
+  printf("sig: %s\n",current->name);
+  printf("value: %d\n\n",sem->value);
   sem->value++;
   //int yield_flg = 0;
   assert(sem->value>=0);
