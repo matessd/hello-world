@@ -7,18 +7,17 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   _kcontext((_Area){task,task+1}, entry, arg);
   task->name = name;
   //cpu个数一开始就不是0
-  //预防多处理器
 
   //task->id = ntask;
   task->nxt = NULL;
   task->sleep_flg = 0;
   task->fence = FENCE;
-  //int i = ntask++ %_ncpu();
 
   kmt->spin_lock(task_lk);
+  int cnt = ntask++ %_ncpu();
   //assert(task!=Task_head[i]);
   task->id = ntask++;
-  add_head(task);
+  add_head(task,cnt);
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
@@ -66,22 +65,20 @@ void add_head(task_t *task){
   //kmt->spin_unlock(task_lk);
 }
 
-task_t *del_head(){
+void del_head(){
   //kmt->spin_lock(task_lk);
   task_t *tmp_head = task_head;
   task_t *nxt = task_head->nxt;
   task_head->nxt = NULL;
   task_head = nxt;
   //kmt->spin_unlock(task_lk);
-  return tmp_head;
+  //return tmp_head;
 }
 
 _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
-  //if(current==NULL)
   printf("**cur: %s\n",current->name);
   printf("cpu: %d\n",_cpu());
-  //printf("1\n");
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
@@ -92,9 +89,9 @@ _Context *kmt_context_save(_Event ev, _Context *context){
         assert(tmp!=current);*/
     //在sem睡眠队列中
     if(current->sleep_flg==0){
-      kmt->spin_lock(task_lk);
+      //kmt->spin_lock(task_lk);
       add_tail(current);
-      kmt->spin_unlock(task_lk);
+      //kmt->spin_unlock(task_lk);
     }
   }
   return NULL;
@@ -104,11 +101,11 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
   //assert(task_head!=NULL);
   printf("current: %s\n",task_head->name);
 
-  kmt->spin_lock(task_lk);
+  //kmt->spin_lock(task_lk);
   current = task_head;
   assert(task_head!=NULL);
   del_head(); 
-  kmt->spin_unlock(task_lk);
+  //kmt->spin_unlock(task_lk);
 
   return &current->context;
 }

@@ -37,9 +37,9 @@ void sem_signal(sem_t *sem){
   if (sem->value <= 0) {
     sem->queue[sem->start]->sleep_flg = 0;
 
-    kmt->spin_lock(task_lk);
-    add_head(sem->queue[sem->start]);
-    kmt->spin_unlock(task_lk);
+    //kmt->spin_lock(task_lk);
+    add_head(sem->queue[sem->start], _cpu());
+    //kmt->spin_unlock(task_lk);
 
     sem->queue[sem->start] = NULL;
     sem->start = (sem->start + 1) % NPROC;

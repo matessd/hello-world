@@ -40,7 +40,7 @@ typedef struct Cli_state{
 extern cli_sta cpu_cli[8];//要加volatile吗?
 
 //extern spinlock_t *os_lk;
-extern spinlock_t *create_lk;
+//extern spinlock_t *create_lk;
 
 //trap,irq
 typedef struct{
@@ -56,11 +56,11 @@ void idle();
 extern volatile int ntask;
 void add_tail(task_t *task);//for create and save
 void add_head(task_t *task);//for sem
-task_t *del_head();//for switch
-task_t *task_head;
+void del_head();//for switch
+task_t *Task_head[8];
 task_t *Current_task[8];
 #define current (Current_task[_cpu()])
-//#define task_head (Task_head[_cpu()]) 
+#define task_head (Task_head[_cpu()]) 
 _Context *kmt_context_save(_Event ev, _Context *context);
 _Context *kmt_context_switch(_Event ev, _Context *context);
 
