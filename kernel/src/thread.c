@@ -23,7 +23,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //current = task;
   //ntask[cnt]++;
   tasks[cnt][ntask[cnt]++] = task;
-  printf("%d %d\n",cnt,ntask[cnt]);
+  //printf("%d %d\n",cnt,ntask[cnt]);
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
@@ -114,6 +114,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
     assert(tasks[_cpu()][i]!=NULL);
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
+      printf("%d\n", i);
       break;
     }
     //printf("1\n");
