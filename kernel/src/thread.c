@@ -69,15 +69,14 @@ void del_head(){
 }
 
 _Context *kmt_context_save(_Event ev, _Context *context){
-  //Can current be NULL?
   //assert(current!=NULL);
   //if(current==NULL)
   printf("**cur: %s\n",current->name);
-  printf("1\n");
+  //printf("1\n");
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
-      printf("%s\n",current->name);
+      //printf("%s\n",current->name);
       /*task_t *tmp = task_head;
         while(tmp->nxt!=NULL){
         assert(tmp!=current);
