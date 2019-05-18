@@ -2,6 +2,7 @@
 #include<am.h>
 #include<common.h>
 #include<klib.h>
+#include<devices.h>
 //#define MAX_CPU 8
 //in x86-qemu.h
 /*#define LOCKDEF(name) \
