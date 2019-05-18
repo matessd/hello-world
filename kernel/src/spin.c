@@ -13,7 +13,7 @@ void popcli(void);
 void spin_init(spinlock_t *lk, const char *name){  
   lk->name = name;
   lk->locked = 0;
-  lk->cpu = -1;
+  lk->cpu = 0;
 }
 
 void spin_lock(spinlock_t *lk){
@@ -23,7 +23,7 @@ void spin_lock(spinlock_t *lk){
   if(holding(lk)){
     //dpanic("acquire");
     printf("acquire: %s %d\n",lk->name,lk->cpu);
-    _halt(1);
+    //_halt(1);
   }
 
   // The xchg is atomic.
@@ -56,7 +56,6 @@ void spin_unlock(spinlock_t *lk){
   // Release the lock, equivalent to lk->locked = 0.
   // This code can't use a C assignment, since it might
   // not be atomic. A real OS would use C atomics here.
-  //asm volatile("movl $0, %0" : "+m" (lk->locked) : );
   //asm volatile("movl $0, %0" : "+m" (lk->locked) : );
   _atomic_xchg(&lk->locked, 0);
 
