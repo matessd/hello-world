@@ -23,7 +23,7 @@ struct spinlock{
 //NPROC定多大比较好？
 #define NPROC 100
 struct semaphore {  
-  int value;
+  volatile int value;
   spinlock_t lk;
   task_t *queue[NPROC];
   int end;
