@@ -5,6 +5,8 @@ void kmt_init(){
   os->on_irq(100, _EVENT_NULL, kmt_context_switch); // 总是最后调用
   for(int i=0; i<_ncpu(); i++)
     Task_head[i] = NULL;
+  for(int i=0; i<_ncpu(); i++)
+    kmt->create(pmm->alloc(sizeof(task_t)), "idle",idle, NULL);
   return;
 }
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg);
