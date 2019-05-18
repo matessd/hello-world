@@ -83,8 +83,8 @@ task_t *del_head(){
 _Context *kmt_context_save(_Event ev, _Context *context){
   //assert(current!=NULL);
   //if(current==NULL)
-  printf("cpu: %d\n",_cpu());
   printf("**cur: %s\n",current->name);
+  printf("cpu: %d\n",_cpu());
   //printf("1\n");
   if(current) {
     assert(current->fence == FENCE);
@@ -106,7 +106,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   //assert(task_head!=NULL);
-  //printf("current: %s\n",task_head->name);
+  printf("current: %s\n",task_head->name);
   kmt->spin_lock(task_lk);
   current = task_head;
   assert(task_head!=NULL);
