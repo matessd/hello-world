@@ -34,7 +34,7 @@ typedef struct Node{
 volatile palloc_t a_head;
 
 //spin.c
-typedef struct Cli_state{
+typedef struct{
   int ncli, intena;
 }cli_t;
 extern volatile cli_t cpu_cli[8];//要加volatile吗?
@@ -47,7 +47,7 @@ typedef struct{
   int seq;
   int ev;
   handler_t handler;
-}irq_handler;
+}irq_t;
 extern volatile int n_handler;
 
 //thread.c
