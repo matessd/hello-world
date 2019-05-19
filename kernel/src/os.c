@@ -24,7 +24,7 @@ static void hello() {
 }
 
 static void os_run() {
-  //hello();
+  hello();
   _intr_write(1);
   my_pmmtest();//my
   while (1) {
