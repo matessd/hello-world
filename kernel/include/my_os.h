@@ -59,7 +59,7 @@ void del_head();//for switch
 task_t *Task_head[8];*/
 #define MAX_TA 30
 extern volatile int Ntask;
-volatile int cpu_ntask[8]i;
+volatile int cpu_ntask[8];
 task_t *tasks[8][MAX_TA];
 int Curr[8];
 #define ntask cpu_ntask[_cpu()]
