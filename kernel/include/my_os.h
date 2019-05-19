@@ -36,8 +36,8 @@ volatile palloc_t a_head;
 //spin.c
 typedef struct Cli_state{
   int ncli, intena;
-}cli_sta;
-extern volatile cli_sta cpu_cli[8];//要加volatile吗?
+}cli_t;
+extern volatile cli_t cpu_cli[8];//要加volatile吗?
 
 //extern spinlock_t *os_lk;
 //extern spinlock_t *create_lk;
@@ -53,13 +53,13 @@ extern volatile int n_handler;
 //thread.c
 extern spinlock_t *task_lk;
 void idle();
+/*void add_tail(task_t *task);//for save
+void add_head(task_t *task, int cnt);//for sem and create
+void del_head();//for switch
+task_t *Task_head[8];*/
+#define MAX_TA 30
 extern volatile int Ntask;
-extern volatile int ntask[8];
-//void add_tail(task_t *task);//for save
-//void add_head(task_t *task, int cnt);//for sem and create
-//void del_head();//for switch
-//task_t *Task_head[8];
-#define MAX_TA 20
+volatile int cpu_ntask[8]
 task_t *tasks[8][MAX_TA];
 int Curr[8];
 #define current tasks[_cpu()][Curr[_cpu()]]

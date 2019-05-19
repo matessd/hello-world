@@ -1,10 +1,8 @@
 #include<my_os.h>
 volatile int Ntask;
-volatile int ntask[8];
 spinlock_t Task_lk;
 spinlock_t *task_lk = &Task_lk;
 int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-  //默认在中断打开前create
   _kcontext((_Area){task,task+1}, entry, arg);
   task->name = name;
   //cpu个数一开始就不是0
@@ -18,13 +16,11 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   int cnt = Ntask++%_ncpu();
   //printf("%d**\n",cnt);
   task->id = cnt;
-  //如果多处理器好了这样会不会有问题？
+  //如果多处理器准备好了这样会不会有问题？
   //add_head(task,cnt);
   //current = task;
   //ntask[cnt]++;
-  tasks[cnt][ntask[cnt]++] = task;
-  //assert(tasks[0][0]!=NULL);
-  //printf("%d %d\n",cnt,ntask[cnt]);
+  tasks[cnt][cpu_ntask[cnt]++] = task;
   kmt->spin_unlock(task_lk);
 
   if(_intr_read()){
@@ -90,11 +86,7 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
-      /*task_t *tmp = task_head;
-        assert(tmp!=current);
-        assert(tmp!=tmp->nxt);
-        }
-        assert(tmp!=current);*/
+
     //在sem睡眠队列中
     /*)if(current->sleep_flg==0){
       //kmt->spin_lock(task_lk);
@@ -113,8 +105,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
   int i=Curr[_cpu()];
   while(1){
     //printf("%d\n",i);
-    i=(i+1)%ntask[_cpu()];
-    assert(tasks[_cpu()][i]!=NULL);
+    i=(i+1)%ntask;
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
       //printf("%d\n", Curr[_cpu()]);

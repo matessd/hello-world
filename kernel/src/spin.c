@@ -3,10 +3,10 @@
   int ncli, intena;
 }cpu_cli[8];*/
 volatile cli_t cpu_cli[8];
-#define mycpu() &cpu_cli[_cpu()]
-//volatile cli_sta* mycpu(){
-  //return &cpu_cli[_cpu()];
-//}
+//#define mycpu() &cpu_cli[_cpu()]
+volatile cli_t* mycpu(){
+  return &cpu_cli[_cpu()];
+}
 int holding(spinlock_t *lk);
 void pushcli(void);
 void popcli(void);
