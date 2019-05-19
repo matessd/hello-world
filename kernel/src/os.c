@@ -7,12 +7,12 @@ void idle(){
 }
 static void os_init() {
   pmm->init();
-  //kmt->init();
-  //dev->init();
-  //kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
-  //kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
-  //kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
-  //kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
+  kmt->init();
+  dev->init();
+  kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
 }
 
 static void hello() {
@@ -37,14 +37,14 @@ irq_t handlers[10];//中断处理程序
 volatile int n_handler = 0;
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  /*_Context *ret = NULL;
+  _Context *ret = NULL;
   for(int i=0; i<n_handler; i++) {
     if (handlers[i].ev == _EVENT_NULL || handlers[i].ev == ev.event) {
       _Context *next = handlers[i].handler(ev, context);
       if (next) ret = next;
     }
-  }*/
-  return context;
+  }
+  return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
