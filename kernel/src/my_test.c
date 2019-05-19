@@ -1,10 +1,7 @@
 #include<my_os.h>
 char *ptr[8][100];
 void my_pmmtest(){
-  //srand(0);
-  //size_t size;
-  //test_lock();
-  int i = 0;
+  /*int i = 0;
   while(i<100){
     //test_lock();
     ptr[i] = pmm->alloc(1000);
@@ -15,14 +12,12 @@ void my_pmmtest(){
     sprintf(ptr[i], "hello%d\n",i);
     printf("%d\n",i);
     i++;
-    //test_unlock();
   }
   while(i>0){
     printf("%s\n",ptr[--i]);
     pmm->free(ptr[i]);
   }
-  assert(a_head->nxt==NULL);
-  //test_unlock();
+  assert(a_head->nxt==NULL);*/
 }
 
 void echo_task(void *name) {
