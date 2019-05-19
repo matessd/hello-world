@@ -29,9 +29,9 @@ typedef struct Node{
   struct Node* nxt, *prev;
   uintptr_t st,ed;//可分配区间
   uint32_t fence;
-}alloc_node,*palloc_node;
+}alloc_t,*palloc_t;
 #define FENCE 0xcccccccc
-volatile palloc_node a_head;
+volatile palloc_t a_head;
 
 //spin.c
 typedef struct Cli_state{

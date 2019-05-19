@@ -21,9 +21,9 @@ void spin_lock(spinlock_t *lk){
   //printf("lock: %s %d; cpu: %d\n",lk->name, lk->locked,lk->cpu);
   pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk)){
-    //dpanic("acquire");
-    printf("acquire: %s %d\n",lk->name,lk->cpu);
-    //_halt(1);
+    dpanic("acquire");
+    //printf("acquire: %s %d\n",lk->name,lk->cpu);
+    _halt(1);
   }
 
   // The xchg is atomic.
