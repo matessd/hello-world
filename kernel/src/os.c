@@ -65,7 +65,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
       cur++;
     else break;
   }
-  irq_handler hand = (irq_handler){seq,event,handler};
+  irq_t hand = (irq_t){seq,event,handler};
   if(cur==n_handler)
     handlers[cur] = hand;
   else{
