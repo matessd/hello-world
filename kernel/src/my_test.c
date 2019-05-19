@@ -18,7 +18,7 @@ void my_pmmtest(){
     pmm->free(ptr[i]);
   }
   assert(a_head->nxt==NULL);*/
-  char s[100];
+  //char s[100];
   int cnt = 0;
   while(1){
     char *ptr = pmm->alloc(100);
