@@ -1,8 +1,8 @@
 #include<my_os.h>
 
 void kmt_init(){
-  os->on_irq(-100, _EVENT_NULL, kmt_context_save); // 总是最先调用
-  os->on_irq(100, _EVENT_NULL, kmt_context_switch); // 总是最后调用
+  os->on_irq(0x80000000, _EVENT_NULL, kmt_context_save); // 总是最先调用
+  os->on_irq(0x7fffffff, _EVENT_NULL, kmt_context_switch); // 总是最后调用
   //for(int i=0; i<_ncpu(); i++)
     //Task_head[i] = NULL;
   for(int i=0; i<_ncpu(); i++)
