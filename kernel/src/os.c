@@ -9,10 +9,10 @@ static void os_init() {
   pmm->init();
   kmt->init();
   dev->init();
-  kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
+  /*kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
-  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");*/
 }
 
 static void hello() {
