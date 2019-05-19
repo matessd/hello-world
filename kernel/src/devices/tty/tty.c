@@ -169,9 +169,9 @@ int tty_init(device_t *dev) {
   tty->columns = fb->info->width / 8;
   tty->size = tty->columns * tty->lines;
   tty->buf = pmm->alloc(tty->size * sizeof(tty->buf[0]));
-  memset(tty->buf, 0, tty->size*sizeof(tty->buf[0]));//my
+  //memset(tty->buf, 0, tty->size*sizeof(tty->buf[0]));//my
   tty->dirty = pmm->alloc(tty->size * sizeof(tty->dirty[0]));
-  memset(tty->dirty, 0, tty->size*sizeof(tty->dirty[0]));//my
+  //memset(tty->dirty, 0, tty->size*sizeof(tty->dirty[0]));//my
   tty->end = tty->buf + tty->size;
   for (int i = 0; i < tty->size; i++) {
     tty->buf[i] = tty_defaultch();
@@ -180,7 +180,7 @@ int tty_init(device_t *dev) {
   tty->cursor = tty->buf;
   struct tty_queue *q = &tty->queue;
   q->front = q->rear = q->buf = pmm->alloc(TTY_COOK_BUF_SZ);
-  memset(q->buf, 0, TTY_COOK_BUF_SZ);//my
+  //memset(q->buf, 0, TTY_COOK_BUF_SZ);//my
   q->end = q->buf + TTY_COOK_BUF_SZ;
   kmt->sem_init(&tty->lock, "tty lock", 1);
   kmt->sem_init(&tty->cooked, "tty cooked lines", 0);

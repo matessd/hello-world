@@ -1,9 +1,7 @@
-//#include<x86.h>
 #include<am.h>
 #include<common.h>
 #include<klib.h>
 #include<devices.h>
-//#define MAX_CPU 8
 //in x86-qemu.h
 /*#define LOCKDEF(name) \
   static volatile intptr_t name##_locked = 0; \
@@ -22,7 +20,7 @@
   }*/
 
 //声明了NDEBUG后启动assert
-#define NDEBUG
+//#define NDEBUG
 
 //alloc.c
 typedef struct Node{

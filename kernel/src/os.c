@@ -9,14 +9,12 @@ static void os_init() {
   pmm->init();
   kmt->init();
   dev->init();
-  kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
-  //kmt->create(pmm->alloc(sizeof(task_t)), "idle",idle, NULL);  
-  kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
-  kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
-  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
+  //kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
+  //kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
+  //kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
+  //kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
 }
 
-//LOCKDEF(os) //my
 static void hello() {
   for (const char *ptr = "Hello from CPU #"; *ptr; ptr++) {
     _putc(*ptr);
@@ -25,14 +23,8 @@ static void hello() {
   //printf("%d**\n",_cpu());//my
 }
 
-//spinlock_t Os_lk;
-//spinlock_t *os_lk=&Os_lk;
-
 static void os_run() {
-  //kmt->spin_lock(os_lk);//my
   hello();
-  //kmt->spin_unlock(os_lk);//my
-  //assert(a_head->nxt==NULL);
   _intr_write(1);
   //pmm_test();//my
   while (1) {
