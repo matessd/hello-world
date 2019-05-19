@@ -22,7 +22,7 @@ void my_pmmtest(){
   int cnt = 0;
   while(1){
     char *ptr = pmm->alloc(100);
-    sprinf(ptr,"cpu:%d | cnt: %d\n",_cpu(),cnt);
+    sprintf(ptr,"cpu:%d | cnt: %d\n",_cpu(),cnt);
     cnt++;
     printf("%s\n",ptr);
     pmm->free(ptr);
