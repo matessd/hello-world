@@ -41,7 +41,7 @@ static void os_run() {
   assert(0);
 }
 
-irq_handler handlers[10];//中断处理程序
+irq_t handlers[10];//中断处理程序
 volatile int n_handler = 0;
 
 static _Context *os_trap(_Event ev, _Context *context) {
@@ -50,14 +50,11 @@ static _Context *os_trap(_Event ev, _Context *context) {
   _Context *ret = NULL;
   for(int i=0; i<n_handler; i++) {
     if (handlers[i].ev == _EVENT_NULL || handlers[i].ev == ev.event) {
-      //printf("%d\n",i);
       _Context *next = handlers[i].handler(ev, context);
-      //printf("%d**\n",i);
       if (next) ret = next;
     }
   }
   return ret;
-  //return context;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
