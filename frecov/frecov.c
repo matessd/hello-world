@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   if(FATSZ==0) FATSZ = *(int32_t*)(start+0x24);
   RES_SEC = *(int16_t*)(start+0xe);
   SEC_PER_CLU = *(int8_t*)(start+0xd);
-  printf("%d\n",RES_SEC);
+  printf("%d\n",SEC_PER_CLU);
   munmap(start, 64*MB);
   close(fd);
   //printf("%x\n",(int)(intptr_t)start);
