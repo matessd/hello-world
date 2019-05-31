@@ -4,6 +4,7 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include<assert.h>
+#include<sys/mman.h>
 
 #define MB (1024*1024)
 char *start=NULL;
