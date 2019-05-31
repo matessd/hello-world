@@ -11,7 +11,7 @@
 #define SECSZ 512
 #define FATNUM 2
 char *start=NULL;
-int FATSZ/*FAT扇区数*/,RES_SEC/*保留扇区数*/;
+int FATSZ/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/;
 
 int main(int argc, char *argv[]) {
   int fd = open(argv[1], O_RDWR);
@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
   FATSZ = *(int16_t*)(start+0x16);
   if(FATSZ==0) FATSZ = *(int32_t*)(start+0x24);
   RES_SEC = *(int16_t*)(start+0xe);
+  SEC_PER_CLU = *(int8_t*)(start+0xd);
   printf("%d\n",RES_SEC);
   munmap(start, 64*MB);
   close(fd);
