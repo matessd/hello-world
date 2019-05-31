@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   assert(fd!=-1);
   start = mmap(NULL, 64*MB, PROT_READ, MAP_PRIVATE, fd, 0);
   assert((intptr_t)start!=-1);
-  printf("%x\n",*(short *)(start+13));
+  printf("%x\n",*(char *)(start+13));
   munmap(start, 64*MB);
   close(fd);
   //printf("%x\n",(int)(intptr_t)start);
