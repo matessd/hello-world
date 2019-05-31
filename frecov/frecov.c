@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
-  printf("%s\n",start);
+  printf("%c\n",*start);
   munmap(tmp_start, 64*MB);
   close(fd);
   return 0;
