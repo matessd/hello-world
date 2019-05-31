@@ -20,8 +20,8 @@ void init(){
   RES_SEC = *(int16_t*)(start+0xe);//0x20
   SEC_PER_CLU = *(int8_t*)(start+0xd);//0x1
   ST_CLU = *(int32_t*)(start+0x2c);//0x2
-  data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;
-  printf("%x\n",(0x20+2*0x1f8)*0x200);
+  data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;//0x82000
+  printf("%x\n",64*MB);
   start = start+data_off;
 }
 
