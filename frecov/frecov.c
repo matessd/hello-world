@@ -33,8 +33,9 @@ int main(int argc, char *argv[]) {
   
   init();
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  for(int i=0; i<100; i++){
-    printf("%x\n",*(unsigned char*)(start+i*32));
+  for(int i=0; i<1000; i++){
+    unsigned char s = *(unsigned char*)(start+i*32);
+    if((uint8_t)s==0xe5) printf("%d\n",i);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
