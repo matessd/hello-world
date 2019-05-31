@@ -13,7 +13,7 @@ char *start=NULL;
 int main(int argc, char *argv[]) {
   int fd = open(argv[1], O_RDWR);
   assert(fd!=-1);
-  start = mmap(NULL, 64MB, PROT_READ, MAP_PRIVATE, fd, 0);
+  start = mmap(NULL, 64*MB, PROT_READ, MAP_PRIVATE, fd, 0);
   assert(start!=-1);
   close(fd);
   printf("%d\n",(int)(intptr_t)start);
