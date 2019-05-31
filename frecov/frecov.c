@@ -5,6 +5,7 @@
 #include<unistd.h>
 #include<assert.h>
 #include<sys/mman.h>
+#include <stdint.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
