@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
-  printf("%x**%x\n",start,tmp_start);
+  printf("%x**%x\n",(intptr_t)start,(intptr_t)tmp_start);
   /*for(int i=0; i<16; i++){
     printf("%x\n",*(start+i*32));
   }*/
