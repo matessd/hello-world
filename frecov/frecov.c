@@ -5,7 +5,7 @@
 #include<unistd.h>
 #include<assert.h>
 
-#define 64MB (64*1024*1024)
+#define MB (1024*1024)
 char *start=NULL;
 
 
