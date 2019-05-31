@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   init();
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   for(int i=0; i<100; i++){
-    printf("%x\n",*(int8_t*)(start+i*32));
+    printf("%x\n",*(int16_t*)(start+i*32));
   }
   munmap(tmp_start, 64*MB);
   close(fd);
