@@ -21,7 +21,7 @@ void init(){
   SEC_PER_CLU = *(int8_t*)(start+0xd);//0x1
   ST_CLU = *(int32_t*)(start+0x2c);//0x2
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;
-  //printf("%x\n",(0x20+2*0x1f8)*0x200);
+  printf("%x\n",(0x20+2*0x1f8)*0x200);
   start = start+data_off;
 }
 
@@ -34,10 +34,10 @@ int main(int argc, char *argv[]) {
   
   init();
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  for(int i=-10000; i<100000; i++){
+  /*for(int i=-10000; i<100000; i++){
     unsigned char s = *(unsigned char*)(start+i*32);
     if((uint8_t)s==0xe5) printf("%d\n",i);
-  }
+  }*/
   munmap(tmp_start, 64*MB);
   close(fd);
   return 0;
