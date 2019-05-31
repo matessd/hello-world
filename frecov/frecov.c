@@ -32,7 +32,9 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
-  printf("%x\n",*(start+64));
+  for(int i=0; i<16; i++){
+    printf("%x\n",*(start+i*32));
+  }
   munmap(tmp_start, 64*MB);
   close(fd);
   return 0;
