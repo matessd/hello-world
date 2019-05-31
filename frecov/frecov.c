@@ -10,7 +10,7 @@
 //扇区sector大小为512字节
 #define SECSZ 512
 #define FATNUM 2
-char *start=NULL;
+char *start=NULL, tmp_start;
 int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/;
 
 void init(){
@@ -20,7 +20,8 @@ void init(){
   SEC_PER_CLU = *(int8_t*)(start+0xd);
   ST_CLU = *(int32_t*)(start+0x2c);
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;
-  printf("%d\n",data_off);
+  //printf("%d\n",data_off);
+  start = start+data_off;
 }
 
 int main(int argc, char *argv[]) {
@@ -28,11 +29,11 @@ int main(int argc, char *argv[]) {
   assert(fd!=-1);
   start = mmap(NULL, 64*MB, PROT_READ, MAP_PRIVATE, fd, 0);
   assert((intptr_t)start!=-1);
+  tmp_start = start;
   
   init();
-  //printf("%d\n",ST_CLU);
-  munmap(start, 64*MB);
+  printf("%s\n",start);
+  munmap(tmp_start, 64*MB);
   close(fd);
-  //printf("%x\n",(int)(intptr_t)start);
   return 0;
 }
