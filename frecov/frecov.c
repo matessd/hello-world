@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   RES_SEC = *(int16_t*)(start+0xe);
   SEC_PER_CLU = *(int8_t*)(start+0xd);
   ST_CLU = *(int32_t*)(start+0x2c);
-  printf("%d\n",SEC_PER_CLU);
+  printf("%d\n",ST_CLU);
   munmap(start, 64*MB);
   close(fd);
   //printf("%x\n",(int)(intptr_t)start);
