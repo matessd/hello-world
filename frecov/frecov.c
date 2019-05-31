@@ -28,16 +28,17 @@ void init(){
 int main(int argc, char *argv[]) {
   int fd = open(argv[1], O_RDWR);
   assert(fd!=-1);
+  //64*MB = 0x4,000,000
   start = mmap(NULL, 64*MB, PROT_READ, MAP_PRIVATE, fd, 0);
   assert((intptr_t)start!=-1);
   tmp_start = start;
   
   init();
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  /*for(int i=-10000; i<100000; i++){
+  for(int i=-10000; i<4000000; i++){
     unsigned char s = *(unsigned char*)(start+i*32);
     if((uint8_t)s==0xe5) printf("%d\n",i);
-  }*/
+  }
   munmap(tmp_start, 64*MB);
   close(fd);
   return 0;
