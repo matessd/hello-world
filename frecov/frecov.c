@@ -10,7 +10,7 @@
 //扇区sector大小为512字节
 #define SECSZ 512
 #define FATNUM 2
-char *start=NULL, tmp_start;
+char *start=NULL, *tmp_start;
 int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/;
 
 void init(){
