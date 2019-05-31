@@ -20,7 +20,7 @@ void init(){
   SEC_PER_CLU = *(int8_t*)(start+0xd);
   ST_CLU = *(int32_t*)(start+0x2c);
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;
-  printf("%d\n",*(int*)(start+0x1c));
+  //printf("%d\n",*(int*)(start+0x1c));
   start = start+data_off;
 }
 
@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
+  printf("%x**%x\n",start,tmp_start);
   /*for(int i=0; i<16; i++){
     printf("%x\n",*(start+i*32));
   }*/
