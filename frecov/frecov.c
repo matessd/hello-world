@@ -15,12 +15,12 @@ int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇
 
 void init(){
   FAT_SEC = *(int16_t*)(start+0x16);
-  if(FAT_SEC==0) FAT_SEC = *(int32_t*)(start+0x24);
-  RES_SEC = *(int16_t*)(start+0xe);
+  if(FAT_SEC==0) FAT_SEC = *(int32_t*)(start+0x24);//
+  RES_SEC = *(int16_t*)(start+0xe);//0x20
   SEC_PER_CLU = *(int8_t*)(start+0xd);
   ST_CLU = *(int32_t*)(start+0x2c);
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;
-  printf("%x\n",RES_SEC);
+  printf("%x\n",FAT_SEC);
   start = start+data_off;
 }
 
