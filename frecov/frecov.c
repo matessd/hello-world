@@ -115,7 +115,7 @@ void find_lde(){
       cnt += uniread(&tmp[cnt], &cur[1], 5);
       cnt += uniread(&tmp[cnt], &cur[0xe], 6);
       cnt += uniread(&tmp[cnt], &cur[0x1c], 2); 
-      strcpy(lde[lcnt].name, tmp);
+      strcpy((char*)lde[lcnt].name, (char*)tmp);
       if(*cur==0xe5) lde[lcnt].ife5 = 1;
       else lde[lcnt].ife5 = 0;
       lde[lcnt].checksum = cur[0xd];
@@ -134,7 +134,7 @@ void merge_lde(){
     if(lde[i].vis==1) continue;
     lde[i].vis = 1;
     tmp[0] = '\0';
-    strcpy(tmp, lde[i].name);
+    strcpy((char*)tmp, (char*)lde[i].name);
     unsigned char checksum = lde[i].checksum;
     unsigned idx = lde[i].idx;
     if(idx==0x41) printf("%s\n",tmp);
@@ -144,11 +144,11 @@ void merge_lde(){
            || lde[j].checksum!=checksum)
            continue;
         lde[j].vis=1;
-        strcpy(tmp, lde[j].name);
+        strcpy((char*)tmp, (char*)lde[j].name);
         if(lde[j].idx&0x40) break;
       }
     }
-    strcpy(dir[dircnt].name, tmp);
+    strcpy((char*)dir[dircnt].name, (char*)tmp);
     dir[dircnt].checksum = checksum;
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
