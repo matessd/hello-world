@@ -146,7 +146,7 @@ void merge_lde(){
            continue;
         lde[j].vis=1;
         //strcpy((char*)tmp, (char*)lde[j].name);
-        printf("%s*\n",tmp);
+        printf("%s*\n",lde[j].name);
         if(lde[j].idx&0x40) break;
       }
     }
