@@ -102,7 +102,7 @@ void find_lde(){
       cnt += uniread(&tmp[cnt], &cur[1], 5);
       cnt += uniread(&tmp[cnt], &cur[0xe], 6);
       cnt += uniread(&tmp[cnt], &cur[0x1c], 2); 
-      printf("%s\n",tmp);
+      //printf("%s\n",tmp);
       lcnt++;
     }
   }
