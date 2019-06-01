@@ -57,7 +57,7 @@ void find_sde(){
       //if(*cur==0xe5) printf("%c**",*cur);
       sprintf(sde[++scnt].name,"%s",cur);
       for(int i=0; i<8; i++){
-        if(sde[scnt].name[i]==0x20){
+        if(sde[scnt].name[i]==' '){
           sde[scnt].name[i] = '\0';
           strcat(sde[scnt].name, "BMP");
           break;
