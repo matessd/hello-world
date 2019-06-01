@@ -43,8 +43,8 @@ int main(int argc, char *argv[]) {
     if(i==11020326) printf("1\n");
     s = *(start+i*32);
     int8_t tmp = 0xe5;
-    if((int8_t)s==tmp) printf("%d\n",i);
-    if(i==1020325) printf("%d\n",RES/32);
+    if((int8_t)s==tmp) printf("%x\n",i);
+    if(i==1020325) printf("%x\n",RES/32);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
