@@ -17,7 +17,7 @@ int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇
 typedef struct{
   char name[15];
 }SDE;
-SDE[200];
+SDE sde[200];
 
 int file_size2(char* filename){  
     struct stat statbuf;  
@@ -51,8 +51,8 @@ void find_short(){
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
-      sprintf(&(SDE[++cnt]->name[0]),"%s",cur);
-      printf("%s\n",SDE[cnt].name);
+      sprintf(sde[++cnt].name,"%s",cur);
+      printf("%s\n",sde[cnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
       printf("%s\n",cur);
