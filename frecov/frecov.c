@@ -76,8 +76,8 @@ void find_lde(){
       if(*cur==0xe5) printf("%c**",*cur);
       //sprintf(sde[++scnt].name,"%s",cur);
       //sde[scnt].name[11]='\0';
-      printf("%x\n",*cur);
-      //printf("%s\n",sde[scnt].name);
+      printf("%x&&",*cur);
+      printf("%s\n",cur+0x1);
     }
   }  
 }
