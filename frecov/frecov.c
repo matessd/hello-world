@@ -40,12 +40,12 @@ int main(int argc, char *argv[]) {
   //printf("%x\n",(int)(intptr_t)(start-j*32));
   char s = *start;
   for(int i=0; i<RES/32; i++){
-    //if(i==1031936) printf("1\n");
+    if(i==1031936) printf("%x\n",(int)(intptr_t)(start+i*32));
     s = *(start+i*32);
-    if(i==1031936) printf("1\n");
+    //if(i==1031936) printf("1\n");
     int8_t tmp = 0xe5;
     if((int8_t)s==tmp) printf("%x\n",i);
-    if(i>1020325) printf("%d\n",i);
+    //if(i>1020325) printf("%d\n",i);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
