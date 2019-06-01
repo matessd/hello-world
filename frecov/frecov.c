@@ -34,8 +34,9 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
-  //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
+  printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   int j = 0x82000>>5;
+  printf("%x\n",(int)(intptr_t)(start-j));
   for(int i=-j; i<=0; i++){
     unsigned char s = *(unsigned char*)(start+i*32);
     if((uint8_t)s==0xe5) printf("%d\n",i);
