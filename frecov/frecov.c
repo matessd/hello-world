@@ -7,7 +7,8 @@
 #include<sys/mman.h>
 #include<stdint.h>
 #include<string.h>
-#include<stdlib.h>
+//#include<stdlib.h>
+#include <locale.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
