@@ -65,7 +65,7 @@ void find_sde(){
       }
       //sde[scnt].name[11]='\0';
       //printf("%s:%d\n",sde[scnt].name,i);
-      if(i==996629) printf("%c**\n",cur[5]);
+      if(i==996629) printf("%c**\n",cur[4]);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
     }*/
