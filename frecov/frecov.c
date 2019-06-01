@@ -155,11 +155,12 @@ void merge_lde(){
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
+    printf("%s*\n",tmp);
     if(tmp[0]=='p'){
       dircnt--;
       continue;
     }
-    printf("%s*\n",tmp);
+    //printf("%s*\n",tmp);
   }
   printf("dircnt:%d\n",dircnt);
 }
