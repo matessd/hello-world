@@ -21,7 +21,7 @@ void init(){
   SEC_PER_CLU = *(int8_t*)(start+0xd);//0x1
   ST_CLU = *(int32_t*)(start+0x2c);//0x2
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;//0x82000
-  printf("%x\n",64*MB);
+  //printf("%x\n",64*MB);
   start = start+data_off;
 }
 
@@ -35,7 +35,8 @@ int main(int argc, char *argv[]) {
   
   init();
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  for(int i=-10000; i<1000000; i++){
+  int j = 0x82000>>5;
+  for(int i=-j; i<=0; i++){
     unsigned char s = *(unsigned char*)(start+i*32);
     if((uint8_t)s==0xe5) printf("%d\n",i);
   }
