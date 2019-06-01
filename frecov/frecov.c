@@ -17,7 +17,7 @@
 unsigned char *start=NULL, *tmp_start;
 int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 typedef struct{
-  char name[15];
+  unsigned char name[15];
 }SDE;
 SDE sde[200];
 int scnt;
@@ -56,12 +56,17 @@ void find_sde(){
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
       //if(*cur==0xe5) printf("%c**",*cur);
       sprintf(sde[++scnt].name,"%s",cur);
-      sde[scnt].name[11]='\0';
-      //printf("%s\n",sde[scnt].name);
+      for(int i=0; i<8; i++){
+        if(sde[scnt].name[i]==0x20){
+          sde[scnt].name[i] = '\0';
+          strcat(sde[scnt].name, "BMP");
+          break;
+        }
+      }
+      //sde[scnt].name[11]='\0';
+      printf("%s\n",sde[scnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
-      printf("%s\n",cur);
-      cnt++;
     }*/
   }
   //printf("scnt:%d\n",scnt);
@@ -76,8 +81,8 @@ void find_lde(){
       if(*cur==0xe5) printf("%c**",*cur);
       //sprintf(sde[++scnt].name,"%s",cur);
       //sde[scnt].name[11]='\0';
-      printf("%x&&",*cur);
-      printf("%s\n",cur+0x3);
+      //printf("%x&&",*cur);
+      //printf("%s\n",cur+0x3);
     }
   }  
 }
