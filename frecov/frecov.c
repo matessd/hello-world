@@ -146,6 +146,7 @@ void merge_lde(){
            continue;
         lde[j].vis=1;
         strcpy((char*)tmp, (char*)lde[j].name);
+        printf("%s*\n",tmp);
         if(lde[j].idx&0x40) break;
       }
     }
@@ -153,7 +154,7 @@ void merge_lde(){
     dir[dircnt].checksum = checksum;
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
-    printf("%s*\n",tmp);
+    //printf("%s*\n",tmp);
     dircnt++;
   }
   printf("dircnt:%d\n",dircnt);
