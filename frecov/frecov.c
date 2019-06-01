@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     s = *cur;
     //if(i==1031936) printf("1\n");
     if(s==0xe5 && cur[0xc]==0) printf("%x**%x\n",cur[0xb],cur[0xc]);
-    if(s==0xe5 && cur[0xc]==0) printf("%s\n",cur+1);
+    if(s==0xe5 && cur[0xc]==0) printf("%s\n",cur);
   }
   munmap(tmp_start, FILE_SZ);
   close(fd);
