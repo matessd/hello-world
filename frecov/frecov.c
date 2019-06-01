@@ -53,7 +53,7 @@ void find_sde(){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
       sprintf(sde[++scnt].name,"%s",cur);
-      sde[scnt].name[13]='\0';
+      sde[scnt].name[11]='\0';
       printf("%s\n",sde[scnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
