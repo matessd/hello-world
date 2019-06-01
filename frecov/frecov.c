@@ -52,9 +52,10 @@ void find_sde(){
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
+      if(*cur==0xe5) printf("%c**",*cur);
       sprintf(sde[++scnt].name,"%s",cur);
       sde[scnt].name[11]='\0';
-      //printf("%s\n",sde[scnt].name);
+      printf("%s\n",sde[scnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
       printf("%s\n",cur);
@@ -69,6 +70,7 @@ int main(int argc, char *argv[]) {
   init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   find_sde();
+  find_lde();
   munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
