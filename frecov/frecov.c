@@ -139,15 +139,24 @@ void merge_lde(){
     unsigned char idx = lde[i].idx;
     //if(idx==0x41) printf("%s\n",tmp);
     //printf("%s\n",tmp);
-    if(idx==0xe5);
+    if(idx==0xe5){
+      for(int j=i-1; j>=0; j--){
+        if(lde[j].vis) continue;
+        if((lde[j].idx!=0xe5)
+            ||(lde[j].checksum!=checksum))
+          continue;
+        lde[j].vis=1;
+        strcat((char*)tmp, (char*)lde[j].name);
+      }
+    }
     else if((idx&0x40)==0){
       for(int j=i-1; j>=0; j--){
+        if(lde[j].vis) continue;
         if(((lde[j].idx&0x1f)!=(idx&0x1f)+1) 
            || lde[j].checksum!=checksum)
            continue;
         lde[j].vis=1;
         strcat((char*)tmp, (char*)lde[j].name);
-        //printf("%s*\n",lde[j].name);
         if(lde[j].idx&0x40) break;
       }
     }
