@@ -39,13 +39,12 @@ int main(int argc, char *argv[]) {
   //int j = 0x82000>>5;
   //printf("%x\n",(int)(intptr_t)(start-j*32));
   char s = *start;
-  int i;
-  for(i=0; i<RES/32; i++){
-    if(i==1020327) printf("1\n");
+  for(int i=0; i<RES/32; i++){
+    //if(i==1020327) printf("1\n");
     s = *(start+i*32);
     int8_t tmp = 0xe5;
     if((int8_t)s==tmp) printf("%x\n",i);
-    if(i==1020325) printf("%x\n",RES/32);
+    if(i>1020325) printf("%x\n",i);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
