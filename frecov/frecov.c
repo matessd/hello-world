@@ -39,9 +39,8 @@ int main(int argc, char *argv[]) {
   //int j = 0x82000>>5;
   //printf("%x\n",(int)(intptr_t)(start-j*32));
   for(int i=0; i<=RES/32; i++){
-    printf("1\n");
     unsigned char s = *(unsigned char*)(start+i*32);
-    if(((uint8_t)s)==0xe5) printf("%d\n",i);
+    if(((uint8_t)s)==0xe5) printf("%1\n");
     if(i==1020325) printf("%d\n",RES/32);
   }
   munmap(tmp_start, 64*MB);
