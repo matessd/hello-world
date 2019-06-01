@@ -139,7 +139,7 @@ void merge_lde(){
     unsigned char idx = lde[i].idx;
     //if(idx==0x41) printf("%s\n",tmp);
     //printf("%s\n",tmp);
-    if((idx&0x40)==0){
+    else if((idx&0x40)==0){
       for(int j=i-1; j>=0; j--){
         if(((lde[j].idx&0x1f)!=(idx&0x1f)+1) 
            || lde[j].checksum!=checksum)
@@ -154,8 +154,12 @@ void merge_lde(){
     dir[dircnt].checksum = checksum;
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
-    printf("%s*\n",tmp);
     dircnt++;
+    if(tmp[0]=='p'){
+      dircnt--;
+      continue;
+    }
+    printf("%s*\n",tmp);
   }
   printf("dircnt:%d\n",dircnt);
 }
