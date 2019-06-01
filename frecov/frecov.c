@@ -45,11 +45,13 @@ int main(int argc, char *argv[]) {
   init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   //printf("%x\n",FILE_SZ);
+  unsigned char *cur = NULL;
   unsigned char s = *start;
   for(int i=0; i<RES/32; i++){
-    s = *(start+i*32);
+    cur = start+i*32;
+    s = *cur;
     //if(i==1031936) printf("1\n");
-    if(s==0xe5) printf("%x\n",i);
+    if(s==0xe5) printf("%x\n",cur[0xb]);
   }
   munmap(tmp_start, FILE_SZ);
   close(fd);
