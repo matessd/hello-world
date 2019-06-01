@@ -20,7 +20,7 @@ typedef struct{
   char name[15];
 }SDE;
 SDE sde[200];
-int scnt;
+int scnt, lcnt;
 
 int file_size2(char* filename){  
     struct stat statbuf;  
@@ -80,15 +80,17 @@ void uniread(){
 }
 
 void find_lde(){
-  unsigned char *cur = NULL;  scnt = 0;
+  unsigned char *cur = NULL;  lcnt = 0;
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
       if(*cur==0xe5) printf("%c**",*cur);
       printf("0x%x &&",*cur);
       printf("   %c*\n",cur[0x1]);
+      lcnt++;
     }
-  }  
+  }
+  printf("lcnt:%d\n",lcnt);  
 }
 
 int main(int argc, char *argv[]) { 
