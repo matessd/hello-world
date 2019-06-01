@@ -44,14 +44,10 @@ void init(char *filename){
 int main(int argc, char *argv[]) { 
   init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  //printf("%x\n",FILE_SZ);
   unsigned char *cur = NULL;
-  //unsigned char s = *start;
   int cnt = 0;
-  for(int i=0; i<RES; i++){
-    cur = start+i;
-    //s = *cur;
-    //if(i==1031936) printf("1\n");
+  for(int i=0; i<RES/32; i++){
+    cur = start+i×32;
     //if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%x*%x*%x\n",cur[0x8],cur[0x9],cur[0xa]);
     //if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%s\n",cur);
     if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
