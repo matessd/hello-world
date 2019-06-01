@@ -17,7 +17,7 @@
 unsigned char *start=NULL, *tmp_start;
 int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 typedef struct{
-  unsigned char name[15];
+  char name[15];
 }SDE;
 SDE sde[200];
 int scnt;
