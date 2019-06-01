@@ -62,7 +62,7 @@ void find_sde(){
     }*/
   }
   printf("scnt:%d\n",scnt);
-  printf("slen:%d\n",strlen(sde[scnt].name));
+  printf("slen:%d\n",(int)strlen(sde[scnt].name));
 }
 
 int main(int argc, char *argv[]) { 
