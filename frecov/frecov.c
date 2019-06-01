@@ -61,7 +61,7 @@ void find_sde(){
       cnt++;
     }*/
   }
-  //printf("num:%d\n",cnt);
+  printf("num:%d\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
