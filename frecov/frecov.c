@@ -49,8 +49,7 @@ int main(int argc, char *argv[]) {
   for(int i=0; i<RES/32; i++){
     s = *(start+i*32);
     //if(i==1031936) printf("1\n");
-    int8_t tmp = 0xe5;
-    if((int8_t)s==tmp) printf("%d\n",i);
+    if(s==0xe5) printf("%x\n",i);
   }
   munmap(tmp_start, FILE_SZ);
   close(fd);
