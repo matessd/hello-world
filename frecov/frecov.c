@@ -7,6 +7,7 @@
 #include<sys/mman.h>
 #include<stdint.h>
 #include<string.h>
+#include<stdlib.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
@@ -52,10 +53,10 @@ void find_sde(){
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
-      if(*cur==0xe5) printf("%c**",*cur);
+      //if(*cur==0xe5) printf("%c**",*cur);
       sprintf(sde[++scnt].name,"%s",cur);
       sde[scnt].name[11]='\0';
-      printf("%s\n",sde[scnt].name);
+      //printf("%s\n",sde[scnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
       printf("%s\n",cur);
@@ -67,7 +68,33 @@ void find_sde(){
 }
 
 void find_lde(){
-
+  unsigned char *cur = NULL;  scnt = 0;
+  for(int i=0; i<RES/32; i++){
+    cur = start+i*32;
+    if(cur[0xc]==0 &&cur[0xb]==0xf) {
+      if(*cur==0xe5) printf("%c**",*cur);
+      //sprintf(sde[++scnt].name,"%s",cur);
+      //sde[scnt].name[11]='\0';
+      printf("%x\n",*cur);
+      //printf("%s\n",sde[scnt].name);
+    }
+  }
+  wchar_t sBuf[20]={0};  
+  wcscpy(sBuf, L"Hello");  
+  size_t sSize=wcslen(sBuf);  
+  char * dBuf=NULL;  
+  int dSize=wcstombs(dBuf, sBuf, 0)+1;  
+  printf("需要%d Char\n", dSize);  
+  dBuf=new char[dSize];  
+  memset(dBuf, 0, dSize);  
+  int nRet=wcstombs(dBuf, sBuf, dSize);  
+  if(nRet<=0){  
+    printf("转换失败\n");  
+  }  
+  else{  
+    printf("转换成功%d字符\n", nRet);  
+    printf("%s\n", dBuf);  
+  }  
 }
 
 int main(int argc, char *argv[]) { 
