@@ -55,10 +55,11 @@ void find_sde(){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
       if(*cur==0xe5) {
-        //printf("%c**",*cur);
-        cur++;
+        sde[++scnt].name[0] = '-';
+        sprintf(sde[++scnt].name,"%s",cur+1);
+      }else{
+        sprintf(sde[++scnt].name,"%s",cur);
       }
-      sprintf(sde[++scnt].name,"%s",cur);
       for(int i=0; i<8; i++){
         if(sde[scnt].name[i]==' '){
           sde[scnt].name[i] = '\0';
@@ -66,7 +67,7 @@ void find_sde(){
           break;
         }
       }
-      //sde[scnt].name[11]='\0';
+      sde[scnt].name[11]='\0';
       //printf("%s:%d\n",sde[scnt].name,i);
       //if(i==996629) printf("%c**\n",cur[0]);
     }
@@ -74,14 +75,18 @@ void find_sde(){
   //printf("scnt:%d\n",scnt);
 }
 
+void uniread(){
+
+}
+
 void find_lde(){
   unsigned char *cur = NULL;  scnt = 0;
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
-    if(cur[0xc]==0 &&cur[0xb]==0xf) {
+    if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
       if(*cur==0xe5) printf("%c**",*cur);
-      printf("%x&&",*cur);
-      printf("%c\n",cur[0x1]);
+      printf("0x%x &&",*cur);
+      printf("%c*\n",cur[0x1]);
     }
   }  
 }
