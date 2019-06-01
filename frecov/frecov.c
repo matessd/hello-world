@@ -12,7 +12,7 @@
 #define SECSZ 512
 #define FATNUM 2
 char *start=NULL, *tmp_start;
-int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/;
+int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 
 void init(){
   FAT_SEC = *(int16_t*)(start+0x16);
@@ -23,6 +23,7 @@ void init(){
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;//0x82000
   //printf("%x\n",64*MB);
   start = start+data_off;
+  RES = 64*MB - data_off;
 }
 
 int main(int argc, char *argv[]) {
@@ -34,12 +35,12 @@ int main(int argc, char *argv[]) {
   tmp_start = start;
   
   init();
-  printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  int j = 0x82000>>5;
-  printf("%x\n",(int)(intptr_t)(start-j*32));
-  for(int i=-j; i<=0; i++){
+  //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
+  //int j = 0x82000>>5;
+  //printf("%x\n",(int)(intptr_t)(start-j*32));
+  for(int i=0; i<=RES/32; i++){
     unsigned char s = *(unsigned char*)(start+i*32);
-    if((uint8_t)s==0xe5) printf("%d\n",i);
+    if(s==0xe5) printf("%d\n",i);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
