@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
       cnt++;
     }
   }
+  printf("num:%d\n",cnt);
   munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
