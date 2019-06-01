@@ -6,6 +6,7 @@
 #include<assert.h>
 #include<sys/mman.h>
 #include<stdint.h>
+#include<string.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
@@ -13,6 +14,9 @@
 #define FATNUM 2
 unsigned char *start=NULL, *tmp_start;
 int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
+typedef struct{
+  char *name[15];
+}SDE[200];
 
 int file_size2(char* filename){  
     struct stat statbuf;  
@@ -39,6 +43,22 @@ void init(char *filename){
   //printf("%x\n",64*MB);
   start = start+data_off;
   RES = FILE_SZ - data_off;
+}
+
+void find_short(){
+  unsigned char *cur = NULL; int cnt = 0;
+  for(int i=0; i<RES/32; i++){
+    cur = start+i*32;
+    if(cur[0xc]==0 &&cur[0xb]==0x20) {
+      sprintf(SDE[++cnt].name,"%s",cur);
+      printf("%s\n",SDE[cnt].name);
+    }
+    /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
+      printf("%s\n",cur);
+      cnt++;
+    }*/
+  }
+  //printf("num:%d\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
