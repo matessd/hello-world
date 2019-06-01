@@ -145,7 +145,7 @@ void merge_lde(){
            || lde[j].checksum!=checksum)
            continue;
         lde[j].vis=1;
-        strcpy((char*)tmp, (char*)lde[j].name);
+        //strcpy((char*)tmp, (char*)lde[j].name);
         printf("%s*\n",tmp);
         if(lde[j].idx&0x40) break;
       }
