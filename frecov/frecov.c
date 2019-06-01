@@ -135,10 +135,10 @@ void merge_lde(){
     lde[i].vis = 1;
     tmp[0] = '\0';
     strcat((char*)tmp, (char*)lde[i].name);
-    if(tmp[0]=='p'&&tmp[1]=='\0'){
+    /*if(tmp[0]=='p'&&tmp[1]=='\0'){
       lde[i].vis = 0;
       continue;
-    }
+    }*/
     unsigned char checksum = lde[i].checksum;
     unsigned char idx = lde[i].idx;
     //if(idx==0x41) printf("%s\n",tmp);
@@ -169,12 +169,12 @@ void merge_lde(){
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
-    printf("%s*\n",tmp);
+    //printf("%s*\n",tmp);
     if(tmp[0]=='p'&&tmp[1]=='\0'){
       dircnt--;
       continue;
     }
-    //printf("%s*\n",tmp);
+    printf("%s*\n",tmp);
   }
   printf("dircnt:%d\n",dircnt);
 }
