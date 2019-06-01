@@ -152,6 +152,7 @@ void merge_lde(){
     dir[dircnt].checksum = checksum;
     dir[dircnt].ok = 0;
     dir[dircnt].ife5 = lde[i].ife5;
+    printf("%s\n",tmp);
     dircnt++;
   }
   printf("dircnt:%d\n",dircnt);
