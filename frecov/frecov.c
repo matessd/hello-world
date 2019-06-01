@@ -18,6 +18,7 @@ unsigned char *start=NULL, *tmp_start;
 int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 typedef struct{
   char name[15];
+  int8_t vis;
 }SDE;
 typedef struct{
   unsigned char name[15];
@@ -74,13 +75,14 @@ void find_sde(){
       }else{
         sprintf(sde[scnt].name,"%s",cur);
       }
-      for(int i=0; i<8; i++){
+      /*for(int i=0; i<8; i++){
         if(sde[scnt].name[i]==' '){
           sde[scnt].name[i] = '\0';
           strcat(sde[scnt].name, "BMP");
           break;
         }
-      }
+      }*/
+      sde[scnt].vis = 0;
       sde[scnt++].name[11]='\0';
       //printf("%s:%d\n",sde[scnt].name,i);
       //if(i==996629) printf("%c**\n",cur[0]);
@@ -101,7 +103,7 @@ int uniread(unsigned char *dst, unsigned char *src, int cnt){
   }
   dst[ret] = '\0';
   return ret;
-}
+}  
 
 void find_lde(){
   unsigned char *cur = NULL, tmp[MAX_NAME];  
@@ -174,9 +176,35 @@ void merge_lde(){
       dircnt--;
       continue;
     }
-    printf("%s*\n",tmp);
+    //printf("%s*\n",tmp);
   }
-  printf("dircnt:%d\n",dircnt);
+  //printf("dircnt:%d\n",dircnt);
+}
+
+unsigned char compute_checksum(unsigned char* shortname){
+  int i, j = 0; 
+  unsigned char chksum=0;
+  for (i = 11; i > 0; i--)
+    chksum = ((chksum & 1) ? 0x80 : 0) + (chksum >> 1) + shortname[j++];
+  return chksum;
+}
+
+void traverse(){
+  int cnt=0;
+  for(int i=dircnt-1; i>=0; i--){
+    unsigned char checksum = dir[i].checksum;
+    for(int j=0; j<scnt; j++){
+      if(sde[j].vis==1) continue;
+      if(compute_checksum(sde[j].name)==checksum){
+        sde[j].vis = 1;
+        dir[i].ok = 1;
+        cnt++;
+        print("%s  %s\n",sde[j].name,dir[i].name);
+        break;
+      }
+    }
+  }
+  printf("okcnt:%d\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
@@ -185,6 +213,7 @@ int main(int argc, char *argv[]) {
   find_sde();
   find_lde();
   merge_lde();
+  traverse();
   munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
