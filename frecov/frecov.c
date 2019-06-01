@@ -47,12 +47,12 @@ int main(int argc, char *argv[]) {
   //printf("%x\n",FILE_SZ);
   unsigned char *cur = NULL;
   unsigned char s = *start;
-  for(int i=0; i<RES/32; i++){
-    cur = start+i*32;
+  for(int i=0; i<RES; i++){
+    cur = start+i;
     s = *cur;
     //if(i==1031936) printf("1\n");
     if(s==0xe5 && cur[0xc]==0) printf("%x**%x\n",cur[0xb],cur[0xc]);
-    if(s==0xe5 && cur[0xc]==0) printf("%s\n",(char*)cur);
+    if(s==0xe5 && cur[0xc]==0) printf("%s\n",cur);
   }
   munmap(tmp_start, FILE_SZ);
   close(fd);
