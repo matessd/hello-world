@@ -52,8 +52,7 @@ int main(int argc, char *argv[]) {
     int8_t tmp = 0xe5;
     if((int8_t)s==tmp) printf("%d\n",i);
   }
-  assert(0);
-  munmap(tmp_start, 64*MB);
+  munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
 }
