@@ -7,8 +7,8 @@
 #include<sys/mman.h>
 #include<stdint.h>
 #include<string.h>
-#include<stdlib.h>
-#include <locale.h>
+//#include<stdlib.h>
+//#include <locale.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
@@ -79,22 +79,6 @@ void find_lde(){
       printf("%x\n",*cur);
       //printf("%s\n",sde[scnt].name);
     }
-  }
-  wchar_t sBuf[20]={0};  
-  wcscpy(sBuf, L"Hello");  
-  size_t sSize=wcslen(sBuf);  
-  char * dBuf=NULL;  
-  int dSize=wcstombs(dBuf, sBuf, 0)+1;  
-  printf("需要%d Char\n", dSize);  
-  dBuf=new char[dSize];  
-  memset(dBuf, 0, dSize);  
-  int nRet=wcstombs(dBuf, sBuf, dSize);  
-  if(nRet<=0){  
-    printf("转换失败\n");  
-  }  
-  else{  
-    printf("转换成功%d字符\n", nRet);  
-    printf("%s\n", dBuf);  
   }  
 }
 
