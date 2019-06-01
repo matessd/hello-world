@@ -19,8 +19,22 @@ int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇
 typedef struct{
   char name[15];
 }SDE;
+typedef struct{
+  unsigned char name[15];
+  unsigned char checksum;
+  unsigned char idx; 
+  int8_t vis, ife5;
+}LDE;
+#define MAX_NAME 50
+typedef struct{
+  unsigned char name[MAX_NAME];
+  unsigned char checksum;
+  int8_t ok, ife5;
+}myDIR;
 SDE sde[200];
-int scnt, lcnt;
+LDE lde[300];
+myDIR dir[200];
+int scnt, lcnt, dircnt;
 
 int file_size2(char* filename){  
     struct stat statbuf;  
@@ -90,23 +104,56 @@ int uniread(unsigned char *dst, unsigned char *src, int cnt){
 }
 
 void find_lde(){
-  unsigned char *cur = NULL, tmp[50];  
+  unsigned char *cur = NULL, tmp[MAX_NAME];  
   lcnt = 0;  
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
-      //if(*cur==0xe5) printf("%c**",*cur);
       //printf("0x%x &&",*cur);
       //printf("   %c*\n",cur[0x1]);
       int cnt = 0;
       cnt += uniread(&tmp[cnt], &cur[1], 5);
       cnt += uniread(&tmp[cnt], &cur[0xe], 6);
       cnt += uniread(&tmp[cnt], &cur[0x1c], 2); 
-      printf("%s*\n",tmp);
+      strcpy(lde[lcnt].name, tmp);
+      if(*cur==0xe5) lde[lcnt].ife5 = 1;
+      else lde[lcnt].ife5 = 0;
+      lde[lcnt].checksum = cur[0xd];
+      lde[lcnt].idx = *cur;
+      lde[lcnt].vis = 0;
+      //printf("%s*\n",tmp);
       lcnt++;
     }
   }
-  printf("lcnt:%d\n",lcnt);  
+  //printf("lcnt:%d*\n",lcnt);  
+}
+
+void merge_lde(){
+  unsigned char tmp[MAX_NAME]; dircnt=0;
+  for(int i=lcnt-1; i>=0; i--){
+    if(lde[i].vis==1) continue;
+    lde[i].vis = 1;
+    tmp[0] = '\0';
+    strcpy(tmp, lde[i].name);
+    unsigned char checksum = lde[i].checksum;
+    unsigned idx = lde[i].idx;
+    if(idx==0x41) printf("%s\n",tmp);
+    if((idx&0x40)==0){
+      for(int j=i-1; j>=0; j--){
+        if(((lde[j].idx&0x1f)==(idx&0x1f)+1) 
+           || lde[j].checksum!=checksum)
+           continue;
+        lde[j].vis=1;
+        strcpy(tmp, lde[j].name);
+        if(lde[j].idx&0x40) break;
+      }
+    }
+    strcpy(dir[dircnt].name, tmp);
+    dir[dircnt].checksum = checksum;
+    dir[dircnt].ok = 0;
+    dir[dircnt].ife5 = lde[i].ife5;
+    dircnt++;
+  }
 }
 
 int main(int argc, char *argv[]) { 
@@ -114,6 +161,7 @@ int main(int argc, char *argv[]) {
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   find_sde();
   find_lde();
+  merge_lde();
   munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
