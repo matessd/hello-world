@@ -136,7 +136,7 @@ void merge_lde(){
     tmp[0] = '\0';
     strcat((char*)tmp, (char*)lde[i].name);
     unsigned char checksum = lde[i].checksum;
-    unsigned idx = lde[i].idx;
+    unsigned char idx = lde[i].idx;
     //if(idx==0x41) printf("%s\n",tmp);
     //printf("%s\n",tmp);
     if((idx&0x40)==0){
