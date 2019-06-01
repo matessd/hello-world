@@ -49,7 +49,10 @@ int main(int argc, char *argv[]) {
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     //if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%x*%x*%x\n",cur[0x8],cur[0x9],cur[0xa]);
-    if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%s\n",cur);
+    if(cur[0xc]==0 &&cur[0xb]==0x20) {
+      printf("%s\n",cur);
+      cnt++;
+    }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
       printf("%s\n",cur);
       cnt++;
