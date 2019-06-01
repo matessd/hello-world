@@ -66,6 +66,10 @@ void find_sde(){
   //printf("slen:%d\n",(int)strlen(sde[scnt].name));
 }
 
+void find_lde(){
+
+}
+
 int main(int argc, char *argv[]) { 
   init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
