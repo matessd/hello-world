@@ -54,7 +54,10 @@ void find_sde(){
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
-      if(*cur==0xe5) printf("%c**",*cur);
+      if(*cur==0xe5) {
+        //printf("%c**",*cur);
+        cur++;
+      }
       sprintf(sde[++scnt].name,"%s",cur);
       for(int i=0; i<8; i++){
         if(sde[scnt].name[i]==' '){
