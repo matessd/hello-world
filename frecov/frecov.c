@@ -154,6 +154,7 @@ void merge_lde(){
     dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
   }
+  printf("dircnt:%d\n",dircnt);
 }
 
 int main(int argc, char *argv[]) { 
