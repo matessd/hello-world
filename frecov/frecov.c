@@ -55,10 +55,10 @@ void find_sde(){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
       if(*cur==0xe5) {
-        sde[++scnt].name[0] = '-';
-        sprintf(sde[++scnt].name,"%s",cur+1);
+        sde[scnt].name[0] = '-';
+        sprintf(sde[scnt].name,"%s",cur+1);
       }else{
-        sprintf(sde[++scnt].name,"%s",cur);
+        sprintf(sde[scnt].name,"%s",cur);
       }
       for(int i=0; i<8; i++){
         if(sde[scnt].name[i]==' '){
@@ -67,7 +67,7 @@ void find_sde(){
           break;
         }
       }
-      sde[scnt].name[11]='\0';
+      sde[scnt++].name[11]='\0';
       //printf("%s:%d\n",sde[scnt].name,i);
       //if(i==996629) printf("%c**\n",cur[0]);
     }
@@ -75,18 +75,34 @@ void find_sde(){
   //printf("scnt:%d\n",scnt);
 }
 
-void uniread(){
-
+int uniread(unsigned char *dst, unsigned char *src, int cnt){
+  int ret = 0;
+  for(int i=0; i<cnt; i++){
+    dst[i] = src[i*2];
+    ret++;
+    if((src[i*2]==0x0&&src[i*2+1]==0x0) || (src[i*2]==0xff&&src[i*2+1]==0xff)){
+      ret--;
+      break;
+    }
+  }
+  dst[ret] = '\0';
+  return ret;
 }
 
 void find_lde(){
-  unsigned char *cur = NULL;  lcnt = 0;
+  unsigned char *cur = NULL, tmp[50];  
+  lcnt = 0;  
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
-      if(*cur==0xe5) printf("%c**",*cur);
-      printf("0x%x &&",*cur);
-      printf("   %c*\n",cur[0x1]);
+      //if(*cur==0xe5) printf("%c**",*cur);
+      //printf("0x%x &&",*cur);
+      //printf("   %c*\n",cur[0x1]);
+      int cnt = 0;
+      cnt += uniread(&tmp[cnt], &cur[1], 5);
+      cnt += uniread(&tmp[cnt], &cur[0xe], 6);
+      cnt += uniread(&tmp[cnt], &cur[0x1c], 2); 
+      printf("%s\n",tmp);
       lcnt++;
     }
   }
