@@ -11,7 +11,7 @@
 //扇区sector大小为512字节
 #define SECSZ 512
 #define FATNUM 2
-char *start=NULL, *tmp_start;
+unsigned char *start=NULL, *tmp_start;
 int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 
 int file_size2(char* filename){  
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   //printf("%x\n",FILE_SZ);
-  char s = *start;
+  unsigned char s = *start;
   for(int i=0; i<RES/32; i++){
     s = *(start+i*32);
     //if(i==1031936) printf("1\n");
