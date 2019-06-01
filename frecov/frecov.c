@@ -39,7 +39,8 @@ int main(int argc, char *argv[]) {
   //int j = 0x82000>>5;
   //printf("%x\n",(int)(intptr_t)(start-j*32));
   char s = *start;
-  for(int i=0; i<RES/32; i++){
+  int i;
+  for(i=0; i<RES/32; i++){
     if(i==1020327) printf("1\n");
     s = *(start+i*32);
     int8_t tmp = 0xe5;
