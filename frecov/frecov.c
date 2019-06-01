@@ -46,10 +46,10 @@ int main(int argc, char *argv[]) {
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   //printf("%x\n",FILE_SZ);
   unsigned char *cur = NULL;
-  unsigned char s = *start;
+  //unsigned char s = *start;
   for(int i=0; i<RES; i++){
     cur = start+i;
-    s = *cur;
+    //s = *cur;
     //if(i==1031936) printf("1\n");
     if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%x**%x\n",cur[0xb],cur[0xc]);
     if(cur[0xc]==0 &&cur[0xb]==0x20) printf("%s\n",cur);
