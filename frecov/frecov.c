@@ -49,7 +49,8 @@ int main(int argc, char *argv[]) {
   for(int i=0; i<RES/32; i++){
     s = *(start+i*32);
     //if(i==1031936) printf("1\n");
-    if(s==0xe5) printf("%x\n",i);
+    int8_t tmp = 0xe5;
+    if((int8_t)s==tmp) printf("%x\n",i);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
