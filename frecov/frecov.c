@@ -5,16 +5,31 @@
 #include<unistd.h>
 #include<assert.h>
 #include<sys/mman.h>
-#include <stdint.h>
+#include<stdint.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
 #define SECSZ 512
 #define FATNUM 2
 char *start=NULL, *tmp_start;
-int32_t FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
+int32_t FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 
-void init(){
+int file_size2(char* filename){  
+    struct stat statbuf;  
+    stat(filename,&statbuf);  
+    int size=statbuf.st_size;    
+    return size;  
+}
+
+void init(char *filename){
+  FILE_SZ = file_size2(filename);
+  int fd = open(filename, O_RDWR);
+  assert(fd!=-1);
+  //64*MB = 0x4,000,000
+  start = mmap(NULL, FILE_SZ, PROT_READ, MAP_PRIVATE, fd, 0);
+  assert((intptr_t)start!=-1);
+  tmp_start = start;
+
   FAT_SEC = *(int16_t*)(start+0x16);
   if(FAT_SEC==0) FAT_SEC = *(int32_t*)(start+0x24);//0x1f8
   RES_SEC = *(int16_t*)(start+0xe);//0x20
@@ -23,30 +38,20 @@ void init(){
   data_off = (RES_SEC + FAT_SEC*FATNUM + (ST_CLU-2)*SEC_PER_CLU)*SECSZ;//0x82000
   //printf("%x\n",64*MB);
   start = start+data_off;
-  RES = 32*MB - data_off;
+  RES = FILE_SZ - data_off;
 }
 
-int main(int argc, char *argv[]) {
-  int fd = open(argv[1], O_RDWR);
-  assert(fd!=-1);
-  //64*MB = 0x4,000,000
-  start = mmap(NULL, 64*MB, PROT_READ, MAP_PRIVATE, fd, 0);
-  assert((intptr_t)start!=-1);
-  tmp_start = start;
-  
-  init();
+int main(int argc, char *argv[]) { 
+  init(argv[1]);
   //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
-  //int j = 0x82000>>5;
-  //printf("%x\n",(int)(intptr_t)(start-j*32));
+  printf("%x\n",FILE_SZ);
+  return 0;
   char s = *start;
   for(int i=0; i<RES/32; i++){
-    //if(i==1031936) printf("%d\n",*(int*)(start+i*32));
-    //if(i==1031936) printf("%x\n",(int)(intptr_t)(start+i*32));
     s = *(start+i*32);
     //if(i==1031936) printf("1\n");
     int8_t tmp = 0xe5;
     if((int8_t)s==tmp) printf("%x\n",i);
-    if(i>1020325) printf("%d\n",RES/32);
   }
   munmap(tmp_start, 64*MB);
   close(fd);
