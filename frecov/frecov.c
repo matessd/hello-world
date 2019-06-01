@@ -18,6 +18,7 @@ typedef struct{
   char name[15];
 }SDE;
 SDE sde[200];
+int scnt;
 
 int file_size2(char* filename){  
     struct stat statbuf;  
@@ -47,19 +48,20 @@ void init(char *filename){
 }
 
 void find_sde(){
-  unsigned char *cur = NULL; int cnt = 0;
+  unsigned char *cur = NULL;  scnt = 0;
   for(int i=0; i<RES/32; i++){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
-      sprintf(sde[++cnt].name,"%s",cur);
-      printf("%s\n",sde[cnt].name);
+      sprintf(sde[++scnt].name,"%s",cur);
+      sde[scnt].name[13]='\0';
+      printf("%s\n",sde[scnt].name);
     }
     /*if(cur[0x8]==0x42 &&cur[0x9]==0x4d &&cur[0xa]==0x50) {
       printf("%s\n",cur);
       cnt++;
     }*/
   }
-  printf("num:%d\n",cnt);
+  //printf("num:%d\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
