@@ -86,7 +86,7 @@ void find_lde(){
     if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
       if(*cur==0xe5) printf("%c**",*cur);
       printf("0x%x &&",*cur);
-      printf("%c*\n",cur[0x1]);
+      printf("   %c*\n",cur[0x1]);
     }
   }  
 }
