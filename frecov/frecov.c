@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
   //printf("%x\n",(int)(intptr_t)(start-j*32));
   for(int i=0; i<=RES/32; i++){
     char s = *(start+i*32);
-    if(s==0xe5) printf("%d\n",i);
+    if((uint8_t)s==0xe5) printf("%d\n",i);
     if(i==1020325) printf("%d\n",RES/32);
   }
   munmap(tmp_start, 64*MB);
