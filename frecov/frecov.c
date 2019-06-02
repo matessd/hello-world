@@ -234,12 +234,12 @@ void recover(){
       assert(ret!=-1&&ret!=-1);
       close(bmpfd);
       //printf("%d**\n",ret);
-
-      bmpfd = mkstemp("1-XXXXXX");
+      char tmp[10] = "XXXXXX";
+      bmpfd = mkstemp(tmp);
       assert(bmpfd>0);
       ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
-      close(bmpfd);
+      //close(bmpfd);
       /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
       printf("%x\n",(uint)(intptr_t)tstart);
       for(int i=0; i<100; i++){
@@ -251,6 +251,7 @@ void recover(){
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
       system("sha1sum ");
+      close(bmpfd);
       break;
     }
   }
