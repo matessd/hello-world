@@ -251,11 +251,11 @@ void recover(){
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
       //printf("%s\n",tmp);
-      unlink((char*)dir[i].name);
       char tmp1[100];
       strcpy(tmp1, "sha1sum ");
       strcat(tmp1, (char*)dir[i].name);
       system(tmp1);
+      unlink((char*)dir[i].name);
       close(bmpfd);
       break;
     }
