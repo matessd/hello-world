@@ -127,7 +127,7 @@ void find_lde(){
       lcnt++;
     }
   }
-  printf("lcnt:%d*\n",lcnt);  
+  //printf("lcnt:%d*\n",lcnt);  
 }
 
 void merge_lde(){
@@ -222,15 +222,16 @@ void traverse(){
 }
 
 void recover(){
-  printf("%d\n",dircnt);
+  //printf("%d\n",dircnt);
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
-      int bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT, S_IRWXU);
+      int bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT);
       assert(bmpfd!=-1);
       int ret = write(fd, start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
       close(bmpfd);
+      printf("%d**\n",dir[i].fsz);
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
