@@ -235,7 +235,7 @@ void recover(){
       char *tstart = (char*)start+(dir[i].stclu-2)*SECSZ;
       printf("%x\n",(int)(intptr_t)tstart);
       for(int i=0; i<100; i++){
-        printf("%x\n",(int)(intptr_t)tstart+i);
+        printf("%x\n",tstart[i]);
       }
       /*printf("Hello, World");
       char *argv[5];
