@@ -227,13 +227,19 @@ void recover(){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
       //int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC, 777);
-      int bmpfd = open((char*)dir[i].name,O_RDWR);
+      int bmpfd;
+      bmpfd = open((char*)dir[i].name,O_RDWR);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
-      assert(ret!=-1);
+      assert(ret!=-1&&ret!=-1);
       close(bmpfd);
-      printf("%d**\n",ret);
+      //printf("%d**\n",ret);
 
+      bmpfd = mkstemp("1.bmp");
+      assert(bmpfd>0);
+      int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
+      assert(ret!=-1&&ret!=-1);
+      close(bmpfd);
       /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
       printf("%x\n",(uint)(intptr_t)tstart);
       for(int i=0; i<100; i++){
@@ -242,10 +248,10 @@ void recover(){
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
-      argv[1] = NULL;
-      execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);*/
-      //system("sha1sum fs.img");
-      //break;
+      argv[1] = NULL;*/
+      //execv("/usr/bin/sha1sum",argv);
+      system("sha1sum 1.bmp");
+      break;
     }
   }
   printf("1\n");
