@@ -8,7 +8,6 @@
 #include<stdint.h>
 #include<string.h>
 #include<stdlib.h>
-//#include <locale.h>
 
 #define MB (1024*1024)
 //扇区sector大小为512字节
@@ -27,7 +26,7 @@ typedef struct{
   unsigned char idx; 
   int8_t vis, ife5;
 }LDE;
-#define MAX_NAME 50
+#define MAX_NAME 60
 typedef struct{
   unsigned char name[MAX_NAME];
   unsigned char checksum;
