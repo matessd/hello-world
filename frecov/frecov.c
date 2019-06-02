@@ -231,9 +231,9 @@ void recover(){
     if(dir[i].ok==1){
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //printf("%x\n",bmpst[dir[i].fsz-1]);
-      if(bmpst[dir[i].fsz-1]!='\0'&&bmpst[dir[i].fsz]!='\0'){
+      /*if(bmpst[dir[i].fsz-1]!='\0'&&bmpst[dir[i].fsz]!='\0'){
         continue;
-      }
+      }*/
       //assert(*(uint32_t*)(bmpst+0x2)==dir[i].fsz);
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
@@ -249,7 +249,7 @@ void recover(){
 
       strcpy((char*)&env[8], (char*)dir[i].name);
       system((char*)env);
-      //unlink((char*)dir[i].name);
+      unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
