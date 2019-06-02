@@ -231,7 +231,7 @@ void recover(){
       int ret = write(fd, start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
       close(bmpfd);
-      printf("%d**\n",dir[i].fsz);
+      printf("%d**\n",ret);
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
