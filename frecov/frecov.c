@@ -253,7 +253,7 @@ void recover(){
       //printf("%s\n",tmp);
       unlink((char*)dir[i].name);
       char tmp1[100];
-      strcpy(tmp1, "sha1sum");
+      strcpy(tmp1, "sha1sum ");
       strcat(tmp1, (char*)dir[i].name);
       system(tmp1);
       close(bmpfd);
