@@ -251,7 +251,7 @@ void recover(int flg){
       close(bmpfd);
     }
   }
-  printf("%d*\n",cnt);
+  //printf("%d*\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
