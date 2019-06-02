@@ -224,6 +224,9 @@ void traverse(){
 void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
+      int bmpfd = open("1.bmp",O_RDWR|O_CREAT);
+      write(fd, start+(dir[i].stclu-2)*SECSZ,dir[i].fsz);
+      close(bmpfd);
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
