@@ -250,6 +250,7 @@ void recover(){
       argv[0] = "sha1sum";
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
+      printf("%s\n",tmp);
       system("sha1sum ");
       close(bmpfd);
       break;
