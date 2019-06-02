@@ -225,6 +225,7 @@ void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       int bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT, S_IRWXU);
+      assert(bmpfd!=-1);
       int ret = write(fd, start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
       close(bmpfd);
