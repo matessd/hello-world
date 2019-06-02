@@ -72,7 +72,7 @@ void find_sde(){
     if(cur[0xc]==0 &&cur[0xb]==0x20) {
       if(*cur==0xe5) {
         sde[scnt].name[0] = '-';
-        sprintf((char*)sde[scnt].name,"%s",cur+1);
+        sprintf((char*)&sde[scnt].name[1],"%s",cur+1);
       }else{
         sprintf((char*)sde[scnt].name,"%s",cur);
       }
@@ -197,7 +197,7 @@ void traverse(){
       if(sde[j].vis==1) continue;
       strcpy((char*)tmp, (char*)sde[j].name);
       if(tmp[0]=='-') tmp[0] = dir[i].name[0];
-      if(compute_checksum(tmp)==checksum){
+      if((compute_checksum(tmp)==checksum)){
         sde[j].vis = 1;
         dir[i].ok = 1;
         cnt++;
