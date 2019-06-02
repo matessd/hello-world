@@ -257,7 +257,6 @@ void recover(){
       system(tmp1);
       unlink((char*)dir[i].name);
       close(bmpfd);
-      break;
     }
   }
   printf("1\n");
