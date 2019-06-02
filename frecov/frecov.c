@@ -171,13 +171,17 @@ void merge_lde(){
     dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
     //printf("%s*\n",tmp);
+    int len = strlen(tmp);
     if(tmp[0]=='p'&&tmp[1]=='\0'){
       dircnt--;
       continue;
     }
-    //printf("%s*\n",tmp);
+    if(tmp[len-1]!='p'){
+      dircnt--;
+    }
+    printf("%s*\n",tmp);
   }
-  //printf("dircnt:%d\n",dircnt);
+  printf("dircnt:%d\n",dircnt);
 }
 
 unsigned char compute_checksum(unsigned char* shortname){
@@ -202,11 +206,11 @@ void traverse(){
         sde[j].vis = 1;
         dir[i].ok = 1;
         cnt++;
-        printf("%s  %s\n",tmp,dir[i].name);
-        if((tmp[0]!=dir[i].name[0])&&tmp[0]!=dir[i].name[0]-32){
+        //printf("%s  %s\n",tmp,dir[i].name);
+        /*if((tmp[0]!=dir[i].name[0])&&tmp[0]!=dir[i].name[0]-32){
           printf("%c**\n",tmp[0]);
           assert(0);
-        }
+        }*/
         break;
       }
     }
