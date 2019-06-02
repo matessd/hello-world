@@ -223,10 +223,10 @@ void traverse(){
 
 void recover(){
   //printf("%d\n",dircnt);
-  for(int i=0; i<10; i++){
+  for(int i=90; i<100; i++){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
-      int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC);
+      int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC, 777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
