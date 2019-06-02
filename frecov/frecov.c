@@ -222,6 +222,7 @@ void traverse(){
 }
 
 void recover(){
+  printf("%d\n",dircnt);
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
