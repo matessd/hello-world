@@ -223,9 +223,10 @@ void traverse(){
 
 void recover(){
   //printf("%d\n",dircnt);
-  for(int i=90; i<100; i++){
+  for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
-      printf("%s **%d*\n",dir[i].name,i);
+      assert(dir[i].fsz!=0);
+      //printf("%s **%d*\n",dir[i].name,i);
       //int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC, 777);
       int bmpfd;
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
@@ -245,8 +246,7 @@ void recover(){
       for(int i=0; i<100; i++){
         printf("%x\n",tstart[i]);
       }*/
-      /*printf("Hello, World");
-      char *argv[5];
+      /*char *argv[5];
       argv[0] = "sha1sum";
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
@@ -255,16 +255,14 @@ void recover(){
       strcpy(tmp1, "sha1sum ");
       strcat(tmp1, (char*)dir[i].name);
       system(tmp1);
-      //unlink((char*)dir[i].name);
+      unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
-  printf("1\n");
 }
 
 int main(int argc, char *argv[]) { 
   init(argv[1]);
-  //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   find_sde();
   find_lde();
   merge_lde();
