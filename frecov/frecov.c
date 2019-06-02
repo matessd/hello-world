@@ -244,7 +244,7 @@ void recover(){
 
       strcpy((char*)&env[8], (char*)dir[i].name);
       system((char*)env);
-      unlink((char*)dir[i].name);
+      //unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
