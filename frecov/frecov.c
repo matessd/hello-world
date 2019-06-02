@@ -24,18 +24,18 @@ typedef struct{
   unsigned char name[15];
   unsigned char checksum;
   unsigned char idx; 
-  int8_t vis, ife5;
+  int8_t vis;
 }LDE;
 #define MAX_NAME 60
 typedef struct{
   unsigned char name[MAX_NAME];
   unsigned char checksum;
-  int8_t ok, ife5;
+  int8_t ok;
   uint32_t stclu, fsz;
 }myDIR;
-SDE sde[10000];
-LDE lde[10000];
-myDIR dir[10000];
+SDE sde[20000];
+LDE lde[20000];
+myDIR dir[20000];
 int scnt, lcnt, dircnt;
 
 int file_size2(char* filename){  
@@ -83,8 +83,6 @@ void find_sde(){
       sde[scnt].stclu = h|l;
       sde[scnt].fsz = *(uint32_t*)(cur+0x1c);
       sde[scnt++].name[11]='\0';
-      //printf("%s:%d\n",sde[scnt].name,i);
-      //if(i==996629) printf("%c**\n",cur[0]);
     }
   }
   //printf("scnt:%d\n",scnt);
@@ -111,14 +109,13 @@ void find_lde(){
     cur = start+i*32;
     if(cur[0xc]==0 &&cur[0xb]==0xf&&cur[0x1a]==0) {
       //printf("0x%x &&",*cur);
-      //printf("   %c*\n",cur[0x1]);
       int cnt = 0;
       cnt += uniread(&tmp[cnt], &cur[1], 5);
       cnt += uniread(&tmp[cnt], &cur[0xe], 6);
       cnt += uniread(&tmp[cnt], &cur[0x1c], 2); 
       strcpy((char*)lde[lcnt].name, (char*)tmp);
-      if(*cur==0xe5) lde[lcnt].ife5 = 1;
-      else lde[lcnt].ife5 = 0;
+      //if(*cur==0xe5) lde[lcnt].ife5 = 1;
+      //else lde[lcnt].ife5 = 0;
       lde[lcnt].checksum = cur[0xd];
       lde[lcnt].idx = *cur;
       lde[lcnt].vis = 0;
@@ -134,16 +131,13 @@ void merge_lde(){
   for(int i=lcnt-1; i>=0; i--){
     if(lde[i].vis==1) continue;
     lde[i].vis = 1;
-    tmp[0] = '\0';
-    strcat((char*)tmp, (char*)lde[i].name);
+    strcpy((char*)tmp, (char*)lde[i].name);
     /*if(tmp[0]=='p'&&tmp[1]=='\0'){
       lde[i].vis = 0;
       continue;
     }*/
     unsigned char checksum = lde[i].checksum;
     unsigned char idx = lde[i].idx;
-    //if(idx==0x41) printf("%s\n",tmp);
-    //printf("%s\n",tmp);
     if(idx==0xe5){
       for(int j=lcnt-1; j>=0; j--){
         if(lde[j].vis) continue;
@@ -168,7 +162,7 @@ void merge_lde(){
     strcpy((char*)dir[dircnt].name, (char*)tmp);
     dir[dircnt].checksum = checksum;
     dir[dircnt].ok = 0;
-    dir[dircnt].ife5 = lde[i].ife5;
+    //dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
     //printf("%s*\n",tmp);
     int len = strlen((char*)tmp);
@@ -180,7 +174,6 @@ void merge_lde(){
       dircnt--;
       continue;
     }
-    //printf("%s*\n",tmp);
   }
   //printf("dircnt:%d\n",dircnt);
 }
@@ -229,9 +222,7 @@ void recover(int flg){
       if(flg&&(bmpst[dir[i].fsz]!='\0')&&(bmpst[dir[i].fsz+1]!='\0')){
         continue;
       }
-      //assert(*(uint32_t*)(bmpst+0x2)==dir[i].fsz);
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
-      //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
       if(*(uint32_t*)(bmpst+0xe)!=0x28){
         dir[i].ok = 0; 
         continue;
@@ -240,9 +231,11 @@ void recover(int flg){
       dir[i].ok = 0;
       cnt++;
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
-      assert(bmpfd!=-1);
+      //assert(bmpfd!=-1);
+      if(bmpfd==-1) continue;
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
-      assert(ret!=-1&&ret!=0);
+      //assert(ret!=-1&&ret!=0);
+      if(ret==-1||ret==0) continue;
 
       strcpy((char*)&env[8], (char*)dir[i].name);
       system((char*)env);
