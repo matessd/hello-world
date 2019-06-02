@@ -224,16 +224,17 @@ void traverse(){
 void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
-      int bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT);
-      write(fd, start+(dir[i].stclu-2)*SECSZ,dir[i].fsz);
+      int bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT, S_IRWXU00700);
+      int ret = write(fd, start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
+      assert(ret!=-1);
       close(bmpfd);
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
       argv[1] = NULL;
       execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);*/
-      system("sha1sum fs.img");
-      break;
+      //system("sha1sum fs.img");
+      //break;
     }
   }
   printf("1\n");
