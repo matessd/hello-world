@@ -237,7 +237,7 @@ void recover(){
 
       bmpfd = mkstemp("1.bmp");
       assert(bmpfd>0);
-      int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
+      ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
       close(bmpfd);
       /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
