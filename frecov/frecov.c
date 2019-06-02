@@ -226,17 +226,18 @@ void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
-      /*int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT | O_TRUNC);
+      int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT | O_TRUNC, O_SIRWXO);
       assert(bmpfd!=-1);
       int ret = write(fd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
       close(bmpfd);
-      printf("%d**\n",ret);*/
-      unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
-      //printf("%x\n",(uint)(intptr_t)tstart);
+      printf("%d**\n",ret);
+
+      /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
+      printf("%x\n",(uint)(intptr_t)tstart);
       for(int i=0; i<100; i++){
         printf("%x\n",tstart[i]);
-      }
+      }*/
       /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
