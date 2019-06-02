@@ -234,7 +234,7 @@ void recover(){
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
       if(*(uint32_t*)(bmpst+0xe)!=0x28){
         continue;
-        printf("%s\n",dir[i].name);
+        //printf("%s\n",dir[i].name);
       }
 
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
@@ -246,7 +246,7 @@ void recover(){
       strcpy(tmp1, "sha1sum ");
       strcat(tmp1, (char*)dir[i].name);
       //system(tmp1);
-      unlink((char*)dir[i].name);
+      //unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
