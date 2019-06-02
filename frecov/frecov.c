@@ -198,11 +198,12 @@ void traverse(){
       strcpy((char*)tmp, (char*)sde[j].name);
       if(tmp[0]=='-') tmp[0] = dir[i].name[0];
       if((compute_checksum(tmp)==checksum)){
-        assert(tmp[0]==dir[i].name[0]);
+        //assert(tmp[0]==dir[i].name[0]);
         sde[j].vis = 1;
         dir[i].ok = 1;
         cnt++;
         printf("%s  %s\n",tmp,dir[i].name);
+        assert(tmp[0]==dir[i].name[0]);
         break;
       }
     }
