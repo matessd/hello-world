@@ -224,11 +224,12 @@ void traverse(){
 void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
-      printf("Hello, World");
+      /*printf("Hello, World");
       char *argv[5];
       argv[0] = "sha1sum";
       argv[1] = NULL;
-      execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);
+      execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);*/
+      system("sha1sum fs.img");
       break;
     }
   }
