@@ -33,9 +33,9 @@ typedef struct{
   int8_t ok, ife5;
   uint32_t stclu, fsz;
 }myDIR;
-SDE sde[5000];
-LDE lde[5000];
-myDIR dir[5000];
+SDE sde[10000];
+LDE lde[10000];
+myDIR dir[10000];
 int scnt, lcnt, dircnt;
 
 int file_size2(char* filename){  
