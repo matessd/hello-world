@@ -221,7 +221,7 @@ void traverse(){
   //printf("okcnt:%d\n",cnt);
 }
 
-void recover{
+void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       printf("%x\n",dir[i].fsz);
