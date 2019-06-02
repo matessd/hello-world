@@ -232,7 +232,7 @@ void recover(){
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
-      close(bmpfd);
+      //close(bmpfd);
       //printf("%d**\n",ret);
       /*char tmp[10] = "XXXXXX";
       bmpfd = mkstemp(tmp);
