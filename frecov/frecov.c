@@ -226,7 +226,7 @@ void recover(){
   //printf("%d\n",dircnt);
   int cnt = 0, bmpfd;
   unsigned char *bmpst, env[100];
-  strcpy((char*)envi, "sha1sum ");
+  strcpy((char*)env, "sha1sum ");
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
       cnt++;
