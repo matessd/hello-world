@@ -15,7 +15,7 @@
 #define SECSZ 512
 #define FATNUM 2
 unsigned char *start=NULL, *tmp_start;
-int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
+int32_t FD, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇区数*/, SEC_PER_CLU/*每簇扇区数，簇：cluster*/, ST_CLU/*起始簇号*/, data_off/*数据区偏移*/, RES/*数据区大小*/;
 typedef struct{
   unsigned char name[15];
   int8_t vis;
@@ -48,10 +48,10 @@ int file_size2(char* filename){
 
 void init(char *filename){
   FILE_SZ = file_size2(filename);
-  fd = open(filename, O_RDWR);
-  assert(fd!=-1);
+  FD = open(filename, O_RDWR);
+  assert(FD!=-1);
   //64*MB = 0x4,000,000
-  start = mmap(NULL, FILE_SZ, PROT_READ, MAP_PRIVATE, fd, 0);
+  start = mmap(NULL, FILE_SZ, PROT_READ, MAP_PRIVATE, FD, 0);
   assert((intptr_t)start!=-1);
   tmp_start = start;
 
@@ -228,7 +228,7 @@ void recover(){
       printf("%s **%d*\n",dir[i].name,i);
       int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT | O_TRUNC, S_IRWXO);
       assert(bmpfd!=-1);
-      int ret = write(fd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
+      int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1);
       close(bmpfd);
       printf("%d**\n",ret);
@@ -259,6 +259,6 @@ int main(int argc, char *argv[]) {
   traverse();
   recover();
   munmap(tmp_start, FILE_SZ);
-  close(fd);
+  close(FD);
   return 0;
 }
