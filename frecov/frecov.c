@@ -245,10 +245,9 @@ void recover(){
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
       assert(ret!=-1&&ret!=0);
 
-      //strcpy((char*)&env[8], (char*)dir[i].name);
-      sprintf((char*)&env[8],"%d",cnt);
+      strcpy((char*)&env[8], (char*)dir[i].name);
       system((char*)env);
-      //unlink((char*)dir[i].name);
+      unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
