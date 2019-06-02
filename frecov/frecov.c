@@ -203,7 +203,7 @@ void traverse(){
         dir[i].ok = 1;
         cnt++;
         printf("%s  %s\n",tmp,dir[i].name);
-        if(tmp[0]!=dir[i].name[0]){
+        if((tmp[0]!=dir[i].name[0])&&tmp[0]!=dir[i].name[0]-32){
           printf("%c**\n",tmp[0]);
           assert(0);
         }
