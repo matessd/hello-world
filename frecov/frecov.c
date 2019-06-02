@@ -227,7 +227,7 @@ void recover(int flg){
     if(dir[i].ok==1){
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //printf("%x\n",bmpst[dir[i].fsz-1]);
-      if(flg&&i(bmpst[dir[i].fsz]!='\0')&&(bmpst[dir[i].fsz+1]!='\0')){
+      if(flg&&(bmpst[dir[i].fsz]!='\0')&&(bmpst[dir[i].fsz+1]!='\0')){
         continue;
       }
       //assert(*(uint32_t*)(bmpst+0x2)==dir[i].fsz);
