@@ -233,6 +233,7 @@ void recover(){
       break;
     }
   }
+  printf("1\n");
 }
 
 int main(int argc, char *argv[]) { 
