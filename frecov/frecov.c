@@ -32,6 +32,7 @@ typedef struct{
   unsigned char name[MAX_NAME];
   unsigned char checksum;
   int8_t ok, ife5;
+  uint32_t stclu, fsz;
 }myDIR;
 SDE sde[2000];
 LDE lde[2000];
