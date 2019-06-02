@@ -127,7 +127,7 @@ void find_lde(){
       lcnt++;
     }
   }
-  //printf("lcnt:%d*\n",lcnt);  
+  printf("lcnt:%d*\n",lcnt);  
 }
 
 void merge_lde(){
@@ -183,7 +183,7 @@ void merge_lde(){
     }
     //printf("%s*\n",tmp);
   }
-  printf("dircnt:%d\n",dircnt);
+  //printf("dircnt:%d\n",dircnt);
 }
 
 unsigned char compute_checksum(unsigned char* shortname){
