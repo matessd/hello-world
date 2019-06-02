@@ -195,7 +195,7 @@ void traverse(){
     unsigned char checksum = dir[i].checksum;
     for(int j=0; j<scnt; j++){
       if(sde[j].vis==1) continue;
-      strcpy(tmp, sde[j].name);
+      strcpy((char*)tmp, (char*)sde[j].name);
       if(tmp[0]=='-') tmp[0] = dir[i].name[0];
       if(compute_checksum(tmp)==checksum){
         sde[j].vis = 1;
