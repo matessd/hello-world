@@ -224,16 +224,17 @@ void traverse(){
 
 void recover(){
   //printf("%d\n",dircnt);
-  int cnt = 0;
+  int cnt = 0, bmpfd;
+  unsigned char *bmpst;
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
       cnt++;
-      //assert(dir[i].fsz!=0);
       //printf("%s **%d*\n",dir[i].name,i);
-      int bmpfd;
+      bmpst = start+(dir[i].stclu-2)*SECSZ;
+      assert(bmpst[0]==0x42&&bmp[1]==0x4d);
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
-      int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
+      int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
       assert(ret!=-1&&ret!=0);
       /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
       printf("%x\n",(uint)(intptr_t)tstart);
