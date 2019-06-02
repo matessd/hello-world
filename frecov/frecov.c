@@ -180,9 +180,9 @@ void merge_lde(){
       dircnt--;
       continue;
     }
-    printf("%s*\n",tmp);
+    //printf("%s*\n",tmp);
   }
-  printf("dircnt:%d\n",dircnt);
+  //printf("dircnt:%d\n",dircnt);
 }
 
 unsigned char compute_checksum(unsigned char* shortname){
@@ -203,9 +203,10 @@ void traverse(){
       strcpy((char*)tmp, (char*)sde[j].name);
       if(tmp[0]=='-') tmp[0] = dir[i].name[0];
       if((compute_checksum(tmp)==checksum)){
-        //assert(tmp[0]==dir[i].name[0]);
         sde[j].vis = 1;
         dir[i].ok = 1;
+        dir[i].fsz = sde[j].fsz;
+        dir[i].stclu = sde[j].stclu;
         cnt++;
         //printf("%s  %s\n",tmp,dir[i].name);
         /*if((tmp[0]!=dir[i].name[0])&&tmp[0]!=dir[i].name[0]-32){
@@ -216,7 +217,16 @@ void traverse(){
       }
     }
   }
-  printf("okcnt:%d\n",cnt);
+  //printf("okcnt:%d\n",cnt);
+}
+
+void recover{
+  for(int i=0; i<dircnt; i++){
+    if(dir[i].ok==1){
+      printf("%x\n",dir[i].fsz);
+      break;
+    }
+  }
 }
 
 int main(int argc, char *argv[]) { 
@@ -226,6 +236,7 @@ int main(int argc, char *argv[]) {
   find_lde();
   merge_lde();
   traverse();
+  recover();
   munmap(tmp_start, FILE_SZ);
   close(fd);
   return 0;
