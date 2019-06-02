@@ -225,7 +225,9 @@ void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
       printf("Hello, World");
-      execv("/usr/bin/sha1sum",NULL);      //printf("0x%d\n",dir[i].fsz);
+      char *argv[5];
+      argv[0] = NULL;
+      execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);
       break;
     }
   }
