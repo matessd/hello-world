@@ -250,7 +250,7 @@ void recover(){
       argv[0] = "sha1sum";
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
-      system("sha1sum 1.bmp");
+      system("sha1sum 1-XXXXXX");
       break;
     }
   }
