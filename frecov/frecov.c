@@ -230,6 +230,7 @@ void recover(){
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
       bmpst = start+(dir[i].stclu-2)*SECSZ;
+      assert(*(uint32_t*)(bmpst+0x2)==dir[i].fsz);
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
       if(*(uint32_t*)(bmpst+0xe)!=0x28){
