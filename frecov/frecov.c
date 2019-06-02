@@ -19,6 +19,7 @@ int32_t fd, FILE_SZ/*文件大小*/, FAT_SEC/*FAT扇区数*/, RES_SEC/*保留扇
 typedef struct{
   unsigned char name[15];
   int8_t vis;
+  uint32_t stclu, fsz;
 }SDE;
 typedef struct{
   unsigned char name[15];
@@ -32,9 +33,9 @@ typedef struct{
   unsigned char checksum;
   int8_t ok, ife5;
 }myDIR;
-SDE sde[200];
-LDE lde[300];
-myDIR dir[200];
+SDE sde[2000];
+LDE lde[2000];
+myDIR dir[2000];
 int scnt, lcnt, dircnt;
 
 int file_size2(char* filename){  
@@ -75,14 +76,12 @@ void find_sde(){
       }else{
         sprintf((char*)sde[scnt].name,"%s",cur);
       }
-      /*for(int i=0; i<8; i++){
-        if(sde[scnt].name[i]==' '){
-          sde[scnt].name[i] = '\0';
-          strcat(sde[scnt].name, "BMP");
-          break;
-        }
-      }*/
       sde[scnt].vis = 0;
+      uint32_t l = *(uint16_t*)(cur+0x1a);
+      uint32_t h = *(uint16_t*)(cur+0x14);
+      h <<= 16;
+      sde[scnt].stclu = h|l;
+      sde[scnt].fsz = *(uint32_t*)(cur+0x1c);
       sde[scnt++].name[11]='\0';
       //printf("%s:%d\n",sde[scnt].name,i);
       //if(i==996629) printf("%c**\n",cur[0]);
@@ -191,15 +190,18 @@ unsigned char compute_checksum(unsigned char* shortname){
 
 void traverse(){
   int cnt=0;
+  unsigned char tmp[15];
   for(int i=dircnt-1; i>=0; i--){
     unsigned char checksum = dir[i].checksum;
     for(int j=0; j<scnt; j++){
       if(sde[j].vis==1) continue;
-      if(compute_checksum(sde[j].name)==checksum){
+      strcpy(tmp, sde[j].name);
+      if(tmp[0]=='-') tmp[0] = dir[i].name[0];
+      if(compute_checksum(tmp)==checksum){
         sde[j].vis = 1;
         dir[i].ok = 1;
         cnt++;
-        printf("%s  %s\n",sde[j].name,dir[i].name);
+        printf("%s  %s\n",tmp,dir[i].name);
         break;
       }
     }
