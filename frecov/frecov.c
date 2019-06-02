@@ -205,6 +205,7 @@ void traverse(){
       if(tmp[0]=='-') tmp[0] = dir[i].name[0];
       if((compute_checksum(tmp)==checksum)){
         sde[j].vis = 1;
+        if(sde[j].fsz==0) break;
         dir[i].ok = 1;
         dir[i].fsz = sde[j].fsz;
         dir[i].stclu = sde[j].stclu;
@@ -222,7 +223,7 @@ void traverse(){
 }
 
 void recover(){
-  //printf("%d\n",dircnt);
+  printf("%d\n",dircnt);
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
       assert(dir[i].fsz!=0);
@@ -232,8 +233,7 @@ void recover(){
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
-      assert(ret!=-1&&ret!=-1);
-      //close(bmpfd);
+      assert(ret!=-1&&ret!=0);
       //printf("%d**\n",ret);
       /*char tmp[10] = "XXXXXX";
       bmpfd = mkstemp(tmp);
