@@ -245,7 +245,7 @@ void recover(){
       char tmp1[100];
       strcpy(tmp1, "sha1sum ");
       strcat(&tmp1[8], (char*)dir[i].name);
-      //system(tmp1);
+      system(tmp1);
       unlink((char*)dir[i].name);
       close(bmpfd);
     }
