@@ -224,7 +224,7 @@ void traverse(){
 void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
-      printf("%x\n",dir[i].fsz);
+      printf("0x%d\n",dir[i].fsz);
       break;
     }
   }
