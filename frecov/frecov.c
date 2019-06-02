@@ -232,17 +232,16 @@ void recover(){
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
-      if(*(uint32_t*)(bmpst+0xe)!=0x28)
+      if(*(uint32_t*)(bmpst+0xe)!=0x28){
+        continue;
         printf("%s\n",dir[i].name);
+      }
+
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
       assert(ret!=-1&&ret!=0);
-      /*unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
-      printf("%x\n",(uint)(intptr_t)tstart);
-      for(int i=0; i<100; i++){
-        printf("%x\n",tstart[i]);
-      }*/
+
       char tmp1[100];
       strcpy(tmp1, "sha1sum ");
       strcat(tmp1, (char*)dir[i].name);
