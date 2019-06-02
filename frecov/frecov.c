@@ -211,10 +211,6 @@ void traverse(){
         dir[i].stclu = sde[j].stclu;
         cnt++;
         //printf("%s  %s\n",tmp,dir[i].name);
-        /*if((tmp[0]!=dir[i].name[0])&&tmp[0]!=dir[i].name[0]-32){
-          printf("%c**\n",tmp[0]);
-          assert(0);
-        }*/
         break;
       }
     }
@@ -238,9 +234,11 @@ void recover(){
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
       if(*(uint32_t*)(bmpst+0xe)!=0x28){
+        dir[i].ok = 0; 
         continue;
         //printf("%s\n",dir[i].name);
       }
+      dir[i].ok = 0;
       cnt++;
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
@@ -249,7 +247,7 @@ void recover(){
 
       strcpy((char*)&env[8], (char*)dir[i].name);
       system((char*)env);
-      //unlink((char*)dir[i].name);
+      unlink((char*)dir[i].name);
       close(bmpfd);
     }
   }
