@@ -183,7 +183,7 @@ void merge_lde(){
     }
     //printf("%s*\n",tmp);
   }
-  //printf("dircnt:%d\n",dircnt);
+  printf("dircnt:%d\n",dircnt);
 }
 
 unsigned char compute_checksum(unsigned char* shortname){
@@ -245,7 +245,7 @@ void recover(){
 
 int main(int argc, char *argv[]) { 
   init(argv[1]);
-  printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
+  //printf("%x**%x\n",(int)(intptr_t)start,(int)(intptr_t)tmp_start);
   find_sde();
   find_lde();
   merge_lde();
