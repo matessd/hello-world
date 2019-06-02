@@ -223,9 +223,11 @@ void traverse(){
 }
 
 void recover(){
-  printf("%d\n",dircnt);
+  //printf("%d\n",dircnt);
+  int cnt = 0;
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
+      cnt++;
       assert(dir[i].fsz!=0);
       //printf("%s **%d*\n",dir[i].name,i);
       //int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC, 777);
@@ -259,6 +261,7 @@ void recover(){
       close(bmpfd);
     }
   }
+  printf("%d*\n",cnt);
 }
 
 int main(int argc, char *argv[]) { 
