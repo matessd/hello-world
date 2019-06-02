@@ -232,8 +232,8 @@ void recover(){
       assert(ret!=-1);
       close(bmpfd);
       printf("%d**\n",ret);*/
-      char *tstart = (char*)start+(dir[i].stclu-2)*SECSZ;
-      printf("%x\n",(int)(intptr_t)tstart);
+      unsigned char *tstart = start+(dir[i].stclu-2)*SECSZ;
+      //printf("%x\n",(uint)(intptr_t)tstart);
       for(int i=0; i<100; i++){
         printf("%x\n",tstart[i]);
       }
