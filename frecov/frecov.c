@@ -233,7 +233,7 @@ void recover(){
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
       close(bmpfd);
-      printf("%d**\n",ret);
+      //printf("%d**\n",ret);
 
       bmpfd = mkstemp("1-XXXXXX");
       assert(bmpfd>0);
@@ -250,7 +250,7 @@ void recover(){
       argv[0] = "sha1sum";
       argv[1] = NULL;*/
       //execv("/usr/bin/sha1sum",argv);
-      system("sha1sum 1-XXXXXX");
+      system("sha1sum ");
       break;
     }
   }
