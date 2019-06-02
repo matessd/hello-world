@@ -34,9 +34,9 @@ typedef struct{
   int8_t ok, ife5;
   uint32_t stclu, fsz;
 }myDIR;
-SDE sde[2000];
-LDE lde[2000];
-myDIR dir[2000];
+SDE sde[5000];
+LDE lde[5000];
+myDIR dir[5000];
 int scnt, lcnt, dircnt;
 
 int file_size2(char* filename){  
@@ -218,7 +218,7 @@ void traverse(){
   //printf("okcnt:%d\n",cnt);
 }
 
-void recover(){
+void recover(int flg){
   //printf("%d\n",dircnt);
   int cnt = 0, bmpfd;
   unsigned char *bmpst, env[100];
@@ -227,7 +227,7 @@ void recover(){
     if(dir[i].ok==1){
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //printf("%x\n",bmpst[dir[i].fsz-1]);
-      if(bmpst[dir[i].fsz]!='\0'&&bmpst[dir[i].fsz+1]!='\0'){
+      if(flg&&i(bmpst[dir[i].fsz]!='\0')&&(bmpst[dir[i].fsz+1]!='\0')){
         continue;
       }
       //assert(*(uint32_t*)(bmpst+0x2)==dir[i].fsz);
@@ -260,7 +260,8 @@ int main(int argc, char *argv[]) {
   find_lde();
   merge_lde();
   traverse();
-  recover();
+  recover(1);
+  recover(0);
   munmap(tmp_start, FILE_SZ);
   close(FD);
   return 0;
