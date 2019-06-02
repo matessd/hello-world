@@ -171,7 +171,7 @@ void merge_lde(){
     dir[dircnt].ife5 = lde[i].ife5;
     dircnt++;
     //printf("%s*\n",tmp);
-    int len = strlen(tmp);
+    int len = strlen((char*)tmp);
     if(tmp[0]=='p'&&tmp[1]=='\0'){
       dircnt--;
       continue;
