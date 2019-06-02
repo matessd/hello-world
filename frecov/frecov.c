@@ -229,7 +229,6 @@ void recover(){
   strcpy((char*)env, "sha1sum ");
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
-      cnt++;
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
       //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
@@ -237,7 +236,7 @@ void recover(){
         continue;
         //printf("%s\n",dir[i].name);
       }
-
+      cnt++;
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
