@@ -223,11 +223,11 @@ void recover(int flg){
         continue;
       }
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
-      /*if(*(uint32_t*)(bmpst+0xe)!=0x28){
+      if(*(uint32_t*)(bmpst+0xe)!=0x28){
         dir[i].ok = 0; 
         continue;
         //printf("%s\n",dir[i].name);
-      }*/
+      }
       dir[i].ok = 0;
       cnt++;
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
