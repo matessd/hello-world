@@ -178,6 +178,7 @@ void merge_lde(){
     }
     if(tmp[len-1]!='p'){
       dircnt--;
+      continue;
     }
     printf("%s*\n",tmp);
   }
