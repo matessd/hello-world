@@ -223,7 +223,7 @@ void traverse(){
 
 void recover(){
   //printf("%d\n",dircnt);
-  for(int i=0; i<dircnt; i++){
+  for(int i=0; i<5; i++){
     if(dir[i].ok==1){
       printf("%s **%d*\n",dir[i].name,i);
       int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT | O_TRUNC, S_IRWXO);
@@ -244,7 +244,7 @@ void recover(){
       argv[1] = NULL;
       execv("/usr/bin/sha1sum",argv);      //printf("0x%d\n",dir[i].fsz);*/
       //system("sha1sum fs.img");
-      break;
+      //break;
     }
   }
   printf("1\n");
