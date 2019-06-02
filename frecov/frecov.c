@@ -225,7 +225,8 @@ void traverse(){
 void recover(){
   //printf("%d\n",dircnt);
   int cnt = 0, bmpfd;
-  unsigned char *bmpst;
+  unsigned char *bmpst, env[100];
+  strcpy((char*)envi, "sha1sum ");
   for(int i=dircnt-1; i>=0; i--){
     if(dir[i].ok==1){
       cnt++;
@@ -242,10 +243,8 @@ void recover(){
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
       assert(ret!=-1&&ret!=0);
 
-      char tmp1[100];
-      strcpy(tmp1, "sha1sum ");
-      strcat(&tmp1[8], (char*)dir[i].name);
-      system(tmp1);
+      strcpy((char*)&env[8], (char*)dir[i].name);
+      system((char*)env);
       unlink((char*)dir[i].name);
       close(bmpfd);
     }
