@@ -231,7 +231,9 @@ void recover(){
       cnt++;
       bmpst = start+(dir[i].stclu-2)*SECSZ;
       //assert(bmpst[0]==0x42&&bmpst[1]==0x4d);
-      printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
+      //printf("%x **%d*\n",*(uint32_t*)(bmpst+0xe),i);
+      if(*(uint32_t*)(bmpst+0xe)!=0x28)
+        printf("%s\n",dir[i].name);
       bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)bmpst, dir[i].fsz);
