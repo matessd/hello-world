@@ -228,7 +228,7 @@ void recover(){
       printf("%s **%d*\n",dir[i].name,i);
       //int bmpfd = open((char*)dir[i].name,O_RDWR | O_CREAT |O_EXCL | O_TRUNC, 777);
       int bmpfd;
-      bmpfd = open((char*)dir[i].name,O_RDWR);
+      bmpfd = open((char*)dir[i].name,O_RDWR|O_CREAT|O_TRUNC, 0777);
       assert(bmpfd!=-1);
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
