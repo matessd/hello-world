@@ -224,7 +224,8 @@ void traverse(){
 void recover(){
   for(int i=0; i<dircnt; i++){
     if(dir[i].ok==1){
-      printf("0x%d\n",dir[i].fsz);
+      printf("Hello, World");
+      execv("/usr/bin/sha1sum",NULL);      //printf("0x%d\n",dir[i].fsz);
       break;
     }
   }
