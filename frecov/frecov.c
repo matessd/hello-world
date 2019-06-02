@@ -233,7 +233,7 @@ void recover(){
       int ret = write(bmpfd, (char*)start+(dir[i].stclu-2)*SECSZ, dir[i].fsz);
       assert(ret!=-1&&ret!=-1);
       close(bmpfd);
-      //printf("%d**\n",ret);
+      printf("%d**\n",ret);
 
       bmpfd = mkstemp("1-XXXXXX");
       assert(bmpfd>0);
