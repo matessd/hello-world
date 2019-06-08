@@ -2,7 +2,7 @@
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
-  fp = fopen(filename, a+);
+  fp = fopen(filename, "a+");
   if(fp==NULL) return 1;
   db->fp = fp;
   db->ifopen = 1;
