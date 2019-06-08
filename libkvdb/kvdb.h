@@ -3,6 +3,9 @@
 
 
 struct kvdb {
+  FILE *fp;
+  int ifopen;
+  int fix;
 };
 typedef struct kvdb kvdb_t;
 
