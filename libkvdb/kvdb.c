@@ -1,7 +1,4 @@
 #include "kvdb.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;

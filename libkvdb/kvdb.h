@@ -1,7 +1,9 @@
 #ifndef __KVDB_H__
 #define __KVDB_H__
 
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 struct kvdb {
   FILE *fp;
   int ifopen;
