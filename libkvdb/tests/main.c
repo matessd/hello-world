@@ -6,12 +6,13 @@ volatile int cnt;
 
 void *test1(void *_db) {
   kvdb_t *db = _db;
-  char key[50],v[50];
+  char key[20],v[20];
   int i = 0;
   while(i++<400){
     sprintf(key,"%d\0",++cnt);
     strcpy(v,key);
     strcat(v,key);
+    printf("%s\n",v);
     strcat(v,key);
     //printf("%s\n",v);
     assert(kvdb_put(db, key, v)==0);
