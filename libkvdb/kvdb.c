@@ -50,7 +50,7 @@ int read_line(int fd, char *dst){
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
-  char tkey[130]; 
+  char tkey[130], tmpc; 
   tkey[0] = '\0';
   int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
@@ -58,7 +58,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     //ifeof = read_line(db->fd,tmp);
     //if(ifeof<0) return -1;
     //else if(ifeof==1) break;
-    fscanf(db->fp,"%d %s %d",&cnt,tkey,&used);
+    fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);
     //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
       ok = 1; break;
