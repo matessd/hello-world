@@ -30,7 +30,7 @@ void *test2(void *_db) {
   char key[20];
   int i = 0;
   while(i++<400){
-    sprintf(key,"%d\0",++cnt);
+    sprintf(key,"%d\0",i);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
     printf("[key:%s][value:%s]\n",key,value);
@@ -38,7 +38,7 @@ void *test2(void *_db) {
   } 
   return NULL;
 }
-#define THREADS 4
+#define THREADS 1
 
 int main(int argc, char *argv[]) {
   kvdb_t *db = malloc(sizeof(kvdb_t));
