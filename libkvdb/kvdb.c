@@ -80,7 +80,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
 
   char *value = malloc(16*1024*1024);//16MB
   if(value==NULL) return NULL;
-  int cnt, used, len;
+  int cnt, used;
   while(strcmp(tkey,key)!=0||used!=1){
     if(fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc)==EOF)
       return NULL;
