@@ -20,7 +20,7 @@ void *test1(void *_db) {
     assert(value!=NULL);
     printf("[key:%s][value:%s]\n",key,value);
     free(value);
-    //if(i==100) exit(0);
+    if(i==10000) exit(0);
   } 
   return NULL;
 }
