@@ -67,7 +67,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int ret = 0;
   if(ok==1){
     if(len<=cnt){
-      //printf("1\n");
+      printf("1\n");
       ret = fprintf(db->fp,"%s",value);
     }
     else {
