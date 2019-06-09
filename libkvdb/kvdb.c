@@ -5,6 +5,7 @@ int SEEK2 = 4;
 
 int recover(kvdb_t *db){
   //printf("%d\n",db->ifopen);
+  if(db->fp==NULL) return -1;
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
   assert(0);
@@ -63,13 +64,13 @@ int kvdb_open(kvdb_t *db, const char *filename){
   fseek(fp,0,SEEK_SET);
   int a,b;
   fscanf(fp,"%d %d",&a,&b);
+  db->fd = fd;
+  db->fp = fp;
+  db->ifopen = 1;
   if(a==1&&b==1) 
     if(recover(db))
       return -1;
   pthread_mutex_unlock(&db->mutex);
-  db->fd = fd;
-  db->fp = fp;
-  db->ifopen = 1;
   return 0;
 }
 
