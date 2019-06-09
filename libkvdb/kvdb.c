@@ -56,7 +56,8 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
-      printf("1\n");
+      int tell = ftell(db->fp);
+      printf("%d\n",tell);
       ok = 1; break;
     }
     fseek(db->fp,cnt+1,SEEK_CUR);
