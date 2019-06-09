@@ -20,6 +20,7 @@ int recover(kvdb_t *db){
     fscanf(db->fp,"%d %d %d %s %s\n",&off1,&off2,&len,key,value);
     fseek(db->fp,off1,SEEK_SET);
     fprintf(db->fp,"0");
+    assert(0);
     fseek(db->fp,off2,SEEK_SET);
     fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }else if(case_num==3){
