@@ -63,7 +63,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
       ok = 1; break;
     }
     fseek(db->fp,cnt+1,SEEK_CUR);
-    break;
+    //break;
   }
   int len = strlen(value);
   
