@@ -4,7 +4,7 @@ int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
 
 int recover(kvdb_t *db){
-  printf("%d\n",SEEK2);
+  printf("%d\n",db->ifopen);
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
   //assert(0);

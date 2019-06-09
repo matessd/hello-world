@@ -10,10 +10,10 @@ void *test1(void *_db) {
   int i = 0;
   while(i++<400){
     sprintf(key,"%d\0",++cnt);
-    printf("%s\n",key);
+    //printf("%s\n",key);
     strcpy(v,key);
     strcat(v,key);
-    printf("%s\n",v);
+    //printf("%s\n",v);
     strcat(v,key);
     //printf("%s\n",v);
     assert(kvdb_put(db, key, v)==0);
@@ -31,9 +31,9 @@ int main(int argc, char *argv[]) {
   kvdb_t *db = malloc(sizeof(kvdb_t));
   assert(db != NULL);
 
-  printf("1\n");
+  //printf("1\n");
   assert(kvdb_open(db, "b.db")==0);
-  printf("2\n");
+  //printf("2\n");
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
     pthread_create(&pt[i], NULL, test1, db);
