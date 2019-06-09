@@ -10,6 +10,7 @@ void *test1(void *_db) {
   int i = 0;
   while(i++<400){
     sprintf(key,"%d\0",++cnt);
+    printf("%s\n",key);
     strcpy(v,key);
     strcat(v,key);
     printf("%s\n",v);
