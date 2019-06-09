@@ -47,8 +47,8 @@ int read_line(int fd, char *dst){
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
-  char tkey[130], tmp[256]; 
-  tkey[0] = '\0'; tmp[0] = '\0';
+  char tkey[130]; 
+  tkey[0] = '\0';
   int used=0, cnt=0, ok=0, ifeof;
   fseek(db->fp,0,SEEK_SET);
   while(1){
