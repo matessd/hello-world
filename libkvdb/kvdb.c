@@ -54,7 +54,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fd==-1) return -1;
 
   //log恢复完
-  if(pthread_mutex_init(&db->mutex,NULL) return -1;
+  if(pthread_mutex_init(&db->mutex,NULL)) return -1;
   pthread_mutex_lock(&db->mutex);
   fseek(fp,0,SEEK_SET);
   int a,b;
