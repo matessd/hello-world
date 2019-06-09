@@ -5,7 +5,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
   fp = fopen(filename, "r+");
   if(fp==NULL){
-    fp = fopen(filename, "w+");
+    if(errno==2) fp = fopen(filename, "w+");
   }
   assert(fp!=NULL);
   //if(fp==NULL) return 1;
@@ -32,7 +32,7 @@ int kvdb_close(kvdb_t *db){
 void journal_write(FILE *fp, long off, const char *key, const char *value){
 }
 
-int read_line(int fd, char *dst){
+/*int read_line(int fd, char *dst){
   int i = 0, ret;
   while(1){
     //int tell = ftell(fp);
@@ -46,7 +46,7 @@ int read_line(int fd, char *dst){
       return 0;
     }
   }
-}
+}*/
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
@@ -55,9 +55,6 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    //ifeof = read_line(db->fd,tmp);
-    //if(ifeof<0) return -1;
-    //else if(ifeof==1) break;
     fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);
     //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
