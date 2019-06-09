@@ -31,7 +31,7 @@ void journal_write(FILE *fp, long off, const char *key, const char *value){
 
 int read_line(int fd, char *dst){
   int i = 0, ret;
-  while(1){
+  while(i<10){
     ret = read(fd, &dst[i], 1);
     printf("%c*",dst[i]);
     if(ret<0) return -1;
