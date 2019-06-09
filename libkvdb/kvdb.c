@@ -6,6 +6,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   fp = fopen(filename, "a+");
   if(fp==NULL) return 1;
   int fd = fileno(fp);
+  assert(fd!=-1);
   if(fd==-1) return -1;
   db->fd = fd;
   db->fp = fp;
