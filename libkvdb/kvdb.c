@@ -127,7 +127,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
 
 char *kvdb_get(kvdb_t *db, const char *key){
   if(db->ifopen==0) return NULL;
-  if(fseek(db->fp,0,SEEK_SET)!=0) return NULL;
+  if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
   char tkey[130], tmpc; tkey[0]='\0';
 
   char *value = malloc(16*1024*1024);//16MB
