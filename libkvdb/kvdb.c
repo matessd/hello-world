@@ -49,7 +49,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
   char tkey[130]; 
   tkey[0] = '\0';
-  int used=0, cnt=0, ok=0, ifeof;
+  int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
   while(1){
     //ifeof = read_line(db->fd,tmp);
