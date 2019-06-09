@@ -10,11 +10,9 @@ void *test1(void *_db) {
   int i = 0;
   while(i++<400){
     sprintf(key,"%d\0",++cnt);
-    //printf("%s\n",key);
     strcpy(v,key);
-    strcat(v,key);
-    //printf("%s\n",v);
-    strcat(v,key);
+    //strcat(v,key);
+    //strcat(v,key);
     //printf("%s\n",v);
     assert(kvdb_put(db, key, v)==0);
     char *value = kvdb_get(db,key);
@@ -49,7 +47,7 @@ int main(int argc, char *argv[]) {
   //printf("2\n");
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
-    pthread_create(&pt[i], NULL, test2, db);
+    pthread_create(&pt[i], NULL, test1, db);
   }
   for(int i = 0; i < THREADS; i++) {
     pthread_join(pt[i], NULL);
