@@ -13,7 +13,8 @@ void *test2(void *_db) {
     sprintf(key,"**%d**\0",++cnt);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
-    printf("[key:%s][value:%s]\n",key,value);
+    //printf("[key:%s][value:%s]\n",key,value);
+    assert(strcmp(key,value)==0);
     free(value);
     //if(cnt==20) exit(0);
   } 
