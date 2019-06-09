@@ -1,7 +1,7 @@
 #include "kvdb.h"
 //#include <assert.h>
 int SEEK1 = 16*1024*1024+512;
-int SEEK2 = 4
+int SEEK2 = 4;
 
 int recover(kvdb_t *db){
   fseek(db->fp,SEEK2,SEEK_SET);
