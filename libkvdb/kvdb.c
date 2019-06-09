@@ -40,6 +40,7 @@ int read_line(int fd, char *dst){
       return 0;
     }
   }
+  return 0;
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
