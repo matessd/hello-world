@@ -3,7 +3,10 @@
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
-  fp = fopen(filename, "rw+");
+  fp = fopen(filename, "r+");
+  if(fp==NULL){
+    fp = fopen(filename, "w+");
+  }
   assert(fp!=NULL);
   //if(fp==NULL) return 1;
   int fd = fileno(fp);
