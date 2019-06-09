@@ -11,6 +11,7 @@
 struct kvdb {
   FILE *fp;
   int fd, ifopen;
+  pthread_mutex_t mutex;
 };
 typedef struct kvdb kvdb_t;
 
