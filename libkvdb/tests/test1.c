@@ -17,10 +17,10 @@ void *test1(void *_db) {
     //strcat(v,key);
     //printf("%s\n",v);
     assert(kvdb_put(db, key, v)==0);
-    //char *value = kvdb_get(db,key);
-    //assert(value!=NULL);
-    //printf("[key:%s][value:%s]\n",key,value);
-    //free(value);
+    char *value = kvdb_get(db,key);
+    assert(value!=NULL);
+    printf("[key:%s][value:%s]\n",key,value);
+    free(value);
   } 
   return NULL;
 }
