@@ -6,8 +6,7 @@
 #include <stdlib.h>
 struct kvdb {
   FILE *fp;
-  int ifopen;
-  int fix;
+  int fd, ifopen;
 };
 typedef struct kvdb kvdb_t;
 
