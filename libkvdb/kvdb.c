@@ -6,7 +6,7 @@ int SEEK2 = 4;
 
 int flip_a_coin(){
   //srand(time(NULL));
-  if(rand()%1000<10)
+  if(rand()%1000>10)
    return 1;
   else return 0; 
 }
@@ -34,7 +34,7 @@ int recover(kvdb_t *db){
     fscanf(db->fp,"%d %d %d %s %s\n",&off1,&off2,&len,key,value);
     fseek(db->fp,off1,SEEK_SET);
     fprintf(db->fp,"0");
-    //may_crash();
+    may_crash();
     fseek(db->fp,off2,SEEK_SET);
     fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }else if(case_num==3){
@@ -44,7 +44,7 @@ int recover(kvdb_t *db){
   }else{
     return -1;
   }
-  //may_crash();
+  may_crash();
   free(value);
   fseek(db->fp,0,SEEK_SET);
   fprintf(db->fp,"0 0\n");
@@ -147,10 +147,10 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     //ret = fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
     fprintf(db->fp,"3\n%d %d %s %s\n",off1,len,key,value);
   }
-  //may_crash();
+  may_crash();
   fseek(db->fp,0,SEEK_SET);
   fprintf(db->fp,"1 1\n");
-  //may_crash();
+  may_crash();
   if(recover(db)) return -1;
   flock(db->fd, LOCK_UN);
   pthread_mutex_unlock(&db->mutex);
