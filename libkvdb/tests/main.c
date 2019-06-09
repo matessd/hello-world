@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-
+#include <pthread.h>
 volatile int cnt;
 
 void *test(void *_db) {
