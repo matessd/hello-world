@@ -46,17 +46,18 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int ret = 0;
   if(ok==1){
     if(len<=cnt){
-      printf("1\n");
+      //printf("1\n");
       ret = fprintf(db->fp,"%s",value);
     }
     else {
-      if(fseek(db->fp,2,SEEK_CUR)!=0)
+      if(fseek(db->fp,-2,SEEK_CUR)!=0)
         return 2;
       fprintf(db->fp,"0");
       ok = 0;
     }
   }
   if(ok==0){
+      printf("1\n");
     fseek(db->fp,0,SEEK_END);
     ret = fprintf(db->fp,"%d %s 1 %s",len,key,value);
   }
