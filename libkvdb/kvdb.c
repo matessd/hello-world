@@ -63,6 +63,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     if(strcmp(tkey,key)==0&&used==1) {
       ok = 1; break;
     }
+    if(feof(db->fp)) break;
     fseek(db->fp,cnt+1,SEEK_CUR);
     //break;
   }
