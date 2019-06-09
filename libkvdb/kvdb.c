@@ -6,7 +6,7 @@ int SEEK2 = 4;
 int recover(kvdb_t *db){
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
-  fscanf(db->fp,"%d",case_num);
+  fscanf(db->fp,"%d",&case_num);
   char key[130];
   char *value = malloc(16*1024*1024);
   if(value==NULL) return -1;
@@ -15,13 +15,13 @@ int recover(kvdb_t *db){
     fseek(db->fp,off1,SEEK_SET);
     fprintf(db->fp,"%s\n",value);
   }else if(case_num==2){
-    fscanf(db->fp,"%d %d %d %s %s\n",off1,off2,len,key,value);
+    fscanf(db->fp,"%d %d %d %s %s\n",&off1,&off2,&len,key,value);
     fseek(db->fp,off1,SEEK_SET);
     fprintf(db->fp"0");
     fseek(db->fp,off2,SEEK_SET);
     fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }else if(case_num==3){
-    fscanf(db->fp,"%d %d %s %s",off1,len,key,value);
+    fscanf(db->fp,"%d %d %s %s",&off1,&len,key,value);
     fseek(db->fp,off1,SEEK_SET);
     fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }else{
