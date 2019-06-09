@@ -37,28 +37,28 @@ int read_line(int fd, char *dst){
     if(ret<0) return -1;
     if(ret==0||dst[i++]=='\n'){
       dst[i] = '\0';
+      if(ret==0) return 1;//EOF
       return 0;
     }
   }
-  return 0;
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
   char tkey[130], tmp[256]; 
   tkey[0] = '\0'; tmp[0] = '\0';
-  int used=0, cnt=0, ok=0;
+  int used=0, cnt=0, ok=0, ifeof;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    if(read_line(db->fd, tmp)<0) return -1;
-    //assert(0);
+    ifeof = read_line(db->fd,tmp);
+    if(ifeof<0) return -1;
+    else if(ifeof==1) break;
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
-    printf("*%d*%s*\n",cnt,tkey);
+    //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
       //printf("1\n");
       ok = 1; break;
     }
-    if(feof(db->fp)) break;
     fseek(db->fp,cnt+1,SEEK_CUR);
     break;
   }
@@ -80,7 +80,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(ok==0){
     //printf("1\n");
     fseek(db->fp,0,SEEK_END);
-    ret = fprintf(db->fp,"%d %s 1 %s",len,key,value);
+    ret = fprintf(db->fp,"%d %s 1\n%s",len,key,value);
   }
   if(fsync(db->fd)==-1) return -1;
   return ret<0? 3:0;
