@@ -9,7 +9,7 @@ void *test1(void *_db) {
   char key[20],v[20];
   int i = 0;
   while(i++<10000){
-    sprintf(key,"%d\0",++cnt);
+    sprintf(key,"**%d**\0",++cnt);
     strcpy(v,key);
     //strcat(v,key);
     //strcat(v,key);
