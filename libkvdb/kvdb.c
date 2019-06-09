@@ -35,7 +35,7 @@ int read_line(FILE* fp, int fd, char *dst){
     //int tell = ftell(fp);
     //printf("%d\n",tell);
     ret = read(fd, &dst[i], 1);
-    printf("%d",ftell(fp));
+    printf("%d",(int)ftell(fp));
     if(ret<0) return -1;
     if(ret==0||dst[i++]=='\n'){
       dst[i] = '\0';
