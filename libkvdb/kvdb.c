@@ -31,7 +31,7 @@ void journal_write(FILE *fp, long off, const char *key, const char *value){
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
   char tkey[130], tmpc; tkey[0] = '\0';
-  int off = 0, used=0, cnt=0, ok=0;
+  int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
   while(1){
     fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);

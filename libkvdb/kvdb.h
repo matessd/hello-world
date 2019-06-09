@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <uinstd.h>
 struct kvdb {
   FILE *fp;
   int fd, ifopen;
