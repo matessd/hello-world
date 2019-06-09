@@ -25,7 +25,6 @@ int kvdb_close(kvdb_t *db){
 }
 
 void journal_write(FILE *fp, long off, const char *key, const char *value){
-  fseek(fp,off*BLOCK_SZ,SEEK_SET);
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
