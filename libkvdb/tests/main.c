@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   kvdb_t *db = malloc(sizeof(kvdb_t));
   assert(db != NULL);
 
-  assert(kvdb_open(db, argv[1])==0);
+  assert(kvdb_open(db, "b.db")==0);
 
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
