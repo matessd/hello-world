@@ -33,6 +33,7 @@ int read_line(int fd, char *dst){
   int i = 0, ret;
   while(1){
     ret = read(fd, &dst[i], 1);
+    printf("%c*",dst[i]);
     if(ret<0) return -1;
     if(ret==0||dst[i++]=='\n'){
       dst[i] = '\0';
