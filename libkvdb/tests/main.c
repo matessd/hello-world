@@ -10,6 +10,8 @@ int main() {
   kvdb_open(&db, "a.db"); // BUG: should check for errors
   kvdb_put(&db, key, "three-easy-pieces");
   kvdb_put(&db, key, "test-test-test-------");
+  kvdb_put(&db, key, "1111111");
+  kvdb_put(&db, key, "111");
   value = kvdb_get(&db, key);
   kvdb_close(&db);
   printf("[%s]: [%s]\n", key, value);
