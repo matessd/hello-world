@@ -13,6 +13,7 @@ void *test1(void *_db) {
     strcpy(v,key);
     strcat(v,key);
     strcat(v,key);
+    strcat(v,key);
     //printf("%s\n",v);
     assert(kvdb_put(db, key, v)==0);
     char *value = kvdb_get(db,key);
