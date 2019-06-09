@@ -5,7 +5,8 @@ int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
 
 int flip_a_coin(){
-  if(rand()%1000<100)
+  srand(time(NULL));
+  if(rand()%1000<50)
    return 1;
   else return 0; 
 }
