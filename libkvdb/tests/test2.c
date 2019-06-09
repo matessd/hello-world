@@ -4,33 +4,12 @@
 #include <assert.h>
 volatile int cnt;
 
-void *test1(void *_db) {
-  kvdb_t *db = _db;
-  char key[20],v[20];
-  int i = 0;
-  while(i++<10000){
-    sprintf(key,"%d\0",++cnt);
-    strcpy(v,key);
-    //strcat(v,key);
-    //strcat(v,key);
-    //strcat(v,key);
-    //strcat(v,key);
-    //printf("%s\n",v);
-    assert(kvdb_put(db, key, v)==0);
-    char *value = kvdb_get(db,key);
-    assert(value!=NULL);
-    printf("[key:%s][value:%s]\n",key,value);
-    free(value);
-  } 
-  return NULL;
-}
-
 void *test2(void *_db) {
   kvdb_t *db = _db;
   char key[20];
   int i = 0;
   while(i++<10000){
-    sprintf(key,"%d\0",++cnt);
+    sprintf(key,"**%d**\0",++cnt);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
     printf("[key:%s][value:%s]\n",key,value);
