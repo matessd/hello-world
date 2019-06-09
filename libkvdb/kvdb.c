@@ -76,6 +76,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
 int kvdb_close(kvdb_t *db){
   db->ifopen = 0;
   int ret = fclose(db->fp);
+  pthread_mutex_destroy(&db->mutex);
   db->fp = NULL;
   db->fd = -1;
   return ret;
