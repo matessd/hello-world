@@ -29,7 +29,7 @@ void *test2(void *_db) {
   kvdb_t *db = _db;
   char key[20];
   int i = 0;
-  while(i++<400){
+  while(i++<10000){
     sprintf(key,"%d\0",++cnt);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
