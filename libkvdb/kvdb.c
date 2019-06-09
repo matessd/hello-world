@@ -29,11 +29,11 @@ void journal_write(FILE *fp, long off, const char *key, const char *value){
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
-  char tkey[130], tmpc; tkey[0] = '\0';
+  char tkey[130]; tkey[0] = '\0';
   int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);
+    fscanf(db->fp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%c*\n",(int)tmpc,tmpc);
     if(strcmp(tkey,key)==0&&used==1) {
       printf("1\n");
