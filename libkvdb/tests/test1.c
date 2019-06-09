@@ -18,9 +18,10 @@ void *test1(void *_db) {
     assert(kvdb_put(db, key, v)==0);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
-    printf("[key:%s][value:%s]\n",key,value);
+    //printf("[key:%s][value:%s]\n",key,value);
+    assert(key,value)==0;
     free(value);
-    //if(i==10000) exit(0);
+    //if(i==100) exit(0);
   } 
   return NULL;
 }
