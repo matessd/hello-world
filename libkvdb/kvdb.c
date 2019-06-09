@@ -1,5 +1,5 @@
 #include "kvdb.h"
-//#define BLOCK_SZ 256
+//#include <assert.h>
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
@@ -8,11 +8,11 @@ int kvdb_open(kvdb_t *db, const char *filename){
     //no such file
     if(errno==2) fp = fopen(filename, "w+");
   }
-  assert(fp!=NULL);
-  //if(fp==NULL) return 1;
+  //assert(fp!=NULL);
+  if(fp==NULL) return 1;
   int fd = fileno(fp);
-  assert(fd!=-1);
-  //if(fd==-1) return -1;
+  //assert(fd!=-1);
+  if(fd==-1) return -1;
   db->fd = fd;
   db->fp = fp;
   db->ifopen = 1;
@@ -47,14 +47,12 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     }
     if(feof(db->fp)) break;
     fseek(db->fp,cnt+1,SEEK_CUR);
-    //break;
   }
   int len = strlen(value);
   
   int ret = 0;
   if(ok==1){
     if(len<=cnt){
-      //printf("1\n");
       ret = fprintf(db->fp,"%s\n",value);
     }
     else {
@@ -65,7 +63,6 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     }
   }
   if(ok==0){
-    //printf("1\n");
     fseek(db->fp,0,SEEK_END);
     ret = fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }
@@ -81,7 +78,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
   char *value = malloc(16*1024*1024);//16MB
   if(value==NULL) return NULL;
   int cnt, used;
-  while(strcmp(tkey,key)!=0||used!=1){
+  while(1){
     if(fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc)==EOF)
       return NULL;
     if(strcmp(tkey,key)==0&&used==1){
