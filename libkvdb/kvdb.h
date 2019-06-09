@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <assert.h>
+#include <errno.h>
 struct kvdb {
   FILE *fp;
   int fd, ifopen;
