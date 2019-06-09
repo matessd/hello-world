@@ -53,6 +53,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   //assert(fd!=-1);
   if(fd==-1) return -1;
 
+  assert(0);
   //log恢复完
   if(pthread_mutex_init(&db->mutex,NULL)) return -1;
   pthread_mutex_lock(&db->mutex);
