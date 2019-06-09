@@ -1,7 +1,20 @@
 #include "kvdb.h"
-#include <assert.h>
+//#include <assert.h>
+#include <time.h>
 int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
+
+int flip_a_coin(){
+  if(rand()%1000<300)
+   return 1;
+  else return 0; 
+}
+
+void may_crash() {
+  if (flip_a_coin()) {
+    exit(0); // crash
+  }
+}
 
 int recover(kvdb_t *db){
   //printf("%d\n",db->ifopen);
@@ -132,6 +145,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     //ret = fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
     fprintf(db->fp,"3\n%d %d %s %s\n",off1,len,key,value);
   }
+  may_crash();
   fseek(db->fp,0,SEEK_SET);
   fprintf(db->fp,"1 1\n");
   if(recover(db)) return -1;
