@@ -74,6 +74,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
       //int tell = ftell(db->fp);
       //printf("%d\n",tell);
       ret = fprintf(db->fp,"%s",value);
+      return 0;
     }
     else {
       if(fseek(db->fp,-2,SEEK_CUR)!=0)
@@ -83,7 +84,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     }
   }
   if(ok==0){
-    printf("1\n");
+    //printf("1\n");
     fseek(db->fp,0,SEEK_END);
     ret = fprintf(db->fp,"%d %s 1\n%s",len,key,value);
   }
