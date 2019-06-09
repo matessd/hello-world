@@ -1,5 +1,5 @@
 #include "kvdb.h"
-#include <assert.h>
+//#include <assert.h>
 int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
 
@@ -10,6 +10,7 @@ int recover(kvdb_t *db){
   char key[130];
   char *value = malloc(16*1024*1024);
   if(value==NULL) return -1;
+  assert(0);
   if(case_num==1){
     fscanf(db->fp,"%d %s",&off1,value);
     fseek(db->fp,off1,SEEK_SET);
@@ -53,7 +54,6 @@ int kvdb_open(kvdb_t *db, const char *filename){
   //assert(fd!=-1);
   if(fd==-1) return -1;
 
-  assert(0);
   //log恢复完
   if(pthread_mutex_init(&db->mutex,NULL)) return -1;
   pthread_mutex_lock(&db->mutex);
