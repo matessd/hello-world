@@ -32,7 +32,7 @@ void journal_write(FILE *fp, long off, const char *key, const char *value){
 int read_line(FILE* fp,int fd, char *dst){
   int i = 0, ret;
   while(1){
-    int tell = ftell(db->fp);
+    int tell = ftell(fp);
     printf("%d\n",tell);
     ret = read(fd, &dst[i], 1);
     //printf("%c*",dst[i]);
