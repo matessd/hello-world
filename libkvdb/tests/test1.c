@@ -20,7 +20,7 @@ void *test1(void *_db) {
     //char *value = kvdb_get(db,key);
     //assert(value!=NULL);
     //printf("[key:%s][value:%s]\n",key,value);
-    free(value);
+    //free(value);
   } 
   return NULL;
 }
