@@ -4,9 +4,9 @@ int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
 
 int recover(kvdb_t *db){
-  assert(0);
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
+  assert(0);
   fscanf(db->fp,"%d",&case_num);
   //assert(0);
   char key[130];
