@@ -35,7 +35,7 @@ int read_line(int fd, char *dst){
     //int tell = ftell(fp);
     //printf("%d\n",tell);
     ret = read(fd, &dst[i], 1);
-    //printf("%c*",dst[i]);
+    printf("%d",ret);
     if(ret<0) return -1;
     if(ret==0||dst[i++]=='\n'){
       dst[i] = '\0';
@@ -71,8 +71,8 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(ok==1){
     if(len<=cnt){
       //printf("1\n");
-      int tell = ftell(db->fp);
-      printf("%d\n",tell);
+      //int tell = ftell(db->fp);
+      //printf("%d\n",tell);
       ret = fprintf(db->fp,"%s",value);
     }
     else {
