@@ -71,7 +71,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
   if(value==NULL) return NULL;
   int cnt, used;
   while(strcmp(tkey,key)!=0||used!=1){
-    if(fscanf(db->fp,"%d %s %d %s",&cnt,used,tkey,value)==EOF)
+    if(fscanf(db->fp,"%d %s %d %s",&cnt,tkey,&used,value)==EOF)
       return NULL;
   }
   return value;
