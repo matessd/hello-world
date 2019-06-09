@@ -31,8 +31,9 @@ int main(int argc, char *argv[]) {
   kvdb_t *db = malloc(sizeof(kvdb_t));
   assert(db != NULL);
 
+  printf("1\n");
   assert(kvdb_open(db, "b.db")==0);
-
+  printf("2\n");
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
     pthread_create(&pt[i], NULL, test1, db);
