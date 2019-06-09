@@ -17,7 +17,7 @@ int recover(kvdb_t *db){
   }else if(case_num==2){
     fscanf(db->fp,"%d %d %d %s %s\n",&off1,&off2,&len,key,value);
     fseek(db->fp,off1,SEEK_SET);
-    fprintf(db->fp"0");
+    fprintf(db->fp,"0");
     fseek(db->fp,off2,SEEK_SET);
     fprintf(db->fp,"%d %s 1 %s\n",len,key,value);
   }else if(case_num==3){
@@ -29,7 +29,7 @@ int recover(kvdb_t *db){
   }
   free(value);
   fseek(db->fp,0,SEEK_SET);
-  fprintf("0 0\n");
+  fprintf(db->fp,"0 0\n");
   //if(fsync(db->fd)==-1) return -1;
   return 0;
 }
