@@ -32,6 +32,8 @@ void journal_write(FILE *fp, long off, const char *key, const char *value){
 int read_line(int fd, char *dst){
   int i = 0, ret;
   while(1){
+    int tell = ftell(db->fp);
+    printf("%d\n",tell);
     ret = read(fd, &dst[i], 1);
     //printf("%c*",dst[i]);
     if(ret<0) return -1;
@@ -56,8 +58,8 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
-      int tell = ftell(db->fp);
-      printf("%d\n",tell);
+      //int tell = ftell(db->fp);
+      //printf("%d\n",tell);
       ok = 1; break;
     }
     fseek(db->fp,cnt+1,SEEK_CUR);
