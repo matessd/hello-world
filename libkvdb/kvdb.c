@@ -3,7 +3,7 @@
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
-  fp = fopen(filename, "a+");
+  fp = fopen(filename, "rw+");
   assert(fp!=NULL);
   //if(fp==NULL) return 1;
   int fd = fileno(fp);
@@ -29,7 +29,7 @@ int kvdb_close(kvdb_t *db){
 void journal_write(FILE *fp, long off, const char *key, const char *value){
 }
 
-int read_line(FILE* fp, int fd, char *dst){
+int read_line(int fd, char *dst){
   int i = 0, ret;
   while(1){
     //int tell = ftell(fp);
@@ -52,14 +52,12 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int used=0, cnt=0, ok=0, ifeof;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    ifeof = read_line(db->fp,db->fd,tmp);
-    if(ifeof<0) return -1;
-    else if(ifeof==1) break;
-    sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
+    //ifeof = read_line(db->fd,tmp);
+    //if(ifeof<0) return -1;
+    //else if(ifeof==1) break;
+    fscanf(db->fp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
-      //int tell = ftell(db->fp);
-      //printf("%d\n",tell);
       ok = 1; break;
     }
     fseek(db->fp,cnt+1,SEEK_CUR);
@@ -71,8 +69,6 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(ok==1){
     if(len<=cnt){
       //printf("1\n");
-      //int tell = ftell(db->fp);
-      //printf("%d\n",tell);
       ret = fprintf(db->fp,"%s",value);
     }
     else {
@@ -85,7 +81,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(ok==0){
     //printf("1\n");
     fseek(db->fp,0,SEEK_END);
-    ret = fprintf(db->fp,"%d %s 1\n%s",len,key,value);
+    ret = fprintf(db->fp,"%d %s 1 %s",len,key,value);
   }
   if(fsync(db->fd)==-1) return -1;
   return ret<0? 3:0;
