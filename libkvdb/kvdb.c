@@ -34,7 +34,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   fseek(db->fp,0,SEEK_SET);
   while(1){
     fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);
-    printf("*%d*%c*\n",(int)tmpc,tmpc);
+    //printf("*%d*%c*\n",(int)tmpc,tmpc);
     if(strcmp(tkey,key)==0&&used==1) {
       ok = 1; break;
     }
@@ -46,6 +46,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int ret = 0;
   if(ok==1){
     if(len<=cnt)
+      printf("1\n");
       ret = fprintf(db->fp,"%s",value);
     else {
       if(fseek(db->fp,2,SEEK_CUR)!=0)
