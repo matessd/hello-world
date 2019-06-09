@@ -76,16 +76,18 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
 char *kvdb_get(kvdb_t *db, const char *key){
   if(db->ifopen==0) return NULL;
   if(fseek(db->fp,0,SEEK_SET)!=0) return NULL;
-  char tkey[130]; tkey[0]='\0';
+  char tkey[130], tmpc; tkey[0]='\0';
 
   char *value = malloc(16*1024*1024);//16MB
   if(value==NULL) return NULL;
   int cnt, used, len;
   while(strcmp(tkey,key)!=0||used!=1){
-    if(fscanf(db->fp,"%d %s %d %s",&cnt,tkey,&used,value)==EOF)
+    if(fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc)==EOF)
       return NULL;
-    len = strlen(value);
-    fseek(db->fp,-len,SEEK_CUR);
+    if(strcmp(tkey,key)==0&&used==1){
+      fscanf(db->fp,"%s",value);
+      break;
+    }
     fseek(db->fp,cnt+1,SEEK_CUR);
   }
   return value;
