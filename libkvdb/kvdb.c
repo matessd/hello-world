@@ -29,7 +29,7 @@ int kvdb_close(kvdb_t *db){
 void journal_write(FILE *fp, long off, const char *key, const char *value){
 }
 
-int read_line(int fd, char *dst){
+int read_line(FILE* fp,int fd, char *dst){
   int i = 0, ret;
   while(1){
     int tell = ftell(db->fp);
@@ -52,7 +52,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int used=0, cnt=0, ok=0, ifeof;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    ifeof = read_line(db->fd,tmp);
+    ifeof = read_line(db->fp,db->fd,tmp);
     if(ifeof<0) return -1;
     else if(ifeof==1) break;
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
