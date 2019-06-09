@@ -27,6 +27,18 @@ int kvdb_close(kvdb_t *db){
 void journal_write(FILE *fp, long off, const char *key, const char *value){
 }
 
+int read_line(int fd, char *dst){
+  int i = 0, ret;
+  while(1){
+    ret = read(fd, &dst[i], 1);
+    if(ret<0) return -1;
+    if(ret==0||dst[i++]=='\n'){
+      dst[i] = '\0';
+      return 0;
+    }
+  }
+}
+
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
   char tkey[130], tmp[256]; 
@@ -34,7 +46,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   int used=0, cnt=0, ok=0;
   fseek(db->fp,0,SEEK_SET);
   while(1){
-    fscanf(db->fp,"%[^\n]",tmp);
+    if(read_line(db->fd, tmp)<0) return -1;
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%c*\n",(int)tmpc,tmpc);
     if(strcmp(tkey,key)==0&&used==1) {
@@ -62,7 +74,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(ok==0){
     //printf("1\n");
     fseek(db->fp,0,SEEK_END);
-    ret = fprintf(db->fp,"%d %s 1\n%s",len,key,value);
+    ret = fprintf(db->fp,"%d %s 1 %s",len,key,value);
   }
   if(fsync(db->fd)==-1) return -1;
   return ret<0? 3:0;
