@@ -5,6 +5,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
   fp = fopen(filename, "r+");
   if(fp==NULL){
+    //no such file
     if(errno==2) fp = fopen(filename, "w+");
   }
   assert(fp!=NULL);
@@ -31,22 +32,6 @@ int kvdb_close(kvdb_t *db){
 
 void journal_write(FILE *fp, long off, const char *key, const char *value){
 }
-
-/*int read_line(int fd, char *dst){
-  int i = 0, ret;
-  while(1){
-    //int tell = ftell(fp);
-    //printf("%d\n",tell);
-    ret = read(fd, &dst[i], 1);
-    printf("%c*",dst[i]);
-    if(ret<0) return -1;
-    if(ret==0||dst[i++]=='\n'){
-      dst[i] = '\0';
-      if(ret==0) return 1;//EOF
-      return 0;
-    }
-  }
-}*/
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
   if(db->ifopen==0) return 1;
@@ -95,10 +80,13 @@ char *kvdb_get(kvdb_t *db, const char *key){
 
   char *value = malloc(16*1024*1024);//16MB
   if(value==NULL) return NULL;
-  int cnt, used;
+  int cnt, used, len;
   while(strcmp(tkey,key)!=0||used!=1){
     if(fscanf(db->fp,"%d %s %d %s",&cnt,tkey,&used,value)==EOF)
       return NULL;
+    len = strlen(value);
+    fseek(db->fp,-len,SEEK_CUR);
+    fseek(db->fp,cnt+1,SEEK_CUR);
   }
   return value;
 }
