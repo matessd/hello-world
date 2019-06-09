@@ -49,11 +49,11 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   fseek(db->fp,0,SEEK_SET);
   while(1){
     if(read_line(db->fd, tmp)<0) return -1;
-    assert(0);
+    //assert(0);
     sscanf(tmp,"%d %s %d",&cnt,tkey,&used);
     //printf("*%d*%c*\n",(int)tmpc,tmpc);
     if(strcmp(tkey,key)==0&&used==1) {
-      //printf("1\n");
+      printf("1\n");
       ok = 1; break;
     }
     if(feof(db->fp)) break;
