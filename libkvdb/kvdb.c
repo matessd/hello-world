@@ -47,6 +47,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
       fprintf(fp,"0 0\n");
       for(int i=SEEK2; i<SEEK1; i++)
         fputc('*',fp);
+      fputc('\n',fp);
     }
   }
   //assert(fp!=NULL);
