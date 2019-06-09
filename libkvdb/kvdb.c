@@ -150,7 +150,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
   fscanf(db->fp,"%d %d",&a,&b);
   if(a==1&&b==1) 
     if(recover(db))
-      return -1;
+      return NULL;
   if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
   char tkey[130], tmpc; tkey[0]='\0';
 
