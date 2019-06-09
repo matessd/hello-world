@@ -54,12 +54,15 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fd==-1) return -1;
 
   //log恢复完
+  if(pthread_mutex_init(&db->mutex,NULL) return -1;
+  pthread_mutex_lock(&db->mutex);
   fseek(fp,0,SEEK_SET);
   int a,b;
   fscanf(fp,"%d %d",&a,&b);
   if(a==1&&b==1) 
     if(recover(db))
       return -1;
+  pthread_mutex_unlock(&db->mutex);
   db->fd = fd;
   db->fp = fp;
   db->ifopen = 1;
@@ -74,10 +77,8 @@ int kvdb_close(kvdb_t *db){
   return ret;
 }
 
-void journal_write(FILE *fp, long off, const char *key, const char *value){
-}
-
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
+  pthread_mutex_lock(&db->mutex);
   if(db->ifopen==0) return 1;
   char tkey[130], tmpc; 
   tkey[0] = '\0';
@@ -92,9 +93,8 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     if(feof(db->fp)) break;
     fseek(db->fp,cnt+1,SEEK_CUR);
   }
-  int len = strlen(value);
-  
-  int ret = 0, off1 = 0, off2 = 0;
+
+  int len = strlen(value), off1 = 0, off2 = 0;
   if(ok==1){
     if(len<=cnt){
       off1 = ftell(db->fp);
@@ -121,11 +121,13 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   fseek(db->fp,0,SEEK_SET);
   fprintf(db->fp,"1 1\n");
   if(recover(db)) return -1;
+  pthread_mutex_unlock(&db->mutex);
   //if(fsync(db->fd)==-1) return -1;
-  return ret<0? 3:0;
+  return 0;
 }
 
 char *kvdb_get(kvdb_t *db, const char *key){
+  pthread_mutex_lock(&db->mutex);
   if(db->ifopen==0) return NULL;
   if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
   char tkey[130], tmpc; tkey[0]='\0';
@@ -142,6 +144,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
     }
     fseek(db->fp,cnt+1,SEEK_CUR);
   }
+  pthread_mutex_unlock(&db->mutex);
   return value;
 }
 

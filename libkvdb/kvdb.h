@@ -7,6 +7,7 @@
 #include <unistd.h>
 //#include <assert.h>
 #include <errno.h>
+#include <pthread.h>
 struct kvdb {
   FILE *fp;
   int fd, ifopen;
