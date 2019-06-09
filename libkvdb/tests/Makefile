@@ -10,10 +10,10 @@ libkvdb:
 	@cd .. && make -s
 
 libkvdb-test-64: main.c libkvdb
-	gcc -I.. -L.. -m64 main.c -o libkvdb-test-64 -lkvdb-64
+	gcc -I.. -L.. -m64 main.c -o libkvdb-test-64 -lkvdb-64 -lpthread
 
 libkvdb-test-32: main.c libkvdb
-	gcc -I.. -L.. -m32 main.c -o libkvdb-test-32 -lkvdb-32
+	gcc -I.. -L.. -m32 main.c -o libkvdb-test-32 -lkvdb-32 -lpthread
 
 test1: libkvdb-test-64
 	@echo "==== TEST 64 bit ===="

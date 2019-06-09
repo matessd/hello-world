@@ -5,12 +5,12 @@
 #include <pthread.h>
 volatile int cnt;
 
-void *test(void *_db) {
+void *test1(void *_db) {
   kvdb_t *db = _db;
   char key[20];
   int i = 0;
   while(i++<400){
-    sprintf(key,"%d\0",++cnt);
+    sprintf(key,"%d\0",(++cnt)*10);
     assert(kvdb_put(db, key, key)==0);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
-    pthread_create(&pt[i], NULL, test, db);
+    pthread_create(&pt[i], NULL, test1, db);
   }
   for(int i = 0; i < THREADS; i++) {
     pthread_join(pt[i], NULL);
