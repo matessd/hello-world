@@ -8,13 +8,10 @@ int recover(kvdb_t *db){
   if(db->fp==NULL) return -1;
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
-  assert(0);
   fscanf(db->fp,"%d",&case_num);
-  //assert(0);
   char key[130];
   char *value = malloc(16*1024*1024);
   if(value==NULL) return -1;
-  //assert(0);
   if(case_num==1){
     fscanf(db->fp,"%d %s",&off1,value);
     fseek(db->fp,off1,SEEK_SET);
