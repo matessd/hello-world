@@ -1,6 +1,7 @@
 #include "kvdb.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 volatile int cnt;
 
@@ -9,9 +10,8 @@ void *test(void *_db) {
   char key[20];
   while(1){
     sprintf(key,"%d\0",++cnt);
-    kvdb_put(db, key, key);
-  }
-// code: 
+    assert(kvdb_put(db, key, key)==0);
+  } 
   return NULL;
 }
 
@@ -19,9 +19,9 @@ void *test(void *_db) {
 
 int main(int argc, char *argv[]) {
   kvdb_t *db = malloc(sizeof(kvdb_t));
-  if(db == NULL) { panic("malloc failed. \n"); return 1; }
+  assert(db != NULL);
 
-  if(kvdb_open(db, argv[1])) { panic("cannot open. \n"); return 1; }
+  assert(kvdb_open(db, argv[1])==0);
 
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   for(int i = 0; i < THREADS; i++) {
     pthread_join(pt[i], NULL);
   }
-  if(kvdb_close(db)) { panic("cannot close. \n"); return 1; }
+  assert(kvdb_close(db)==0);
   free(db);
   return 0;
 }
