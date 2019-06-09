@@ -6,7 +6,7 @@ int SEEK2 = 4;
 
 int flip_a_coin(){
   srand(time(NULL));
-  if(rand()%1000<200)
+  if(rand()%1000<100)
    return 1;
   else return 0; 
 }
