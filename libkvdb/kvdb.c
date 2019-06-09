@@ -1,11 +1,11 @@
 #include "kvdb.h"
 //#include <assert.h>
-#include <time.h>
+//#include <time.h>
 int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
 
 int flip_a_coin(){
-  srand(time(NULL));
+  //srand(time(NULL));
   if(rand()%1000<100)
    return 1;
   else return 0; 
