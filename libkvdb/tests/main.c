@@ -9,7 +9,7 @@ void *test(void *_db) {
   char key[20];
   while(1){
     sprintf(key,"%d\0",++cnt);
-    kvdb_put(&db, key, key);
+    kvdb_put(db, key, key);
   }
 // code: 
   return NULL;
