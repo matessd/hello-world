@@ -119,7 +119,7 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
     fprintf(db->fp,"3\n%d %d %s %s\n",off1,len,key,value);
   }
   fseek(db->fp,0,SEEK_SET);
-  fprintf("1 1\n");
+  fprintf(db->fp,"1 1\n");
   if(recover(db)) return -1;
   //if(fsync(db->fd)==-1) return -1;
   return ret<0? 3:0;
