@@ -73,8 +73,8 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fd==-1) return -1;
 
   //log恢复完
-  if(pthread_mutex_init(&db->mutex,NULL)) return -1;
-  pthread_mutex_lock(&db->mutex);
+  //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
+  //pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
   int a,b;
@@ -86,7 +86,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
     if(recover(db))
       return -1;
   flock(db->fd, LOCK_UN);
-  pthread_mutex_unlock(&db->mutex);
+  //pthread_mutex_unlock(&db->mutex);
   return 0;
 }
 
@@ -100,7 +100,7 @@ int kvdb_close(kvdb_t *db){
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
-  pthread_mutex_lock(&db->mutex);
+  //pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
   if(db->ifopen==0) return 1;
   char tkey[130], tmpc; 
@@ -147,13 +147,13 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   //may_crash();
   if(recover(db)) return -1;
   flock(db->fd, LOCK_UN);
-  pthread_mutex_unlock(&db->mutex);
+  //pthread_mutex_unlock(&db->mutex);
   //if(fsync(db->fd)==-1) return -1;
   return 0;
 }
 
 char *kvdb_get(kvdb_t *db, const char *key){
-  pthread_mutex_lock(&db->mutex);
+  //pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
   if(db->ifopen==0) return NULL;
   if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
@@ -172,7 +172,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
     fseek(db->fp,cnt+1,SEEK_CUR);
   }
   flock(db->fd, LOCK_UN);
-  pthread_mutex_unlock(&db->mutex);
+  //pthread_mutex_unlock(&db->mutex);
   return value;
 }
 
