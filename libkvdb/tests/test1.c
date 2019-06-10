@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     pthread_join(pt[i], NULL);
   }
   for(int i=0; i<THREADS; i++){
-    assert(kvdb_close(g_db)==0);
+    assert(kvdb_close(g_db[i])==0);
     free(g_db[i]);
   }
   return 0;
