@@ -78,7 +78,8 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fp==NULL) return -1;
   flock(fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
-  if(fscanf(fp, "%d %d",&a,&b)==0){
+  //int cnt = fscanf(fp, "%d%d",&a,&b)
+  if(fscanf(fp, "%d %d",&a,&b)==EOF){
     fseek(fp,0,SEEK_SET);
     fprintf(fp,"0 0\n");
     for(int i=SEEK2; i<SEEK1; i++)
