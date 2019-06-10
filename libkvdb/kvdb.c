@@ -54,6 +54,7 @@ int recover(kvdb_t *db){
 
 int kvdb_open(kvdb_t *db, const char *filename){
   FILE *fp = NULL;
+  //int fd = open(filename, O_RDWR|O_CREAT,  0777);
   fp = fopen(filename, "r+");
   if(fp==NULL){
     //no such file
@@ -72,10 +73,9 @@ int kvdb_open(kvdb_t *db, const char *filename){
   //assert(fd!=-1);
   if(fd==-1) return -1;
 
-  //log恢复完
   //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
   //pthread_mutex_lock(&db->mutex);
-  flock(db->fd, LOCK_EX);
+  flock(fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
   int a,b;
   fscanf(fp,"%d %d",&a,&b);
@@ -85,7 +85,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(a==1&&b==1) 
     if(recover(db))
       return -1;
-  flock(db->fd, LOCK_UN);
+  flock(fd, LOCK_UN);
   //pthread_mutex_unlock(&db->mutex);
   return 0;
 }
