@@ -4,35 +4,13 @@
 #include <assert.h>
 volatile int cnt;
 
-void *test1(void *_db) {
-  kvdb_t *db = _db;
-  assert(kvdb_open(db, "b.db")==0);
-  char key[20],v[20];
-  int i = 0;
-  srand(time(NULL));
-  while(i++<10000){
-    sprintf(key,"**%d**\0",++cnt);
-    strcpy(v,key);
-    //strcat(v,key);
-    //strcat(v,key);
-    //printf("%s\n",v);
-    assert(kvdb_put(db, key, v)==0);
-    char *value = kvdb_get(db,key);
-    assert(value!=NULL);
-    printf("[key:%s][value:%s]\n",key,value);
-    //assert(key,value)==0;
-    free(value);
-    //if(i==100) exit(0);
-  } 
-  return NULL;
-}
 
 #define THREADS 4
 
 kvdb_t *g_db[THREADS];
 int main(int argc, char *argv[]) {
   for(int i=0; i<THREADS; i++){
-    kvdb_t *g_db[i] = malloc(sizeof(kvdb_t));
+    g_db[i] = malloc(sizeof(kvdb_t));
     assert(g_db[i] != NULL);
   }
 
