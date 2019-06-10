@@ -18,7 +18,6 @@ void may_crash() {
 }*/
 
 int recover(kvdb_t *db){
-  //printf("%d\n",db->ifopen);
   if(db->fp==NULL) return -1;
   fseek(db->fp,SEEK2,SEEK_SET);
   int case_num = 0, off1=0, off2=0, len;
@@ -58,6 +57,10 @@ int kvdb_open(kvdb_t *db, const char *filename) {
   if(fd==-1) return -1;
   FILE *fp = fdopen(fd,"r+");
   if(fp==NULL) return -1;
+  db->fd = fd;
+  db->fp = fp;
+  //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
+  //pthread_mutex_lock(&db->mutex);
   flock(fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
   if(fscanf(fp, "%d %d",&a,&b)==EOF){
@@ -67,12 +70,8 @@ int kvdb_open(kvdb_t *db, const char *filename) {
       fputc('*',fp);
     fputc('\n',fp);
   }
-  //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
-  //pthread_mutex_lock(&db->mutex);
   fseek(fp,0,SEEK_SET);
   fscanf(fp,"%d %d",&a,&b);
-  db->fd = fd;
-  db->fp = fp;
   db->ifopen = 1;
   if(a==1&&b==1) 
     if(recover(db))
@@ -85,7 +84,7 @@ int kvdb_open(kvdb_t *db, const char *filename) {
 int kvdb_close(kvdb_t *db){
   db->ifopen = 0;
   int ret = fclose(db->fp);
-  pthread_mutex_destroy(&db->mutex);
+  //pthread_mutex_destroy(&db->mutex);
   db->fp = NULL;
   db->fd = -1;
   return ret;
@@ -143,14 +142,14 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
 
 char *kvdb_get(kvdb_t *db, const char *key){
   //pthread_mutex_lock(&db->mutex);
-  //if(db->ifopen==0) return NULL;
-  //if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
-  assert(db->ifopen!=0);
-  assert(fseek(db->fp,SEEK1,SEEK_SET)==0);
+  if(db->ifopen==0) return NULL;
+  if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
+  //assert(db->ifopen!=0);
+  //assert(fseek(db->fp,SEEK1,SEEK_SET)==0);
   char tkey[130], tmpc; tkey[0]='\0';
   char *value = malloc(16*1024*1024);//16MB
-  //if(value==NULL) return NULL;
-  assert(value!=NULL);
+  if(value==NULL) return NULL;
+  //assert(value!=NULL);
   int cnt, used;
 
   flock(db->fd, LOCK_EX);
