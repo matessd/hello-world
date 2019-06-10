@@ -53,8 +53,7 @@ int recover(kvdb_t *db){
 }
 
 int kvdb_open(kvdb_t *db, const char *filename){
-  FILE *fp = NULL;
-  //int fd = open(filename, O_RDWR|O_CREAT,  0777);
+  /*FILE *fp = NULL;
   fp = fopen(filename, "r+");
   if(fp==NULL){
     //no such file
@@ -71,13 +70,23 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fp==NULL) return 1;
   int fd = fileno(fp);
   //assert(fd!=-1);
+  if(fd==-1) return -1;*/
+  int a,b;
+  int fd = open(filename, O_RDWR|O_CREAT,  0777);
   if(fd==-1) return -1;
-
-  //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
-  //pthread_mutex_lock(&db->mutex);
+  FILE *fp = fdopen(fd,"r+");
+  if(fp==NULL) return -1;
   flock(fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
-  int a,b;
+  if(fscanf(fp, "%d %d",&a,&b)==0){
+    fprintf(fp,"0 0\n");
+    for(int i=SEEK2; i<SEEK1; i++)
+      fputc('*',fp);
+    fputc('\n',fp);
+  }
+  //if(pthread_mutex_init(&db->mutex,NULL)) return -1;
+  //pthread_mutex_lock(&db->mutex);
+  fseek(fp,0,SEEK_SET);
   fscanf(fp,"%d %d",&a,&b);
   db->fd = fd;
   db->fp = fp;
