@@ -1,5 +1,5 @@
 #include "kvdb.h"
-//#include <assert.h>
+#include <assert.h>
 //#include <time.h>
 int SEEK1 = 16*1024*1024+512;
 int SEEK2 = 4;
