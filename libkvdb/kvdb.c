@@ -155,12 +155,15 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
 char *kvdb_get(kvdb_t *db, const char *key){
   //pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
-  if(db->ifopen==0) return NULL;
-  if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
+  //if(db->ifopen==0) return NULL;
+  //if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
+  assert(db->ifopen!=0);
+  assert(fseek(db->fp,SEEK1,SEEK_SET)==0);
   char tkey[130], tmpc; tkey[0]='\0';
 
   char *value = malloc(16*1024*1024);//16MB
-  if(value==NULL) return NULL;
+  //if(value==NULL) return NULL;
+  assert(value!=NULL);
   int cnt, used;
   while(1){
     if(fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc)==EOF)
