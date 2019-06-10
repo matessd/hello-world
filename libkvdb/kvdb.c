@@ -103,12 +103,6 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
   if(db->ifopen==0) return 1;
-  fseek(db->fp,0,SEEK_SET);
-  int a,b;
-  fscanf(db->fp,"%d %d",&a,&b);
-  if(a==1&&b==1) 
-    if(recover(db))
-      return -1;
   char tkey[130], tmpc; 
   tkey[0] = '\0';
   int used=0, cnt=0, ok=0;
@@ -162,12 +156,6 @@ char *kvdb_get(kvdb_t *db, const char *key){
   pthread_mutex_lock(&db->mutex);
   flock(db->fd, LOCK_EX);
   if(db->ifopen==0) return NULL;
-  fseek(db->fp,0,SEEK_SET);
-  int a,b;
-  fscanf(db->fp,"%d %d",&a,&b);
-  if(a==1&&b==1) 
-    if(recover(db))
-      return NULL;
   if(fseek(db->fp,SEEK1,SEEK_SET)!=0) return NULL;
   char tkey[130], tmpc; tkey[0]='\0';
 
