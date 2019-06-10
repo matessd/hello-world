@@ -52,25 +52,7 @@ int recover(kvdb_t *db){
   return 0;
 }
 
-int kvdb_open(kvdb_t *db, const char *filename){
-  /*FILE *fp = NULL;
-  fp = fopen(filename, "r+");
-  if(fp==NULL){
-    //no such file
-    if(errno==2){
-      fp = fopen(filename, "w+");
-      if(fp==NULL) return 1;
-      fprintf(fp,"0 0\n");
-      for(int i=SEEK2; i<SEEK1; i++)
-        fputc('*',fp);
-      fputc('\n',fp);
-    }
-  }
-  //assert(fp!=NULL);
-  if(fp==NULL) return 1;
-  int fd = fileno(fp);
-  //assert(fd!=-1);
-  if(fd==-1) return -1;*/
+int kvdb_open(kvdb_t *db, const char *filename) {
   int a,b;
   int fd = open(filename, O_RDWR|O_CREAT,  0777);
   if(fd==-1) return -1;
@@ -78,7 +60,6 @@ int kvdb_open(kvdb_t *db, const char *filename){
   if(fp==NULL) return -1;
   flock(fd, LOCK_EX);
   fseek(fp,0,SEEK_SET);
-  //int cnt = fscanf(fp, "%d%d",&a,&b)
   if(fscanf(fp, "%d %d",&a,&b)==EOF){
     fseek(fp,0,SEEK_SET);
     fprintf(fp,"0 0\n");
@@ -120,7 +101,6 @@ int kvdb_put(kvdb_t *db, const char *key, const char *value){
   fseek(db->fp,SEEK1,SEEK_SET);
   while(1){
     fscanf(db->fp,"%d %s %d%c",&cnt,tkey,&used,&tmpc);
-    //printf("*%d*%s*\n",cnt,tkey);
     if(strcmp(tkey,key)==0&&used==1) {
       ok = 1; break;
     }
