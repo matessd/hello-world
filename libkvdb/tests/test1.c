@@ -7,8 +7,7 @@ volatile int cnt;
 void *test1(void *_db) {
   kvdb_t *db = _db;
   assert(kvdb_open(db, "b.db")==0);
-  char key[20],v[20];
-  int i = 0;
+  char key[20],v[20]; int i = 0;
   srand(time(NULL));
   while(i++<10000){
     sprintf(key,"**%d**\0",++cnt);

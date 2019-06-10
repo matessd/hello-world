@@ -6,37 +6,39 @@ volatile int cnt;
 
 void *test2(void *_db) {
   kvdb_t *db = _db;
-  char key[20];
-  int i = 0;
+  assert(kvdb_open(db, "b.db")==0);
+  char key[20]; int i = 0;
   srand(time(NULL));
   while(i++<10000){
     sprintf(key,"**%d**\0",++cnt);
     char *value = kvdb_get(db,key);
     assert(value!=NULL);
-    //printf("[key:%s][value:%s]\n",key,value);
-    assert(strcmp(key,value)==0);
+    printf("[key:%s][value:%s]\n",key,value);
+    //assert(strcmp(key,value)==0);
     free(value);
-    //if(cnt==20) exit(0);
   } 
   return NULL;
 }
 #define THREADS 4
 
+kvdb_t *g_db[THREADS];
 int main(int argc, char *argv[]) {
-  kvdb_t *db = malloc(sizeof(kvdb_t));
-  assert(db != NULL);
+  for(int i=0; i<THREADS; i++){
+    g_db[i] = malloc(sizeof(kvdb_t));
+    assert(g_db[i] != NULL);
+  }
 
-  //printf("1\n");
-  assert(kvdb_open(db, "b.db")==0);
-  //printf("2\n");
+  //assert(kvdb_open(db, "b.db")==0);
   pthread_t pt[THREADS];
   for(int i = 0; i < THREADS; i++) {
-    pthread_create(&pt[i], NULL, test2, db);
+    pthread_create(&pt[i], NULL, test2, g_db[i]);
   }
   for(int i = 0; i < THREADS; i++) {
     pthread_join(pt[i], NULL);
   }
-  assert(kvdb_close(db)==0);
-  free(db);
+  for(int i=0; i<THREADS; i++){
+    assert(kvdb_close(g_db[i])==0);
+    free(g_db[i]);
+  }
   return 0;
 }
