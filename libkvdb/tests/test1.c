@@ -26,7 +26,7 @@ void *test1(void *_db) {
   return NULL;
 }
 
-#define THREADS 1
+#define THREADS 4
 
 kvdb_t *g_db[THREADS];
 int main(int argc, char *argv[]) {
