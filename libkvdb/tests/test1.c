@@ -22,12 +22,11 @@ void *test1(void *_db) {
     printf("[key:%s][value:%s]\n",key,value);
     //assert(key,value)==0;
     free(value);
-    //if(i==100) exit(0);
   } 
   return NULL;
 }
 
-#define THREADS 4
+#define THREADS 1
 
 kvdb_t *g_db[THREADS];
 int main(int argc, char *argv[]) {
