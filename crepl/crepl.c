@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
       char *t = mktemp(tt);
       //fprintf(stderr, "errno: %s\n", strerror(errno));
       assert(t!=NULL);
-      sprintf(filename,"%s.c\n",t);
+      sprintf(filename,"%s.c",t);
       printf("%s\n",filename);
       fp = fopen(filename,"a+");
       assert(fp!=NULL);
