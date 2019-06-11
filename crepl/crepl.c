@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
+#include<stdlib.h>
 int g_cnt = 0;
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[100], tmpc, *filename;
