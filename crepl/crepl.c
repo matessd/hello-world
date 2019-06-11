@@ -2,6 +2,7 @@
 #include<string.h>
 #include<assert.h>
 #include<stdlib.h>
+#include <errno.h>
 int g_cnt = 0;
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[100], tmpc, *filename;
@@ -14,6 +15,7 @@ int main(int argc, char *argv[]) {
       filename = tmpnam(NULL);
       assert(filename!=NULL);
       fp = fopen(filename,"r+");
+      fprintf(stderr, "errno: %s\n", strerror(errno));
       assert(fp!=NULL);
       int i = 0;
       while(s_in[i]!='\0'){
