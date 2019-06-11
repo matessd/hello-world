@@ -15,6 +15,7 @@ int main(int argc, char *argv[]) {
       assert(filename!=NULL);
       fp = fopen("1","r+");
       assert(fp!=NULL);
+      printf("1\n");
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
