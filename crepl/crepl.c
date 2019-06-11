@@ -6,8 +6,7 @@
 int g_cnt = 0;
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[100], tmpc, *filename;
-  //FILE *fp=NULL;
-  //int fd;
+  FILE *fp=NULL;
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
@@ -22,6 +21,8 @@ int main(int argc, char *argv[]) {
       assert(filename!=NULL);
       //filename = fcb[fd].filename;
       printf("%s\n",filename);
+      fp = fopen(filename,"r+");
+      assert(fp!=NULL);
       /*assert(0);
       int i = 0;
       while(s_in[i]!='\0'){
