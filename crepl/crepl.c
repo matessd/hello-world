@@ -11,18 +11,17 @@ int main(int argc, char *argv[]) {
     if(strcmp(tmp,"int")==0){
       //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
-      char *tmpname = NULL;
-      filename = tmpnam(tmpname);
+      filename = tmpnam(NULL);
       assert(filename!=NULL);
-      fp = fopen("1","r+");
+      fp = fopen(filename,"r+");
       assert(fp!=NULL);
-      //printf("1\n");
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
       }
+      sprintf(tmp,"gcc -c %s",filename);
+      system(tmp);
       fclose(fp);
-      system("gcc -c 1");
       printf("%s\n",filename);
       continue;
     }
