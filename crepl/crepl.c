@@ -5,21 +5,17 @@
 #include <errno.h>
 int g_cnt = 0;
 int main(int argc, char *argv[]) {
-  char s_in[1000], tmp[100], tmpc, *filename;
+  char s_in[1000], tmp[100], tmpc, filename[10];
   FILE *fp=NULL;
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       //sprintf(tmp,"%d.c",++g_cnt);
       char tt[] = "XXXXXX";
-      filename = mktemp(tt);
-      //printf("%s\n",filename);
-      //assert(filename!=NULL);
-      //fp = fopen(filename,"r+");
+      char *t = mktemp(tt);
       //fprintf(stderr, "errno: %s\n", strerror(errno));
-      //assert(fd!=-1);
-      assert(filename!=NULL);
-      //filename = fcb[fd].filename;
+      assert(t!=NULL);
+      sprintf(filename,"%s.c\n",t);
       printf("%s\n",filename);
       fp = fopen(filename,"a+");
       assert(fp!=NULL);
