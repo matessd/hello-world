@@ -6,7 +6,7 @@
 int g_cnt = 0;
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[100], tmpc, *filename;
-  FILE *fp=NULL;
+  //FILE *fp=NULL;
   //int fd;
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     sscanf(s_in,"%s",tmp);
