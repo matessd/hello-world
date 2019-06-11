@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
       //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
       filename = tmpnam(NULL);
+      printf("%s\n",filename);
       assert(filename!=NULL);
       fp = fopen(filename,"r+");
       fprintf(stderr, "errno: %s\n", strerror(errno));
