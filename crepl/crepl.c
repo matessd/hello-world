@@ -12,10 +12,11 @@ int main(int argc, char *argv[]) {
       //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
       filename = tmpnam("1");
+      printf("1\n");
       assert(filename!=NULL);
       fp = fopen("1","r+");
       assert(fp!=NULL);
-      printf("1\n");
+      //printf("1\n");
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
