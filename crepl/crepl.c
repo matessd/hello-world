@@ -17,9 +17,9 @@ int main(int argc, char *argv[]) {
       fclose(fp);
       continue;
     }
-    int (*func)() = func_lookup(id);
-    int value = func();
-    printf(">> %s\n",value);
+    //int (*func)() = func_lookup(id);
+    //int value = func();
+    //printf(">> %s\n",value);
   }
   return 0;
 }
