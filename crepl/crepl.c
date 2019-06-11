@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     if(strcmp(tmp,"int")==0){
       //sprintf(tmp,"%d.c",++g_cnt);
       filename = tmpnam("1");
-      fopen("1"."r+");
+      fopen("1","r+");
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
