@@ -11,7 +11,8 @@ int main(int argc, char *argv[]) {
     if(strcmp(tmp,"int")==0){
       //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
-      filename = tmpnam("1333");
+      char *tmpname = NULL;
+      filename = tmpnam(tmpname);
       assert(filename!=NULL);
       fp = fopen("1","r+");
       assert(fp!=NULL);
