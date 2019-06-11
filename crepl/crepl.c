@@ -9,10 +9,11 @@ int main(int argc, char *argv[]) {
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
-      printf("%s\n",s_in);
+      //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
       filename = tmpnam("1");
-      fopen("1","r+");
+      assert(filename!=NULL);
+      fp = fopen("1","r+");
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
