@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
       }
       fclose(fp);
       system("gcc -c 1");
+      printf("%s\n",filename);
       continue;
     }
     //int (*func)() = func_lookup(id);
