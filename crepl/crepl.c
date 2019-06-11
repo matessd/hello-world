@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     if(strcmp(tmp,"int")==0){
       //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
-      filename = mktemp("XXXXXX");
+      filename = tmpnam(NULL);
       assert(filename!=NULL);
       fp = fopen(filename,"r+");
       assert(fp!=NULL);
