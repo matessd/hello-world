@@ -10,14 +10,15 @@ int main(int argc, char *argv[]) {
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
-      //printf("%s\n",s_in);
       //sprintf(tmp,"%d.c",++g_cnt);
-      filename = tmpnam(NULL);
-      printf("%s\n",filename);
-      assert(filename!=NULL);
-      fp = fopen(filename,"r+");
-      fprintf(stderr, "errno: %s\n", strerror(errno));
+      fp = mkstemp("XXXXXX");
+      //printf("%s\n",filename);
+      //assert(filename!=NULL);
+      //fp = fopen(filename,"r+");
+      //fprintf(stderr, "errno: %s\n", strerror(errno));
       assert(fp!=NULL);
+      filename = fcb[fp->fd].filename;
+      printf("%s\n",filename);
       int i = 0;
       while(s_in[i]!='\0'){
         fputc(s_in[i++],fp);
