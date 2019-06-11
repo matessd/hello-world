@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
       fp = tmpfile();
       int i = 0;
       while(s_in[i]!='\0'){
-        fputc(fp,s_in[i++]);
+        fputc(s_in[i++],fp);
       }
       fclose(fp);
       continue;
