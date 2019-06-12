@@ -15,8 +15,9 @@ void gen_file(char *s_in){
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
   assert(tmpname!=NULL);
-  sprintf(filename,"%s.c",tmpname);
-  sprintf(so_name[g_cnt],"%s.so",tmpname);
+  sprintf(tmp,"%s",tmpname);
+  sprintf(filename,"%s.c",tmp);
+  sprintf(so_name[g_cnt],"%s.so",tmp);
   printf("%s\n",filename);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
