@@ -38,7 +38,7 @@ void gen_file(char *s_in){
   //printf("%s&\n",tmp);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
-    fprintf (stderr, "error:%s\n", dlerror());
+    fprintf (stderr, "Error:%s\n", dlerror());
   //fclose(fp);  
   //printf("filename:%s\n",filename);
   unlink(filename);
