@@ -45,7 +45,8 @@ void gen_file(char *s_in){
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   printf(">> ");
-  while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
+  while(scanf("%[^\n]",s_in)!=EOF){
+    scanf("%c",&tmpc);
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
