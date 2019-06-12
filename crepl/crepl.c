@@ -27,11 +27,12 @@ void gen_file(char *s_in){
   }
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
   system(tmp);
-  handler[g_cnt] = dlopen(so_name[g_cnt],RTLD_LAZY|RTLD_GLOBAL);
+  sprintf("./%s",so_name[g_cnt]);
+  handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "%s ", dlerror());
   unlink(filename);
-  //unlink(so_name[g_cnt]);
+  unlink(so_name[g_cnt]);
   fclose(fp);  
   assert(handler[g_cnt]!=NULL);
   //unlink(filename);
