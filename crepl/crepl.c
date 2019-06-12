@@ -27,7 +27,7 @@ void gen_file(char *s_in){
   }
   fclose(fp);
   printf("%s\n",filename);
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",filename, so_name[g_cnt]);
+  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt], filename);
   printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
