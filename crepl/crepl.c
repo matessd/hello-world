@@ -30,7 +30,7 @@ void gen_file(char *s_in){
   //不对，隔断字符串后sprint和strcat也不行
   //但在中间加printf，然后又改回来，
   //它自己就突然好了，什么情况
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt], filename);
+  sprintf(tmp,"gcc -w -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt], filename);
   //printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
