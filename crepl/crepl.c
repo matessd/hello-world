@@ -63,14 +63,12 @@ int main(int argc, char *argv[]) {
       //dlclose(handler[--g_cnt]);
       continue;
     }
-    //assert(func!=NULL);
     int value = func();
-    printf(">> %d\n",value);
+    printf(">> (%s) = %d\n",s_in,value);
     dlclose(handler[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
     dlclose(handler[i]);
-    //unlink(so_name[i]);
   }
   return 0;
 }
