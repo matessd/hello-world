@@ -6,11 +6,11 @@
 #include<dlfcn.h>
 #include<unistd.h>
 int g_cnt = 0;
-char so_name[100][10];
+char so_name[100][20];
 void *handler[100];
 
 void gen_file(char *s_in){
-  char suffix[]="tmp-XXXXXX", filename[10], tmp[50];
+  char suffix[]="tmp-XXXXXX", filename[20], tmp[50];
   FILE *fp=NULL;
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
