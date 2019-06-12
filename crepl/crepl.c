@@ -63,8 +63,9 @@ int main(int argc, char *argv[]) {
     sprintf(tmp,"int _exprXXX(){return ");
     strcat(tmp,s_in);
     strcat(tmp,";}");
-    printf("%s**\n",tmp);
+    //printf("%s**\n",tmp);
     gen_file(tmp);
+    //printf("%s**\n",tmp);
     //handler can be NULL
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     if(func==NULL){
