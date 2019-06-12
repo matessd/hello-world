@@ -2,9 +2,11 @@
 #include<string.h>
 #include<assert.h>
 #include<stdlib.h>
-#include<errno.h>
 #include<dlfcn.h>
 #include<unistd.h>
+#include<sys/types.h>
+#include<fcntl.h>
+#include<sys/stat.h>
 int g_cnt = 0;
 void *handler[1000];
 
