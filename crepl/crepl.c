@@ -72,12 +72,12 @@ int main(int argc, char *argv[]) {
     }
     if(flg==1) printf("  Add:%s\n",s_in);
     else{
-      dlclose(handler[--g_cnt]);
       if(flg==2){
         int value = func();
         printf("  (%s) = %d\n",s_in,value);
       }else
         printf("  Compile Error\n");
+      dlclose(handler[--g_cnt]);
     }
     printf(">> ");
     s_in[0] = '\0';
