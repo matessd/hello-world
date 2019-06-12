@@ -17,6 +17,7 @@ void gen_file(char *s_in){
   assert(tmpname!=NULL);
   sprintf(filename,"%s.c",tmpname);
   sprintf(so_name[g_cnt],"%s.so",tmpname);
+  printf("%s\n",so_name[g_cnt]);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
   int i = 0;
@@ -25,7 +26,6 @@ void gen_file(char *s_in){
   }
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
   system(tmp);
-  printf("%s\n",so_name[g_cnt]);
   handler[g_cnt] = dlopen(so_name[g_cnt],RTLD_LAZY|RTLD_GLOBAL);
   assert(handler[g_cnt]!=NULL);
   unlink(filename);
