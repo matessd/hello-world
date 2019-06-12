@@ -45,6 +45,7 @@ void gen_file(char *s_in){
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
+    printf(">> ");
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
@@ -64,7 +65,7 @@ int main(int argc, char *argv[]) {
       continue;
     }
     int value = func();
-    printf(">> (%s) = %d\n",s_in,value);
+    printf(" (%s) = %d\n",s_in,value);
     dlclose(handler[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
