@@ -18,7 +18,7 @@ void gen_file(char *s_in){
   sprintf(tmp,"%s",tmpname);
   sprintf(filename,"%s.c",tmp);
   sprintf(so_name[g_cnt],"%s.so",tmp);
-  printf("%s\n",tmp);
+  //printf("%s\n",tmp);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
   int i = 0;
@@ -26,6 +26,7 @@ void gen_file(char *s_in){
     fputc(s_in[i++],fp);
   }
   fclose(fp);
+  printf("%s\n",tmp);
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt],filename);
   printf("%s*\n",tmp);
   system(tmp);
