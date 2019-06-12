@@ -39,7 +39,7 @@ void gen_file(char *s_in){
     fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
   //unlink(so_name[g_cnt]);
-  assert(handler[g_cnt]!=NULL);
+  //assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
 
@@ -51,10 +51,11 @@ int main(int argc, char *argv[]) {
       gen_file(s_in);
       continue;
     }
-    sprintf("int _exprXXX(){return ",tmp);
+    sprintf(tmp,"int _exprXXX(){return ");
     strcat(tmp,s_in);
     strcat(tmp,";}");
     gen_file(tmp);
+    assert(0);
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     assert(func!=NULL);
     int value = func();
