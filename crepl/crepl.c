@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
       continue;
     }
     sscanf(s_in,"%s",tmp);
-    int flg = 0;
+    int flg = 0, (*func)();
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
       if(handler[g_cnt-1]!=NULL) flg = 1;
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
       strcat(tmp,";}");
       gen_file(tmp);
       //handler can be NULL
-      int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
+      func = dlsym(handler[g_cnt-1],"_exprXXX");
       if(func==NULL) flg = 3;
       else flg = 2;
     }
