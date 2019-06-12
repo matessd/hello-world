@@ -31,7 +31,11 @@ void gen_file(char *s_in){
   //不对，隔断字符串后sprint和strcat也不行
   //但在中间加printf，然后又改回来，
   //它自己就突然好了，什么情况
-  sprintf(tmp,"gcc -w -shared -fPIC -nostartfiles -m32 -o %s %s",so_name, filename);
+  #ifdef __x86_64__ 
+    sprintf(tmp,"gcc -w -shared -fPIC -nostartfiles -m64 -o %s %s",so_name, filename);
+  #else
+    sprintf(tmp,"gcc -w -shared -fPIC -nostartfiles -m32 -o %s %s",so_name, filename);
+  #endif
   system(tmp);
   sprintf(tmp,"./%s",so_name);
   handler[g_cnt] = dlopen(tmp,RTLD_NOW|RTLD_GLOBAL);
@@ -45,9 +49,6 @@ void gen_file(char *s_in){
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   s_in[0] = '\0'; printf(">> ");
-#ifdef __x86_64__ 
-	printf("__64__  is defined\n");
-#endif
   assert(0);
   int null_fd = open("/dev/null",O_RDWR);
   assert(null_fd>=0);
