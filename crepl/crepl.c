@@ -27,7 +27,7 @@ void gen_file(char *s_in){
   }
   fclose(fp);
   //把filename也加上会缓冲区溢出？
-  //不对，隔断sprint和strcat也不行
+  //不对，隔断字符串后sprint和strcat也不行
   //但在中间加printf，然后又改回来，
   //它自己就突然好了，什么情况
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt], filename);
@@ -38,7 +38,7 @@ void gen_file(char *s_in){
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
-  //unlink(so_name[g_cnt]);
+  unlink(so_name[g_cnt]);
   //assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
@@ -61,11 +61,11 @@ int main(int argc, char *argv[]) {
     int value = func();
     printf(">> %d\n",value);
     dlclose(handler[g_cnt-1]);
-    unlink(so_name[--g_cnt]);
+    //unlink(so_name[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
     dlclose(handler[i]);
-    unlink(so_name[i]);
+    //unlink(so_name[i]);
   }
   return 0;
 }
