@@ -88,6 +88,7 @@ int main(int argc, char *argv[]) {
       }
     }
     printf(">> ");
+    fflush(stdout);
     s_in[0] = '\0';
   }
   for(int i=0; i<g_cnt; i++){
