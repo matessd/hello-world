@@ -45,6 +45,10 @@ void gen_file(char *s_in){
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   s_in[0] = '\0'; printf(">> ");
+#ifdef __i386__ 
+	printf("__i386__  is defined\n");
+#endif
+  assert(0);
   int null_fd = open("/dev/null",O_RDWR);
   assert(null_fd>=0);
   dup2(null_fd,2);
