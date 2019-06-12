@@ -18,7 +18,7 @@ void gen_file(char *s_in){
   sprintf(tmp,"%s",tmpname);
   sprintf(filename,"%s.c",tmp);
   sprintf(so_name[g_cnt],"%s.so",tmp);
-  printf("%s\n",so_name[g_cnt]);
+  printf("%s\n",filename);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
   int i = 0;
