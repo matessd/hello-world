@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
     printf(">> ");
+    fflush(stdout);
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
@@ -55,15 +56,13 @@ int main(int argc, char *argv[]) {
     strcat(tmp,s_in);
     strcat(tmp,";}");
     gen_file(tmp);
-    //assert(0);
     //handler can be NULL
-    int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
-    if(func==NULL){
+    if(handler[--g_cnt]==NULL){
       printf(">> Compile Error\n");
-      g_cnt--;
       //dlclose(handler[--g_cnt]);
       continue;
     }
+    int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     int value = func();
     printf(" (%s) = %d\n",s_in,value);
     dlclose(handler[--g_cnt]);
