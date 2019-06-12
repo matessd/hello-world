@@ -26,11 +26,12 @@ void gen_file(char *s_in){
     fputc(s_in[i++],fp);
   }
   fclose(fp);
-  printf("%s\n",tmp);
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s",so_name[g_cnt]);
+  //printf("%s\n",tmp);
+  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s%s",so_name[g_cnt],filename);
   printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
+  printf("%s&\n",tmp);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "error:%s\n", dlerror());
