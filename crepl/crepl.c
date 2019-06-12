@@ -44,8 +44,7 @@ void gen_file(char *s_in){
 
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
-  s_in[0] = '\0';
-  printf(">> ");
+  s_in[0] = '\0'; printf(">> ");
   int null_fd = open("/dev/null",O_RDWR);
   assert(null_fd>=0);
   dup2(null_fd,2);
@@ -56,32 +55,32 @@ int main(int argc, char *argv[]) {
       continue;
     }
     sscanf(s_in,"%s",tmp);
+    int flg = 0;
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
-      printf("  Add:%s\n",s_in);
-      printf(">> ");
-      s_in[0] = '\0';
-      continue;
+      if(handler[g_cnt-1]!=NULL) flg = 1;
+      else flg = 3 //error
+    }else{
+      sprintf(tmp,"int _exprXXX(){return ");
+      strcat(tmp,s_in); 
+      strcat(tmp,";}");
+      gen_file(tmp);
+      //handler can be NULL
+      int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
+      if(func==NULL) flg = 3;
+      else flg = 2;
     }
-    sprintf(tmp,"int _exprXXX(){return ");
-    strcat(tmp,s_in);
-    strcat(tmp,";}");
-    gen_file(tmp);
-    //handler can be NULL
-    int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
-    if(func==NULL){
-      printf("  Compile Error\n");
-      printf(">> ");
-      s_in[0] = '\0';
-      if(handler[--g_cnt]!=NULL)
-        dlclose(handler[g_cnt]);
-      continue;
+    if(flg==1) printf("  Add:%s\n",s_in);
+    else{
+      dlclose(handler[--g_cnt]);
+      if(flg==2){
+        int value = func();
+        printf("  (%s) = %d\n",s_in,value);
+      }else
+        printf("  Compile Error\n");
     }
-    int value = func();
-    printf("  (%s) = %d\n",s_in,value);
     printf(">> ");
     s_in[0] = '\0';
-    dlclose(handler[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
     dlclose(handler[i]);
