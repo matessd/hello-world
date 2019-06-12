@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
   printf(">> ");
   int null_fd = open("/dev/null",O_RDWR);
   assert(null_fd>=0);
-  dup2(null_fd,1);
+  dup2(null_fd,2);
   while(scanf("%[^\n]",s_in)!=EOF){
     scanf("%c",&tmpc);
     if(s_in[0]=='\0'){
