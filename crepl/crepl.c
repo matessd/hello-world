@@ -38,6 +38,7 @@ void gen_file(char *s_in){
   //unlink(filename);
   //unlink(so_name[g_cnt]);
   //fclose(fp);  
+  printf("filename:%s\n",filename);
   unlink(filename);
   unlink(so_name[g_cnt]);
   assert(handler[g_cnt]!=NULL);
