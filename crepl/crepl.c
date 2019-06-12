@@ -10,7 +10,7 @@ char so_name[100][30];
 void *handler[100];
 
 void gen_file(char *s_in){
-  char suffix[]="tmp-XXXXXX", filename[20], tmp[100];
+  char suffix[]="tmpdsfsd-XXXXXX", filename[20], tmp[100];
   FILE *fp=NULL;
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
