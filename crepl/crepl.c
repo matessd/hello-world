@@ -30,7 +30,7 @@ void gen_file(char *s_in){
   //把filename也加上会缓冲区溢出？
   sprintf(tmp,"gcc -m32 -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt], filename);
   //strcat(tmp,so_name[g_cnt]);
-  strcat(tmp, filename);
+  //strcat(tmp, filename);
   printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
