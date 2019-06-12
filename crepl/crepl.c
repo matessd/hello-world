@@ -31,7 +31,7 @@ void gen_file(char *s_in){
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "%s ", dlerror());
   unlink(filename);
-  unlink(so_name[g_cnt]);
+  //unlink(so_name[g_cnt]);
   fclose(fp);  
   assert(handler[g_cnt]!=NULL);
   //unlink(filename);
