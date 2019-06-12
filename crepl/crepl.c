@@ -27,18 +27,18 @@ void gen_file(char *s_in){
   }
   fclose(fp);
   printf("%s\n",filename);
-  snprintf(tmp,100,"gcc -m32 -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt], filename);
+  //把filename也加上会缓冲区溢出？
+  snprintf(tmp,100,"gcc -m32 -shared -fPIC -nostartfiles -o %s ",so_name[g_cnt]);
+  strcat(tmp,filename);
   printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
-  printf("%s&\n",tmp);
+  //printf("%s&\n",tmp);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "error:%s\n", dlerror());
-  //unlink(filename);
-  //unlink(so_name[g_cnt]);
   //fclose(fp);  
-  printf("filename:%s\n",filename);
+  //printf("filename:%s\n",filename);
   unlink(filename);
   unlink(so_name[g_cnt]);
   assert(handler[g_cnt]!=NULL);
