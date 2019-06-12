@@ -30,7 +30,6 @@ void gen_file(char *s_in){
   //但在中间加printf，然后又改回来，
   //它自己就突然好了，什么情况
   sprintf(tmp,"gcc -w -shared -fPIC -nostartfiles -m32 -o %s %s",so_name, filename);
-  //printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name);
   handler[g_cnt] = dlopen(tmp,RTLD_NOW|RTLD_GLOBAL);
@@ -38,7 +37,6 @@ void gen_file(char *s_in){
     //fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
   unlink(so_name);
-  //assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
 
@@ -55,7 +53,7 @@ int main(int argc, char *argv[]) {
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
-      printf(" Add:\n");
+      printf("  Add:\n");
       printf(">> ");
       s_in[0] = '\0';
       continue;
@@ -65,19 +63,18 @@ int main(int argc, char *argv[]) {
     strcat(tmp,";}");
     //printf("%s**\n",tmp);
     gen_file(tmp);
-    printf("%s**\n",tmp);
     //handler can be NULL
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     if(func==NULL){
-      printf(" Compile Error\n");
+      printf("  Compile Error\n");
       printf(">> ");
-      g_cnt--;
       s_in[0] = '\0';
-      //dlclose(handler[--g_cnt]);
+      if(handler[--g_cnt]!=NULL)
+        dlclose(handler[g_cnt]);
       continue;
     }
     int value = func();
-    printf(" (%s) = %d\n",s_in,value);
+    printf("  (%s) = %d\n",s_in,value);
     printf(">> ");
     s_in[0] = '\0';
     dlclose(handler[--g_cnt]);
