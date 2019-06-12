@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
       if(handler[g_cnt-1]!=NULL) flg = 1;
-      else flg = 3 //error
+      else flg = 3;//error
     }else{
       sprintf(tmp,"int _exprXXX(){return ");
       strcat(tmp,s_in); 
