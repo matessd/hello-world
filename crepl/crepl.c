@@ -22,7 +22,7 @@ void gen_file(char *s_in){
   while(s_in[i]!='\0'){
     fputc(s_in[i++],fp);
   }
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name,filename);
+  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
   system(tmp);
   handler[g_cnt] = dlopen(so_name[g_cnt],RTLD_LAZY|RTLD_GLOBAL);
   assert(handler[g_cnt]!=NULL);
