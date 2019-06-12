@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     //assert(0);
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     if(func==NULL){
-      printf("Compile Errorn");
+      printf("Compile Error\n");
       dlclose(handler[--g_cnt]);
       continue;
     }
