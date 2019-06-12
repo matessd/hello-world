@@ -6,11 +6,11 @@
 #include<dlfcn.h>
 #include<unistd.h>
 int g_cnt = 0;
-char so_name[100][20];
+char so_name[100][30];
 void *handler[100];
 
 void gen_file(char *s_in){
-  char suffix[]="tmp-XXXXXX", filename[20], tmp[50];
+  char suffix[]="tmp-XXXXXX", filename[20], tmp[100];
   FILE *fp=NULL;
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
@@ -26,9 +26,10 @@ void gen_file(char *s_in){
     fputc(s_in[i++],fp);
   }
   fclose(fp);
-  printf("%s\n",filename);
+  //printf("%s\n",filename);
   //把filename也加上会缓冲区溢出？
   sprintf(tmp,"gcc -m32 -shared -fPIC -nostartfiles -o ");
+  printf("%s^^\n",tmp);
   strcat(tmp,so_name[g_cnt]);
   strcat(tmp, filename);
   printf("%s*\n",tmp);
