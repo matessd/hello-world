@@ -18,26 +18,26 @@ void gen_file(char *s_in){
   sprintf(tmp,"%s",tmpname);
   sprintf(filename,"%s.c",tmp);
   sprintf(so_name[g_cnt],"%s.so",tmp);
-  printf("%s\n",so_name[g_cnt]);
+  //printf("%s\n",so_name[g_cnt]);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
   int i = 0;
   while(s_in[i]!='\0'){
     fputc(s_in[i++],fp);
   }
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
+  sprintf(tmp,"gcc -m32 -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   //assert(0);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "%s ", dlerror());
-  unlink(filename);
-  unlink(so_name[g_cnt]);
-  fclose(fp);  
-  assert(handler[g_cnt]!=NULL);
   //unlink(filename);
-  //fclose(fp);
+  //unlink(so_name[g_cnt]);
+  //fclose(fp);  
+  assert(handler[g_cnt]!=NULL);
+  unlink(filename);
+  fclose(fp);
   g_cnt++;
 }
 
