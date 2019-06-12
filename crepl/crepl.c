@@ -44,12 +44,13 @@ void gen_file(char *s_in){
 
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
+  printf(">> ");
   while(scanf("%[^\n]%c",s_in,&tmpc)!=EOF){
-    printf(">> ");
-    fflush(stdout);
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
+      printf(" Add:\n");
+      printf(">> ");
       continue;
     }
     sprintf(tmp,"int _exprXXX(){return ");
@@ -57,12 +58,14 @@ int main(int argc, char *argv[]) {
     strcat(tmp,";}");
     gen_file(tmp);
     //handler can be NULL
-    if(handler[--g_cnt]==NULL){
-      printf(">> Compile Error\n");
+    int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
+    if(func==NULL){
+      printf(" Compile Error\n");
+      printf(">> ");
+      g_cnt--;
       //dlclose(handler[--g_cnt]);
       continue;
     }
-    int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     int value = func();
     printf(" (%s) = %d\n",s_in,value);
     dlclose(handler[--g_cnt]);
