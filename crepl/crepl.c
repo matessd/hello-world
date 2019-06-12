@@ -44,6 +44,7 @@ void gen_file(char *s_in){
 
 int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
+  s_in[0] = '\0';
   printf(">> ");
   while(scanf("%[^\n]",s_in)!=EOF){
     scanf("%c",&tmpc);
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
       gen_file(s_in);
       printf(" Add:\n");
       printf(">> ");
+      s_in[0] = '\0';
       continue;
     }
     sprintf(tmp,"int _exprXXX(){return ");
@@ -65,12 +67,14 @@ int main(int argc, char *argv[]) {
       printf(" Compile Error\n");
       printf(">> ");
       g_cnt--;
+      s_in[0] = '\0';
       //dlclose(handler[--g_cnt]);
       continue;
     }
     int value = func();
     printf(" (%s) = %d\n",s_in,value);
     printf(">> ");
+    s_in[0] = '\0';
     dlclose(handler[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
