@@ -28,8 +28,9 @@ void gen_file(char *s_in){
   fclose(fp);
   printf("%s\n",filename);
   //把filename也加上会缓冲区溢出？
-  snprintf(tmp,100,"gcc -m32 -shared -fPIC -nostartfiles -o %s ",so_name[g_cnt]);
-  strcat(tmp,filename);
+  sprintf(tmp,"gcc -m32 -shared -fPIC -nostartfiles -o ");
+  strcat(tmp,so_name[g_cnt]);
+  strcat(tmp, filename);
   printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
