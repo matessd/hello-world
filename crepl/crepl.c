@@ -10,7 +10,7 @@ char so_name[100][30];
 void *handler[100];
 
 void gen_file(char *s_in){
-  char suffix[]="tmpdsfsd-XXXXXX", filename[20], tmp[100];
+  char suffix[]="tmp-XXXXXX", filename[20], tmp[100];
   FILE *fp=NULL;
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
@@ -27,19 +27,18 @@ void gen_file(char *s_in){
   }
   fclose(fp);
   //把filename也加上会缓冲区溢出？
+  //不对，隔断sprint和strcat也不行
+  //但在中间加printf，然后又改回来，
+  //它自己就突然好了，什么情况
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt], filename);
-  //strcat(tmp,so_name[g_cnt]);
   //printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
-  //printf("%s&\n",tmp);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "Error:%s\n", dlerror());
-  //fclose(fp);  
-  //printf("filename:%s\n",filename);
   unlink(filename);
-  unlink(so_name[g_cnt]);
+  //unlink(so_name[g_cnt]);
   assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
