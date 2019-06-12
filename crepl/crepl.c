@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
-      printf("  Add:\n");
+      printf("  Add:%s\n",s_in);
       printf(">> ");
       s_in[0] = '\0';
       continue;
