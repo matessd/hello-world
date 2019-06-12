@@ -34,11 +34,11 @@ void gen_file(char *s_in){
   system(tmp);
   sprintf(tmp,"./%s",so_name);
   handler[g_cnt] = dlopen(tmp,RTLD_NOW|RTLD_GLOBAL);
-  if(handler[g_cnt]==NULL)
-    fprintf (stderr, "Error:%s\n", dlerror());
+  //if(handler[g_cnt]==NULL)
+    //fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
   unlink(so_name);
-  //assert(handler[g_cnt]!=NULL);
+  assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
 
