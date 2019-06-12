@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     strcat(tmp,s_in);
     strcat(tmp,";}");
     gen_file(tmp);
-    assert(0);
+    //assert(0);
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     assert(func!=NULL);
     int value = func();
