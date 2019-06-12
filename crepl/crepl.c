@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
   printf(">> ");
   while(scanf("%[^\n]",s_in)!=EOF){
     scanf("%c",&tmpc);
+    if(s_in[0]=='\0') continue;
     sscanf(s_in,"%s",tmp);
     if(strcmp(tmp,"int")==0){
       gen_file(s_in);
