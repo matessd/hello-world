@@ -34,7 +34,7 @@ void gen_file(char *s_in){
   //printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
-  handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
+  handler[g_cnt] = dlopen(tmp,RTLD_NOW|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
