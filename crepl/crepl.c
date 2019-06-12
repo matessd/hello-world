@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
       if(flg==2){
         int value = func();
         printf("  (%s) = %d\n",s_in,value);
-        dlclose(handler[--g_cnt]);
+        dlclose(handler[g_cnt]);
       }else{
         printf("  Compile Error\n");
         if(handler[g_cnt]!=NULL)
