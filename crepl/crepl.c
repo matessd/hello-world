@@ -15,9 +15,9 @@ void gen_file(char *s_in){
   char *tmpname = mktemp(suffix);
   //fprintf(stderr, "errno: %s\n", strerror(errno));
   assert(tmpname!=NULL);
-  snprintf(tmp,"%s",tmpname);
-  snprintf(filename,"%s.c",tmp);
-  snprintf(so_name[g_cnt],"%s.so",tmp);
+  sprintf(tmp,"%s\0",tmpname);
+  sprintf(filename,"%s.c\0",tmp);
+  sprintf(so_name[g_cnt],"%s.so\0",tmp);
   printf("%s\n",filename);
   fp = fopen(filename,"a+");
   assert(fp!=NULL);
@@ -26,10 +26,10 @@ void gen_file(char *s_in){
     fputc(s_in[i++],fp);
   }
   fclose(fp);
-  snprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt],filename);
+  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s\0",so_name[g_cnt],filename);
   printf("%s*\n",tmp);
   system(tmp);
-  snprintf(tmp,"./%s",so_name[g_cnt]);
+  sprintf(tmp,"./%s\0",so_name[g_cnt]);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
   if(handler[g_cnt]==NULL)
     fprintf (stderr, "error:%s\n", dlerror());
