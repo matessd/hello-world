@@ -38,7 +38,7 @@ void gen_file(char *s_in){
     //fprintf (stderr, "Error:%s\n", dlerror());
   unlink(filename);
   unlink(so_name);
-  assert(handler[g_cnt]!=NULL);
+  //assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
 
@@ -55,9 +55,11 @@ int main(int argc, char *argv[]) {
     strcat(tmp,";}");
     gen_file(tmp);
     //assert(0);
+    //handler can be NULL
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
     if(func==NULL){
       printf(">> Compile Error\n");
+      g_cnt--;
       //dlclose(handler[--g_cnt]);
       continue;
     }
