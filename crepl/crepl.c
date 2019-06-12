@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
     }
     int value = func();
     printf(" (%s) = %d\n",s_in,value);
+    printf(">> ");
     dlclose(handler[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
