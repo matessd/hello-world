@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<errno.h>
 #include<dlfcn.h>
+#include<unistd.h>
 int g_cnt = 0;
 char so_name[100][10];
 void *handler[100];
