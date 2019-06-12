@@ -26,7 +26,7 @@ void gen_file(char *s_in){
     fputc(s_in[i++],fp);
   }
   fclose(fp);
-  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -o %s %s",so_name[g_cnt],filename);
+  sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt],filename);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
@@ -36,6 +36,7 @@ void gen_file(char *s_in){
   //unlink(so_name[g_cnt]);
   //fclose(fp);  
   unlink(filename);
+  unlink(so_name[g_cnt]);
   assert(handler[g_cnt]!=NULL);
   g_cnt++;
 }
