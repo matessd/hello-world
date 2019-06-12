@@ -27,6 +27,7 @@ void gen_file(char *s_in){
   }
   fclose(fp);
   sprintf(tmp,"gcc -shared -fPIC -nostartfiles -m32 -o %s %s",so_name[g_cnt],filename);
+  printf("%s*\n",tmp);
   system(tmp);
   sprintf(tmp,"./%s",so_name[g_cnt]);
   handler[g_cnt] = dlopen(tmp,RTLD_LAZY|RTLD_GLOBAL);
