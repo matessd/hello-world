@@ -44,6 +44,9 @@ int main(int argc, char *argv[]) {
   char s_in[1000], tmp[1000], tmpc;
   s_in[0] = '\0';
   printf(">> ");
+  int null_fd = open("/dev/null",O_RDWR);
+  assert(null_fd>=0);
+  dup2(null_fd,1);
   while(scanf("%[^\n]",s_in)!=EOF){
     scanf("%c",&tmpc);
     if(s_in[0]=='\0'){
@@ -61,7 +64,6 @@ int main(int argc, char *argv[]) {
     sprintf(tmp,"int _exprXXX(){return ");
     strcat(tmp,s_in);
     strcat(tmp,";}");
-    //printf("%s**\n",tmp);
     gen_file(tmp);
     //handler can be NULL
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
