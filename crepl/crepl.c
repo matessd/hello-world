@@ -57,10 +57,15 @@ int main(int argc, char *argv[]) {
     gen_file(tmp);
     //assert(0);
     int (*func)() = dlsym(handler[g_cnt-1],"_exprXXX");
-    assert(func!=NULL);
+    if(func==NULL){
+      printf("Compile Errorn");
+      dlclose(handler[--g_cnt]);
+      continue;
+    }
+    //assert(func!=NULL);
     int value = func();
     printf(">> %d\n",value);
-    dlclose(handler[g_cnt-1]);
+    dlclose(handler[--g_cnt]);
     //unlink(so_name[--g_cnt]);
   }
   for(int i=0; i<g_cnt; i++){
