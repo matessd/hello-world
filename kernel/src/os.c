@@ -11,10 +11,10 @@ static void os_init() {
   dev->init();
   //vfs->init();
   //print是线程名，tty是用来查dev的参数
-  /*kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
-  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");*/
+  kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
 }
 
 static void hello() {
