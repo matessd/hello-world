@@ -29,6 +29,7 @@ typedef struct {
 typedef struct task task_t;
 typedef struct spinlock spinlock_t;
 typedef struct semaphore sem_t;
+
 typedef struct {
   void (*init)();
   int (*create)(task_t *task, const char *name, void (*entry)(void *arg), void *arg);

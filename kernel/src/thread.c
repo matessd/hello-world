@@ -14,7 +14,6 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
 
   kmt->spin_lock(task_lk);
   int cnt = Ntask++%_ncpu();
-  //printf("%d**\n",cnt);
   task->id = cnt;
   //如果多处理器准备好了这样会不会有问题？
   //add_head(task,cnt);

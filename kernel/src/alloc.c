@@ -27,7 +27,6 @@ static void pmm_init() {
 
 static void *kalloc(size_t size) {
   //my
-  //printf("%d\n",size);
   kmt->spin_lock(alloc_lk);
   //assert(size>=0);
   if(size==0) return NULL;
