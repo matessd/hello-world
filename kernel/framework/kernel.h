@@ -13,6 +13,7 @@
   mod_##name##_t __##name##_obj = 
 
 typedef _Context *(*handler_t)(_Event, _Context *);
+//os
 typedef struct {
   void (*init)();
   void (*run)();
@@ -20,6 +21,7 @@ typedef struct {
   void (*on_irq)(int seq, int event, handler_t handler);
 } MODULE(os);
 
+//pmm
 typedef struct {
   void (*init)();
   void *(*alloc)(size_t size);
@@ -30,6 +32,7 @@ typedef struct task task_t;
 typedef struct spinlock spinlock_t;
 typedef struct semaphore sem_t;
 
+//kmt
 typedef struct {
   void (*init)();
   int (*create)(task_t *task, const char *name, void (*entry)(void *arg), void *arg);
@@ -42,15 +45,33 @@ typedef struct {
   void (*sem_signal)(sem_t *sem);
 } MODULE(kmt);
 
+//device
 typedef struct device device_t;
 typedef struct devops {
   int (*init)(device_t *dev);
   ssize_t (*read)(device_t *dev, off_t offset, void *buf, size_t count);
   ssize_t (*write)(device_t *dev, off_t offset, const void *buf, size_t count);
 } devops_t;
+
 typedef struct {
   void (*init)();
 } MODULE(dev);
+
+//filesystem
+typedef struct{
+  int8_t inode_map;
+  int8_t blk_map;
+  char inode_table;
+  char data_blk;
+  fsops_t *pos;
+  device_t *dev;
+}fs_t;
+
+typedef struct fsops{
+  void (*init)(fs_t *fs, const char *name, device_t *dev);
+  //inode_t *(*lookup)(fs_t *fs, const char *path, int flags);
+  //int (*close)(inode_t *inode);
+} fsops_t;
 
 typedef struct{
   void (*init)();
