@@ -4,7 +4,7 @@ void vfs_init(){
   fs_t *ram = pmm->alloc(sizeof(fs_t));
   ram->blk_map[0] = 0;
   int len = sizeof(fs_t);
-  printf("%x\n",len);
+  printf("%d\n",len);
 }
 
 
