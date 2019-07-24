@@ -66,7 +66,7 @@ typedef struct fsops{
 typedef struct{
   int8_t inode_map[1024];
   int8_t blk_map[1024];
-  char inode_table[1024][128];
+  int32_t inode_table[1024][16];
   char data_blk[1024][1024];
   fsops_t *ops;
   device_t *dev;
