@@ -59,7 +59,7 @@ typedef struct {
 
 //filesystem
 typedef struct fsops{
-  void (*init)(fs_t *fs, const char *name, device_t *dev);
+  //void (*init)(fs_t *fs, const char *name, device_t *dev);
   //inode_t *(*lookup)(fs_t *fs, const char *path, int flags);
   //int (*close)(inode_t *inode);
 } fsops_t;
