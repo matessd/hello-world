@@ -64,10 +64,10 @@ typedef struct fsops{
   //int (*close)(inode_t *inode);
 } fsops_t;
 typedef struct{
-  int8_t inode_map;
-  int8_t blk_map;
-  char inode_table;
-  char data_blk;
+  int8_t inode_map[1024];
+  int8_t blk_map[1024];
+  char inode_table[1024][128];
+  char data_blk[1024][1024];
   fsops_t *ops;
   device_t *dev;
 }fs_t;
