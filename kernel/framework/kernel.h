@@ -71,7 +71,7 @@ struct inode;
 struct fs{
   int8_t inode_map[MAX_inode];
   int8_t blk_map[1024];
-  inode_t inode_tab[MAX_inode];
+  struct inode inode_tab[MAX_inode];
   char blk[1024][512];
   fsops_t *ops;
   device_t *dev;
