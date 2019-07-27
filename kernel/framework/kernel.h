@@ -67,6 +67,7 @@ typedef struct fsops{
 
 typedef struct fs fs_t;
 typedef struct inode inode_t;
+struct fs;
 
 #define MAX_DIR 64
 #define DIR_NAME_LEN 64
