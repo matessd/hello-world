@@ -31,7 +31,7 @@ int vfs_mkdir(const char *path){
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
-  inode_t *child = NULL, *prev = NULL;
+  inode_t *child = NULL;
   char ctmp[128]; int cur=0;
   ctmp[0] = '/'; ctmp[1] = '\0';
   int flg = 0;
