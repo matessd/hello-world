@@ -1,7 +1,7 @@
 #include<my_os.h>
 fs_t *fs_list[16];
 
-void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fst_t fs, inode_t *prev){
+void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fs_t *fs, inode_t *prev){
   inode->blkno = no;
   inode->sta = sta;
   strcpy(inode->name, name);
@@ -31,7 +31,7 @@ int vfs_mkdir(const char *path){
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
-  inode_t *child = NULL, prev = NULL;
+  inode_t *child = NULL, *prev = NULL;
   char ctmp[128]; int cur=0;
   ctmp[0] = '/'; ctmp[1] = '\0';
   int flg = 0;
