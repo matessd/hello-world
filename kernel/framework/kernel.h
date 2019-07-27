@@ -58,7 +58,6 @@ typedef struct {
 } MODULE(dev);
 
 //filesystem
-fs_t *fs_list[16];
 typedef struct fsops{
   //void (*init)(fs_t *fs, const char *name, device_t *dev);
   //inode_t *(*lookup)(fs_t *fs, const char *path, int flags);
@@ -67,7 +66,7 @@ typedef struct fsops{
 
 typedef struct fs fs_t;
 typedef struct inode inode_t;
-struct fs;
+fs_t *fs_list[16];
 
 #define MAX_DIR 64
 #define DIR_NAME_LEN 64
@@ -76,7 +75,7 @@ struct inode{
   //0 is dir, 1 is fs(block dev), 2 is file, 3 is dev
   int8_t sta;
   char name[DIR_NAME_LEN];
-  struct fs *fs;
+  fs_t *fs;
   inode_t *prev;//上一级目录名
   //int cnt;//subdir NO
   inode_t *child[MAX_DIR];
