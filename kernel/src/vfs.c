@@ -44,7 +44,6 @@ int vfs_mkdir(const char *path){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0 && child->sta==0){
-            prev = inode;
             inode = child; 
             ram = inode->fs;            
             flg = 1;
