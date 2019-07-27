@@ -79,6 +79,7 @@ struct fs{
 
 #define MAX_DIR 64
 #define DIR_NAME_LEN 64
+struct fs;
 struct inode{
   int32_t blkno;
   //0 is dir, 1 is fs(block dev), 2 is file, 3 is dev
