@@ -58,6 +58,7 @@ typedef struct {
 } MODULE(dev);
 
 //filesystem
+fs_t *fs_list[16];
 typedef struct fsops{
   //void (*init)(fs_t *fs, const char *name, device_t *dev);
   //inode_t *(*lookup)(fs_t *fs, const char *path, int flags);
