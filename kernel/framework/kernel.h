@@ -67,15 +67,6 @@ typedef struct fsops{
 typedef struct fs fs_t;
 typedef struct inode inode_t;
 struct inode;
-#define MAX_inode 1024
-struct fs{
-  int8_t inode_map[MAX_inode];
-  int8_t blk_map[1024];
-  struct inode inode_tab[MAX_inode];
-  char blk[1024][512];
-  fsops_t *ops;
-  device_t *dev;
-};
 
 #define MAX_DIR 64
 #define DIR_NAME_LEN 64
@@ -88,6 +79,16 @@ struct inode{
   inode_t *prev;//上一级目录名
   //int cnt;//subdir NO
   inode_t *child[MAX_DIR];
+};
+
+#define MAX_inode 1024
+struct fs{
+  int8_t inode_map[MAX_inode];
+  int8_t blk_map[1024];
+  struct inode inode_tab[MAX_inode];
+  char blk[1024][512];
+  fsops_t *ops;
+  device_t *dev;
 };
 
 typedef struct{
