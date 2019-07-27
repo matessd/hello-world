@@ -64,15 +64,16 @@ typedef struct fsops{
   //int (*close)(inode_t *inode);
 } fsops_t;
 
+typedef struct fs fs_t;
 #define MAX_inode 1024
-typedef struct fs{
+struct fs{
   int8_t inode_map[MAX_inode];
   int8_t blk_map[1024];
   inode_t inode_tab[MAX_inode];
   char blk[1024][512];
   fsops_t *ops;
   device_t *dev;
-}fs_t;
+};
 
 #define MAX_DIR 64
 #define DIR_NAME_LEN 64
