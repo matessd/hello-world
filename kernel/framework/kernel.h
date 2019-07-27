@@ -76,7 +76,7 @@ struct inode{
   //0 is dir, 1 is fs(block dev), 2 is file, 3 is dev
   int8_t sta;
   char name[DIR_NAME_LEN];
-  fs_t *fs;
+  struct fs *fs;
   inode_t *prev;//上一级目录名
   //int cnt;//subdir NO
   inode_t *child[MAX_DIR];
