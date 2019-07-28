@@ -55,12 +55,13 @@ int vfs_mkdir(const char *path){
         inode = prev;
         continue;
       }
-      printf("%s\n",ctmp);
+      //printf("%s\n",ctmp);
       cur = 0; flg = 0;
       for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0){
+            printf("%s&&\n",child->name);
             if(child->sta==0 || path[i+1]=='\0'){
               prev = inode;
               inode = child; 
