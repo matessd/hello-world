@@ -12,24 +12,41 @@
   }
 }*/
 
-int mygets(char *buf){
-  
+int mygets(char *dst,const char *src){
+  dst[0] = '\0';
+  int i = 0;
+  for(i=0; src[i]; i++){
+    if(src[i]==' ') break;
+    dst[i] = src[i];
+  }
+  dst[i] = '\0';
+  return i;
 }
 
 void echo_task(void *name) {
   device_t *tty = dev_lookup(name);
   fs_t *fs = fs_list[0];
+  inode_t *inode = &fs->inode_tab[0];
   while (1) {
-    char line[1014], text[1024], cmd[16];
+    char line[1014], text[1024], cmd[32];
     sprintf(text, "(%s) $ ", name); 
     
     tty->ops->write(tty, 0, text, strlen(text));
     int nread = tty->ops->read(tty, 0, line, sizeof(line));
     line[nread - 1] = '\0';
     
-    mygets()
-    if(strcmp())
-    sprintf(text, "Echo: %s.\n", line); 
+    mygets(cmd, line);
+    char ctmp[128]; ctmp[0] = '\0';
+    if(strcmp(cmd,"ls")==0){
+      sprintf(text, ".  ..");
+      for(int i=2; i<MAX_DIR; i++){
+        if(inode->child[i]){
+          sprintf(ctmp, "  %s", inode->child[i]->name);
+          strcat(text, ctmp);
+        }
+      }
+    }
+    //sprintf(text, "Echo: %s.\n", line); 
     tty->ops->write(tty, 0, text, strlen(text));
   }
 }
