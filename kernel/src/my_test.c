@@ -26,10 +26,12 @@ int mygets(char *dst,const char *src){
   return i;
 }
 
-void get_path(char *dst, char *src, char *cur_dir){
+void merge_path(char *dst, char *src, char *cur_dir){
   if(src[0]=='/') strcpy(dst, src); 
   else{
     sprintf(dst, "%s", cur_dir);
+    if(strcmp(cur_dir,"/")!=0)
+      strcat(dst,"/");
     strcat(dst, src);
   }
 }
@@ -107,9 +109,11 @@ void echo_task(void *name) {
     if(strcmp(cmd1,"cd")==0){
       if(cmd2[0]=='\0'){
         cur_dir[0] = '/'; cur_dir[1] = '\0'; 
+        fs = fs_list[0];
+        inode = &fs->inode_tab[0];
         continue;
       }
-      get_path(ctmp, cmd2, cur_dir);
+      merge_path(ctmp, cmd2, cur_dir);
       inode_t *p = find_inode(ctmp);
       if(p!=NULL && p->sta==0){
         strcpy(cur_dir, ctmp);
@@ -134,7 +138,7 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      get_path(ctmp, cmd2, cur_dir);
+      merge_path(ctmp, cmd2, cur_dir);
       int ret = vfs->mkdir(ctmp);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
