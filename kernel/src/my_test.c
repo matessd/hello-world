@@ -95,10 +95,11 @@ void get_dir_name(char *dst, inode_t *inode){
   char ctmp[128];
   dst[0] = '\0';
   while(1){
-    strcpy(ctmp,inode->name);
+    strcpy(ctmp, "/");
+    if(strcmp("/",inode->name)==0) return;
+    strcpy(ctmp[1],inode->name);
     strcat(ctmp,dst);
     strcpy(dst,ctmp);
-    if(strcmp("/",inode->name)==0) return;
     inode = inode->prev;
   }
 }
