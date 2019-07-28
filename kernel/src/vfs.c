@@ -56,7 +56,8 @@ int vfs_mkdir(const char *path){
       }
       if(strcmp(ctmp,"..")==0){
         if(path[i+1]=='\0') return 1;
-        inode = prev;
+        inode = inode->prev;
+        prev = inode;
         ram = inode->fs;
         continue;
       }
