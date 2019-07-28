@@ -48,16 +48,17 @@ inode_t *find_inode(const char *path){
   int flg = 0;
 
   //success or fail
-  for(int i=0; path[i]; i++){
+  if(strcmp(path,"/")==0) return inode;
+  for(int i=1; path[i]; i++){
     if(path[i]=='/' || path[i+1]=='\0'){
+      if(path[i+1]=='\0' && path[i]!='/'){
+        ctmp[cur++] = path[i];
+        ctmp[cur] = '\0';
+      }
       if(strcmp(ctmp,".")==0) continue;
       if(strcmp(ctmp,"..")==0){
         inode = prev;
         continue;
-      }
-      if(path[i+1]=='\0' && path[i]!='/'){
-        ctmp[cur++] = path[i];
-        ctmp[cur] = '\0';
       }
       cur = 0; flg = 0;
       for(int j=0; j<MAX_DIR; j++){
