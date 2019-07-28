@@ -61,6 +61,7 @@ void echo_task(void *name) {
         continue;
       }
       deal_path(ctmp, cmd2, cur_dir);
+      strcpy(cur_dir, ctmp);
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
