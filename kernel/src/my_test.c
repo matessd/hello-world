@@ -56,7 +56,11 @@ void echo_task(void *name) {
     cur+=cnt;
     mygets(cmd2, &line[cur]); 
     if(strcmp(cmd1,"cd")==0){
-
+      if(cmd2[0]=='\0'){
+        cur_dir[0] = '/'; cur_dir[1] = '\0'; 
+        continue;
+      }
+      deal_path(ctmp, cmd2, cur_dir);
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
