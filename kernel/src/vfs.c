@@ -58,12 +58,14 @@ int vfs_mkdir(const char *path){
       for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];
         if(child){
-          if(strcmp(child->name, ctmp)==0 && child->sta==0){
-            prev = inode;
-            inode = child; 
-            ram = inode->fs;            
-            flg = 1;
-            break;
+          if(strcmp(child->name, ctmp)==0){
+            if(child->sta==0 || path[i+1]=='\0'){
+              prev = inode;
+              inode = child; 
+              ram = inode->fs;            
+              flg = 1;
+              break;
+            }
           } 
         }
       }
@@ -71,7 +73,7 @@ int vfs_mkdir(const char *path){
         return 2;//no such dir
       }
       if(path[i+1]=='\0'){
-        if(strcmp(inode->name, ctmp)==0)return 1;//already exist
+        return 1;//already exist
       }
     }else{
       ctmp[cur++] = path[i];
@@ -96,6 +98,6 @@ int vfs_mkdir(const char *path){
 
 MODULE_DEF(vfs) {
   .init = vfs_init,
-  .mkdir = vfs_mkdir,
+    .mkdir = vfs_mkdir,
 };
 
