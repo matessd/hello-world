@@ -20,6 +20,8 @@ void vfs_init(){
   vfs->mkdir("/dev/tty2");
   vfs->mkdir("/dev/tty3");
   vfs->mkdir("/dev/tty4");
+  vfs->mkdir("/dev/ramdisk0");
+  vfs->mkdir("/dev/ramdisk1");
 }
 
 int valid_inode(fs_t *fs){
@@ -101,6 +103,6 @@ int vfs_mkdir(const char *path){
 
 MODULE_DEF(vfs) {
   .init = vfs_init,
-    .mkdir = vfs_mkdir,
+  .mkdir = vfs_mkdir,
 };
 
