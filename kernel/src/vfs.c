@@ -72,7 +72,7 @@ int vfs_mkdir(const char *path){
       if(flg==0 && path[i+1]!='\0'){
         return 2;//no such dir
       }
-      if(path[i+1]=='\0'){
+      if(path[i+1]=='\0'&& flg==1){
         return 1;//already exist
       }
     }else{
