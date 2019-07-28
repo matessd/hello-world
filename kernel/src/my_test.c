@@ -93,8 +93,10 @@ inode_t *find_inode(const char *path){
 
 void get_dir_name(char *dst, inode_t *inode){
   char ctmp[128];
-  dst[0] = '/';
-  dst[1] = '\0';
+  dst[0] = '\0';
+  if(strcmp("/",inode->name)==0){
+    strcpy(dst, "/"); return;
+  }
   while(1){
     strcpy(ctmp, "/");
     if(strcmp("/",inode->name)==0) return;
