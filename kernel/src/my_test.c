@@ -14,12 +14,15 @@
 
 int mygets(char *dst,const char *src){
   dst[0] = '\0';
-  int i = 0;
+  int i = 0, flg = 0, cur=0;
   for(i=0; src[i]; i++){
-    if(src[i]==' ') break;
-    dst[i] = src[i];
+    if(flg && src[i]!=' ') break;
+    if(src[i]==' '){
+      flg = 1; continue;
+    }
+    dst[cur++] = src[i];
   }
-  dst[i] = '\0';
+  dst[cur] = '\0';
   return i;
 }
 
@@ -37,8 +40,10 @@ void echo_task(void *name) {
     printf("%s**\n",line);
 
     char ctmp[128]; ctmp[0] = '\0';
-    int cnt = mygets(cmd, line);
-     
+    text[0] = '\0';
+    int cur = 0, cnt = mygets(cmd, line);
+    cur+=cnt;
+    myget(ctmp, &line[cur]); 
     if(strcmp(cmd,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
@@ -49,12 +54,11 @@ void echo_task(void *name) {
       }
       strcat(text, "\n");
     }else if(strcmp(cmd,"mkdir")==0){
-
+      if(ctmp[0]=='/') vfs->mkdir(ctmp);
     }
     else{
-      text[0] = '\0';
+       
     }
-    //sprintf(text, "Echo: %s.\n", line); 
     tty->ops->write(tty, 0, text, strlen(text));
   }
 }
