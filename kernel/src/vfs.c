@@ -46,6 +46,10 @@ int vfs_mkdir(const char *path){
         inode = prev;
         continue;
       }
+      if(path[i+1]=='\0' && path[i]!='/'){
+        ctmp[cur++] = path[i];
+        ctmp[cur] = '\0';
+      }
       cur = 0; flg = 0;
       for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];

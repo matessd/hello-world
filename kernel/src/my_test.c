@@ -46,6 +46,8 @@ void echo_task(void *name) {
         }
       }
       strcat(text, "\n");
+    }else{
+      text[0] = '\0';
     }
     //sprintf(text, "Echo: %s.\n", line); 
     tty->ops->write(tty, 0, text, strlen(text));
