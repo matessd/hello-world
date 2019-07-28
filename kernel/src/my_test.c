@@ -55,9 +55,14 @@ inode_t *find_inode(const char *path){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
-      if(strcmp(ctmp,".")==0) continue;
+      if(strcmp(ctmp,".")==0) {
+        if(path[i+1]=='\0') return 1;
+        continue;
+      }
       if(strcmp(ctmp,"..")==0){
+        if(path[i+1]=='\0') return 1;
         inode = prev;
+        ram = inode->fs;
         continue;
       }
       cur = 0; flg = 0;
@@ -84,6 +89,18 @@ inode_t *find_inode(const char *path){
   }
   //assert(0); //can't reach here
   return NULL;
+}
+
+void get_dir_name(char *dst, inode_t *inode){
+  char ctmp[128];
+  dst[0] = '\0';
+  while(1){
+    strcpy(ctmp,inode->name);
+    strcat(ctmp,dst);
+    strcpy(dst,ctmp);
+    if(strcmp("/",inode->name)==0) return;
+    inode = inode->prev;
+  }
 }
 
 void echo_task(void *name) {
@@ -116,6 +133,7 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       inode_t *p = find_inode(ctmp);
+      get_dir_name(ctmp, p);//deal .. and .
       if(p!=NULL && p->sta==0){
         strcpy(cur_dir, ctmp);
         inode = find_inode(ctmp);

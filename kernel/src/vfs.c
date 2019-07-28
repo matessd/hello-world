@@ -50,9 +50,14 @@ int vfs_mkdir(const char *path){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
-      if(strcmp(ctmp,".")==0) continue;
+      if(strcmp(ctmp,".")==0) {
+        if(path[i+1]=='\0') return 1;
+        continue;
+      }
       if(strcmp(ctmp,"..")==0){
+        if(path[i+1]=='\0') return 1;
         inode = prev;
+        ram = inode->fs;
         continue;
       }
       //printf("%s\n",ctmp);
@@ -61,7 +66,6 @@ int vfs_mkdir(const char *path){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0){
-            printf("%s&&%d\n",child->name,(int)(intptr_t)child);
             if(child->sta==0 || path[i+1]=='\0'){
               prev = inode;
               inode = child; 
