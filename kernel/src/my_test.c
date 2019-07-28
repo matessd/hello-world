@@ -43,7 +43,7 @@ void echo_task(void *name) {
     text[0] = '\0';
     int cur = 0, cnt = mygets(cmd, line);
     cur+=cnt;
-    myget(ctmp, &line[cur]); 
+    mygets(ctmp, &line[cur]); 
     if(strcmp(cmd,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
