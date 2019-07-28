@@ -26,11 +26,58 @@ int mygets(char *dst,const char *src){
   return i;
 }
 
-void deal_path(char *dst, char *src, char *cur_dir){
+void get_path(char *dst, char *src, char *cur_dir){
   if(src[0]=='/') strcpy(dst, src); 
   else{
     sprintf(dst, "%s", cur_dir);
     strcat(dst, src);
+  }
+}
+
+inode_t *find_inode(const char *path){
+  //assert(path[0]=='/');
+  
+  //init
+  fs_t *ram = fs_list[0];
+  inode_t *inode = &ram->inode_tab[0];
+  inode_t *child = NULL, *prev = inode;
+  char ctmp[128]; int cur=0;
+  ctmp[0] = '/'; ctmp[1] = '\0';
+  int flg = 0;
+
+  //success or fail
+  for(int i=0; path[i]; i++){
+    if(path[i]=='/' || path[i+1]=='\0'){
+      if(strcmp(ctmp,".")==0) continue;
+      if(strcmp(ctmp,"..")==0){
+        inode = prev;
+        continue;
+      }
+      if(path[i+1]=='\0' && path[i]!='/'){
+        ctmp[cur++] = path[i];
+        ctmp[cur] = '\0';
+      }
+      cur = 0; flg = 0;
+      for(int j=0; j<MAX_DIR; j++){
+        child = inode->child[j];
+        if(child){
+          if(strcmp(child->name, ctmp)==0){
+            if(child->sta==0 || path[i+1]=='\0'){
+              prev = inode;
+              inode = child; 
+              ram = inode->fs;            
+              flg = 1;
+              break;
+            }
+          } 
+        }
+      }
+      if(flg==0) return NULL;//no such file or dir
+      if(path[i+1]=='\0') return inode;
+    }else{
+      ctmp[cur++] = path[i];
+      ctmp[cur] = '\0';
+    }
   }
 }
 
@@ -60,10 +107,16 @@ void echo_task(void *name) {
         cur_dir[0] = '/'; cur_dir[1] = '\0'; 
         continue;
       }
-      deal_path(ctmp, cmd2, cur_dir);
-      strcpy(cur_dir, ctmp);
-      fs = fs_list[0];
-      inode = &fs->inode_tab[0];
+      get_path(ctmp, cmd2, cur_dir);
+      inode_t *p = find_inode(ctmp);
+      if(p!=NULL && p->sta==0){
+        strcpy(cur_dir, ctmp);
+        inode = find_inode(ctmp);
+        fs = inode->fs;
+      }else{
+        sprintf(err, "cd: No such dir\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
@@ -79,7 +132,7 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      deal_path(ctmp, cmd2, cur_dir);
+      get_path(ctmp, cmd2, cur_dir);
       int ret = vfs->mkdir(ctmp);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
