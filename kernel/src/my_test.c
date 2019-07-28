@@ -79,6 +79,8 @@ inode_t *find_inode(const char *path){
       ctmp[cur] = '\0';
     }
   }
+  //assert(0); //can't reach here
+  return NULL;
 }
 
 void echo_task(void *name) {
