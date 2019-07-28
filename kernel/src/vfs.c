@@ -61,7 +61,7 @@ int vfs_mkdir(const char *path){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0){
-            printf("%s&&\n",child->name);
+            printf("%s&&%d\n",child->name,(int)(intptr_t)child);
             if(child->sta==0 || path[i+1]=='\0'){
               prev = inode;
               inode = child; 
