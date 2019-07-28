@@ -55,6 +55,8 @@ inode_t *find_inode(const char *path){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
+      cur = 0; flg = 0;
+      //printf("%s**\n",ctmp);
       if(strcmp(ctmp,".")==0) {
         if(path[i+1]=='\0') return inode;
         continue;
@@ -65,7 +67,6 @@ inode_t *find_inode(const char *path){
         if(path[i+1]=='\0') return inode;
         continue;
       }
-      cur = 0; flg = 0;
       for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];
         if(child){
