@@ -16,7 +16,8 @@ void vfs_init(){
   fs->inode_map[0] = 1;
   inode_t *inode = &fs->inode_tab[0];
   inode_init(inode, (int32_t)-1, 0, "/", fs, inode);
-  //sprintf(ram0->inode_tab[0].name, "/");
+  vfs_mkdir("/dev");
+  vfs_mkdir("/proc");
 }
 
 int valid_inode(fs_t *fs){
