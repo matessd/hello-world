@@ -37,7 +37,7 @@ int vfs_mkdir(const char *path){
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
-  inode_t *child = NULL, *prev = inode;
+  inode_t *child = NULL;
   char ctmp[128]; int cur=0;
   ctmp[0] = '/'; ctmp[1] = '\0';
   int flg = 0;
@@ -57,7 +57,6 @@ int vfs_mkdir(const char *path){
       if(strcmp(ctmp,"..")==0){
         if(path[i+1]=='\0') return 1;
         inode = inode->prev;
-        prev = inode;
         ram = inode->fs;
         continue;
       }
@@ -68,7 +67,6 @@ int vfs_mkdir(const char *path){
         if(child){
           if(strcmp(child->name, ctmp)==0){
             if(child->sta==0 || path[i+1]=='\0'){
-              prev = inode;
               inode = child; 
               ram = inode->fs;            
               flg = 1;
