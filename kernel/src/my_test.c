@@ -144,7 +144,7 @@ void echo_task(void *name) {
       }
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
-      for(int i=2; i<MAX_DIR; i++){
+      for(int i=0; i<MAX_DIR; i++){
         if(inode->child[i]){
           sprintf(ctmp, "  %s", inode->child[i]->name);
           strcat(text, ctmp);
