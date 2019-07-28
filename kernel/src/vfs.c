@@ -6,8 +6,6 @@ void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fs_t *
   strcpy(inode->name, name);
   inode->fs = fs;
   inode->prev = prev;
-  inode->child[0] = inode;
-  inode->child[1] = prev;
 }
 
 void vfs_init(){
@@ -50,6 +48,7 @@ int vfs_mkdir(const char *path){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
+      cur = 0; flg = 0;
       if(strcmp(ctmp,".")==0) {
         if(path[i+1]=='\0') return 1;
         continue;
@@ -60,9 +59,7 @@ int vfs_mkdir(const char *path){
         ram = inode->fs;
         continue;
       }
-      //printf("%s\n",ctmp);
-      cur = 0; flg = 0;
-      for(int j=2; j<MAX_DIR; j++){
+      for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0){

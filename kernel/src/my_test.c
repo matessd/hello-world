@@ -66,7 +66,7 @@ inode_t *find_inode(const char *path){
         continue;
       }
       cur = 0; flg = 0;
-      for(int j=2; j<MAX_DIR; j++){
+      for(int j=0; j<MAX_DIR; j++){
         child = inode->child[j];
         if(child){
           if(strcmp(child->name, ctmp)==0){
