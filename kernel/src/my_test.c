@@ -56,13 +56,13 @@ inode_t *find_inode(const char *path){
         ctmp[cur] = '\0';
       }
       if(strcmp(ctmp,".")==0) {
-        if(path[i+1]=='\0') return 1;
+        if(path[i+1]=='\0') return inode;
         continue;
       }
       if(strcmp(ctmp,"..")==0){
-        if(path[i+1]=='\0') return 1;
         inode = prev;
         ram = inode->fs;
+        if(path[i+1]=='\0') return inode;
         continue;
       }
       cur = 0; flg = 0;
