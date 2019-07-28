@@ -30,6 +30,8 @@ void echo_task(void *name) {
   device_t *tty = dev_lookup(name);
   fs_t *fs = fs_list[0];
   inode_t *inode = &fs->inode_tab[0];
+  char cur_dir[64]; 
+  cur_dir[0] = '/'; cur_dir[1] = '\0'; 
   while (1) {
     char line[1014], text[1024];
     sprintf(text, "(%s) $ ", name); 
@@ -61,6 +63,10 @@ void echo_task(void *name) {
         continue;
       }
       if(cmd2[0]=='/') strcpy(ctmp, cmd2); 
+      else{
+        sprintf(ctmp, "%s", cur_dir);
+        strcat(ctmp, cmd2);
+      }
       int ret = vfs->mkdir(ctmp);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
