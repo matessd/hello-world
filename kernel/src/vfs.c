@@ -18,6 +18,10 @@ void vfs_init(){
   inode_init(inode, (int32_t)-1, 0, "/", fs, inode);
   vfs->mkdir("/dev");
   vfs->mkdir("/proc");
+  vfs->mkdir("/dev/tty1");
+  vfs->mkdir("/dev/tty2");
+  vfs->mkdir("/dev/tty3");
+  vfs->mkdir("/dev/tty4");
 }
 
 int valid_inode(fs_t *fs){
