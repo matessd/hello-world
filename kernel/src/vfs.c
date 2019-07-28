@@ -43,7 +43,8 @@ int vfs_mkdir(const char *path){
   int flg = 0;
 
   //success or fail
-  for(int i=0; path[i]; i++){
+  if(strcmp(path,"/")==0) return 1;//already exists
+  for(int i=1; path[i]; i++){
     if(path[i]=='/' || path[i+1]=='\0'){
       if(strcmp(ctmp,".")==0) continue;
       if(strcmp(ctmp,"..")==0){
@@ -72,7 +73,7 @@ int vfs_mkdir(const char *path){
       if(flg==0 && path[i+1]!='\0'){
         return 2;//no such dir
       }
-      if(path[i+1]=='\0'&& flg==1){
+      if(path[i+1]=='\0' && flg==1){
         return 1;//already exist
       }
     }else{
