@@ -62,8 +62,8 @@ void echo_task(void *name) {
       }
       deal_path(ctmp, cmd2, cur_dir);
       strcpy(cur_dir, ctmp);
-      fs_t *fs = fs_list[0];
-      inode_t *inode = &fs->inode_tab[0];
+      fs = fs_list[0];
+      inode = &fs->inode_tab[0];
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
