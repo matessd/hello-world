@@ -139,6 +139,7 @@ void echo_task(void *name) {
         continue;
       }
       merge_path(ctmp, cmd2, cur_dir);
+      printf("%s\n",ctmp);
       int ret = vfs->mkdir(ctmp);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
