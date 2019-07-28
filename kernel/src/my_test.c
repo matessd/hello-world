@@ -31,20 +31,20 @@ void echo_task(void *name) {
   fs_t *fs = fs_list[0];
   inode_t *inode = &fs->inode_tab[0];
   while (1) {
-    char line[1014], text[1024], cmd[32];
+    char line[1014], text[1024];
     sprintf(text, "(%s) $ ", name); 
     
     tty->ops->write(tty, 0, text, strlen(text));
     int nread = tty->ops->read(tty, 0, line, sizeof(line));
     line[nread - 1] = '\0';
-    printf("%s**\n",line);
 
     char ctmp[128]; ctmp[0] = '\0';
+    char cmd1[16], cmd2[DIR_NAME_LEN];
     text[0] = '\0';
-    int cur = 0, cnt = mygets(cmd, line);
+    int cur = 0, cnt = mygets(cmd1, line);
     cur+=cnt;
-    mygets(ctmp, &line[cur]); 
-    if(strcmp(cmd,"ls")==0){
+    mygets(cmd2, &line[cur]); 
+    if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
         if(inode->child[i]){
@@ -53,8 +53,22 @@ void echo_task(void *name) {
         }
       }
       strcat(text, "\n");
-    }else if(strcmp(cmd,"mkdir")==0){
-      if(ctmp[0]=='/') vfs->mkdir(ctmp);
+    }else if(strcmp(cmd1,"mkdir")==0){
+      char err[32];
+      if(cmd2[0]=='\0'){
+        sprintf(err, "mkdir: Miss operand\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }
+      if(cmd2[0]=='/') strcpy(ctmp, cmd2); 
+      int ret = vfs->mkdir(ctmp);
+      if(ret==1){
+        sprintf(err, "mkdir: Already exist\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }else if(ret==2){
+        sprintf(err, "mkdir: No such directory\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }
     }
     else{
        
