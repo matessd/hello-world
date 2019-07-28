@@ -56,11 +56,13 @@ inode_t *find_inode(const char *path){
         ctmp[cur] = '\0';
       }
       if(strcmp(ctmp,".")==0) {
+        if(path[i+1]=='\0') return inode;
         continue;
       }
       if(strcmp(ctmp,"..")==0){
         inode = inode->prev;
         ram = inode->fs;
+        if(path[i+1]=='\0') return inode;
         continue;
       }
       cur = 0; flg = 0;
@@ -130,10 +132,10 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       inode_t *p = find_inode(ctmp);
-      get_dir_name(ctmp, p);//deal .. and .
       if(p!=NULL && p->sta==0){
+        get_dir_name(ctmp, p);//deal .. and .
         strcpy(cur_dir, ctmp);
-        inode = find_inode(ctmp);
+        inode = p;
         fs = inode->fs;
       }else{
         sprintf(err, "cd: No such dir\n");
