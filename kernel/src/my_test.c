@@ -34,9 +34,11 @@ void echo_task(void *name) {
     tty->ops->write(tty, 0, text, strlen(text));
     int nread = tty->ops->read(tty, 0, line, sizeof(line));
     line[nread - 1] = '\0';
-    
-    mygets(cmd, line);
+    printf("%s**\n",line);
+
     char ctmp[128]; ctmp[0] = '\0';
+    int cnt = mygets(cmd, line);
+     
     if(strcmp(cmd,"ls")==0){
       sprintf(text, ".  ..");
       for(int i=2; i<MAX_DIR; i++){
@@ -46,7 +48,10 @@ void echo_task(void *name) {
         }
       }
       strcat(text, "\n");
-    }else{
+    }else if(strcmp(cmd,"mkdir")==0){
+
+    }
+    else{
       text[0] = '\0';
     }
     //sprintf(text, "Echo: %s.\n", line); 
