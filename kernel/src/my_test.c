@@ -130,6 +130,10 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       int ret = vfs->rmdir(ctmp, 0);
+      if(ret==2){
+        sprintf(err, "rm: No permission\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }
     }
     else{
       sprintf(err, "No such cmd\n");
