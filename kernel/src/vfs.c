@@ -217,7 +217,7 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   char *dst = (char *)buf;
   dst[0] = '\0';
   strcpy(dst, inode->fs->blk[blkno]);
-  return nbyte;
+  return -1;
 }
 
 ssize_t vfs_write(const char *path, void *buf, size_t nbyte){

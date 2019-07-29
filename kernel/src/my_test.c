@@ -144,7 +144,8 @@ void echo_task(void *name) {
         continue;
       }
       merge_path(ctmp, cmd2, cur_dir);
-      vfs->read(ctmp, text, 1024);
+      ssize_t ret = vfs->read(ctmp, text, 1024);
+      printf("%d\n", ret);
     }else if(strcmp(cmd1, "touch")==0){
       if(cmd2[0]=='\0'){
         sprintf(err, "touch: Miss operand\n");
