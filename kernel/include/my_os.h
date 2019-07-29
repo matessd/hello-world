@@ -5,7 +5,7 @@
 //in x86-qemu.h
 
 //声明了NDEBUG后启动assert
-//#define NDEBUG
+#define NDEBUG
 
 //alloc.c
 typedef struct Node{
