@@ -11,7 +11,7 @@ void inode_init(inode_t *inode, int32_t blkno, int inodeno, int8_t sta, const ch
 }
 
 void proc_init(){
-  char ctmp[64]; ctmp[0] = '\0';
+  char ctmp[128]; ctmp[0] = '\0';
   char src[128];
   for(int i=0; i<_ncpu(); i++){
     sprintf(src,"processor: %d\n",0);
