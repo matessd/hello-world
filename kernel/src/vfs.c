@@ -27,7 +27,11 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  vfs->write("/proc/cpuinfo", "processor\n", 1024);
+  char ctmp[64];
+  for(int i=0; i<_ncpu(); i++){
+    sprintf(ctmp, "processor:%d\n",i);
+    vfs->write("/proc/cpuinfo", ctmp, 1024);
+  }
 }
 
 int valid_inode(fs_t *fs){
@@ -46,7 +50,7 @@ int valid_blk(fs_t *fs){
 
 inode_t *find_inode(const char *path){
   //assert(path[0]=='/');
-  
+
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
@@ -101,7 +105,7 @@ inode_t *find_inode(const char *path){
 
 int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
-  
+
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
@@ -233,10 +237,10 @@ ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
 
 MODULE_DEF(vfs) {
   .init = vfs_init,
-  .mkdir = vfs_mkdir,
-  .find = find_inode,
-  .rmdir = vfs_rmdir,
-  .read = vfs_read,
-  .write = vfs_write,
+    .mkdir = vfs_mkdir,
+    .find = find_inode,
+    .rmdir = vfs_rmdir,
+    .read = vfs_read,
+    .write = vfs_write,
 };
 
