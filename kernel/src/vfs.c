@@ -14,14 +14,14 @@ void vfs_init(){
   fs->inode_map[0] = 1;
   inode_t *inode = &fs->inode_tab[0];
   inode_init(inode, (int32_t)-1, 0, "/", fs, inode);
-  vfs->mkdir("/dev");
-  vfs->mkdir("/proc");
-  vfs->mkdir("/dev/tty1");
-  vfs->mkdir("/dev/tty2");
-  vfs->mkdir("/dev/tty3");
-  vfs->mkdir("/dev/tty4");
-  vfs->mkdir("/dev/ramdisk0");
-  vfs->mkdir("/dev/ramdisk1");
+  vfs->mkdir("/dev", 0);
+  vfs->mkdir("/proc", 0);
+  vfs->mkdir("/dev/tty1", 3);
+  vfs->mkdir("/dev/tty2", 3);
+  vfs->mkdir("/dev/tty3", 3);
+  vfs->mkdir("/dev/tty4", 3);
+  vfs->mkdir("/dev/ramdisk0", 2);
+  vfs->mkdir("/dev/ramdisk1", 2);
 }
 
 int valid_inode(fs_t *fs){
@@ -31,7 +31,7 @@ int valid_inode(fs_t *fs){
   return -1;
 }
 
-int vfs_mkdir(const char *path){
+int vfs_mkdir(const char *path, int8_t sta){
   //assert(path[0]=='/');
   
   //init
@@ -91,7 +91,7 @@ int vfs_mkdir(const char *path){
   assert(inodeno>0);
   ram->inode_map[inodeno] = 1;
   child = &ram->inode_tab[inodeno];
-  inode_init(child, -1, 0, ctmp, ram, inode);
+  inode_init(child, -1, sta, ctmp, ram, inode);
   for(int i=0; i<MAX_DIR; i++){
     if(inode->child[i]==NULL){
       inode->child[i] = child;

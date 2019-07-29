@@ -143,7 +143,10 @@ void echo_task(void *name) {
         inode = p;
         fs = inode->fs;
       }else{
-        sprintf(err, "cd: No such dir\n");
+        if(p==NULL)
+          sprintf(err, "cd: No such dir\n");
+        else
+          sprintf(err, "cd: Not a dir, can't choose it\n");
         tty->ops->write(tty, 0, err, strlen(err));
       }
     }else if(strcmp(cmd1,"ls")==0){
@@ -163,7 +166,7 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       //printf("%s\n",ctmp);
-      int ret = vfs->mkdir(ctmp);
+      int ret = vfs->mkdir(ctmp, 0);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
         tty->ops->write(tty, 0, err, strlen(err));
