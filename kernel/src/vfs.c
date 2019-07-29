@@ -216,7 +216,7 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
-  if(sta!=1) return -1;
+  if(sta!=1) return -2;
   int blkno = inode->blkno;
   char *dst = (char *)buf;
   dst[0] = '\0';
@@ -228,7 +228,7 @@ ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
-  if(sta!=1) return -1;
+  if(sta!=1) return -2;
   int blkno = inode->blkno;
   inode->fs->blk[blkno][0] = '\0';
   strcpy(inode->fs->blk[blkno], (char *)buf);

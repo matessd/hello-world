@@ -145,7 +145,15 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       int ret = vfs->read(ctmp, text, 1024);
-      
+      if(ret==-1){
+        sprintf(err, "cat: No such file\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }if(ret==-2){
+        sprintf(err, "cat: Not a file\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }
     }else if(strcmp(cmd1, "touch")==0){
       if(cmd2[0]=='\0'){
         sprintf(err, "touch: Miss operand\n");
