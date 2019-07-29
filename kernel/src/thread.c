@@ -18,7 +18,8 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   //vfs 
   //char src[64]; 
   char path[64]; 
-  src[0]='\0'; path[0]='\0';
+  //src[0]='\0'; 
+  path[0]='\0';
   sprintf(path,"/proc/%d\0",Ntask+1);
   vfs->mkdir(path, 0, 1);
   //sprintf(path, "/proc/%d/status", Ntask+1);
