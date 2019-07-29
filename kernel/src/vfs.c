@@ -240,6 +240,7 @@ ssize_t vfs_read (const char *path, void *buf, int off){
 }
 
 ssize_t vfs_write(const char *path, void *buf, int off){
+  printf("%s ** %s\n",path, (char*)buf);
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
