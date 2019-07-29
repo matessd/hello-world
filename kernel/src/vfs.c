@@ -1,11 +1,12 @@
 #include<my_os.h>
 
-void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fs_t *fs, inode_t *prev){
+void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fs_t *fs, inode_t *prev, int8_t lmt){
   inode->blkno = no;
   inode->sta = sta;
   strcpy(inode->name, name);
   inode->fs = fs;
   inode->prev = prev;
+  inode->lmt = lmt;
 }
 
 void vfs_init(){
@@ -13,15 +14,15 @@ void vfs_init(){
   fs_list[0] = fs;
   fs->inode_map[0] = 1;
   inode_t *inode = &fs->inode_tab[0];
-  inode_init(inode, (int32_t)-1, 0, "/", fs, inode);
-  vfs->mkdir("/dev", 0);
-  vfs->mkdir("/proc", 0);
-  vfs->mkdir("/dev/tty1", 3);
-  vfs->mkdir("/dev/tty2", 3);
-  vfs->mkdir("/dev/tty3", 3);
-  vfs->mkdir("/dev/tty4", 3);
-  vfs->mkdir("/dev/ramdisk0", 2);
-  vfs->mkdir("/dev/ramdisk1", 2);
+  inode_init(inode, (int32_t)-1, 0, "/", fs, inode, 0);
+  vfs->mkdir("/dev", 0, 1);
+  vfs->mkdir("/proc", 0, 1);
+  vfs->mkdir("/dev/tty1", 3, 1);
+  vfs->mkdir("/dev/tty2", 3, 1);
+  vfs->mkdir("/dev/tty3", 3, 1);
+  vfs->mkdir("/dev/tty4", 3, 1);
+  vfs->mkdir("/dev/ramdisk0", 2, 1);
+  vfs->mkdir("/dev/ramdisk1", 2, 1);
 }
 
 int valid_inode(fs_t *fs){
@@ -31,7 +32,7 @@ int valid_inode(fs_t *fs){
   return -1;
 }
 
-int vfs_mkdir(const char *path, int8_t sta){
+int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
   
   //init
@@ -87,11 +88,15 @@ int vfs_mkdir(const char *path, int8_t sta){
   }
 
   //success, now create new dir
+  if(lmt<inode->lmt) return 3;//no permission
   int inodeno = valid_inode(ram);
   assert(inodeno>0);
   ram->inode_map[inodeno] = 1;
   child = &ram->inode_tab[inodeno];
-  inode_init(child, -1, sta, ctmp, ram, inode);
+  if(sta!=0)
+    inode_init(child, -1, sta, ctmp, ram, inode, lmt);
+  else
+    inode_init(child, -1, sta, ctmp, ram, inode, lmt);
   for(int i=0; i<MAX_DIR; i++){
     if(inode->child[i]==NULL){
       inode->child[i] = child;

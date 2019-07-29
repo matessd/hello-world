@@ -166,12 +166,15 @@ void echo_task(void *name) {
       }
       merge_path(ctmp, cmd2, cur_dir);
       //printf("%s\n",ctmp);
-      int ret = vfs->mkdir(ctmp, 0);
+      int ret = vfs->mkdir(ctmp, 0, 0);
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
         tty->ops->write(tty, 0, err, strlen(err));
       }else if(ret==2){
         sprintf(err, "mkdir: No such directory\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }else if(ret==3){
+        sprintf(err, "mkdir: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
       }
     }
