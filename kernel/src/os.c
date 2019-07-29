@@ -6,6 +6,8 @@ void idle(){
   }
 }
 static void os_init() {
+  char t[] = "/proc/1";
+  printf("%s\n",&t[4]);
   pmm->init();
   vfs->init();
   kmt->init();
