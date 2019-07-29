@@ -13,7 +13,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  task->id = Ntask+1;
+  task->id = Ntask;
 
   //vfs 
   /*char src[64], path[64]; src[0]='\0';
