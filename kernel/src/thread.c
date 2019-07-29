@@ -107,19 +107,19 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
 
   //kmt->spin_lock(task_lk);
   int i=Curr[_cpu()];
-  //char ctmp[256], src[128]; ctmp[0] = '\0';
   while(1){
     //printf("%d\n",i);
     i=(i+1)%ntask;
     task_t *task = tasks[_cpu()][i];
     if(task->sleep_flg==0){
       task->swcnt++;
-      /*)sprintf(src,"Name: %s\nPid: %d\n",task->name,task->id);
+      char ctmp[256], src[128]; ctmp[0] = '\0';
+      sprintf(src,"Name: %s\nPid: %d\n",task->name,task->id);
       strcat(ctmp, src);
       sprintf(src,"ctxt_switches: %d\n",task->swcnt);
       strcat(ctmp, src);
       sprintf(src,"/proc/%d/status",task->id);
-      vfs->write(src, ctmp, 1);*/
+      vfs->write(src, ctmp, 1);
       Curr[_cpu()] = i;
       break;
     }
