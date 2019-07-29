@@ -83,13 +83,13 @@ struct inode{
   inode_t *child[MAX_DIR];
 };
 
-#define MAX_inode 1024
-#define MAX_blk 1024
+#define MAX_inode 512
+#define MAX_blk 512
 struct fs{
   int8_t inode_map[MAX_inode];
   int8_t blk_map[MAX_blk];
   inode_t inode_tab[MAX_inode];
-  char blk[MAX_blk][512];
+  char blk[MAX_blk][128];
   //fsops_t *ops;
   //device_t *dev;
 };
