@@ -27,7 +27,7 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  vfs->write("/proc/cpuinfo", "processor", 1024);
+  vfs->write("/proc/cpuinfo", "processor\n", 1024);
 }
 
 int valid_inode(fs_t *fs){
@@ -217,6 +217,7 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   char *dst = (char *)buf;
   dst[0] = '\0';
   strcpy(dst, inode->fs->blk[blkno]);
+  return nbyte;
 }
 
 ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
@@ -227,6 +228,7 @@ ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
   int blkno = inode->blkno;
   inode->fs->blk[blkno][0] = '\0';
   strcpy(inode->fs->blk[blkno], (char *)buf);
+  return nbyte;
 }
 
 MODULE_DEF(vfs) {
