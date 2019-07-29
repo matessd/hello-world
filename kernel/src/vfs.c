@@ -26,11 +26,6 @@ void proc_init(){
   sprintf(src,"MemFree: xxx kB\n");
   strcat(ctmp, src);
   vfs->write("/proc/meminfo", ctmp, 0);
-  printf("%d\n",Ntask);
-  for(int i=0; i<Ntask; i++){
-    sprintf(src,"/proc/%d",i);
-    vfs->mkdir(src, 0, 1);
-  }
 }
 
 void vfs_init(){
