@@ -26,6 +26,7 @@ void vfs_init(){
   vfs->mkdir("/dev/ramdisk1", 2, 1);
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
+  vfs->mkdir("/proc/meminfo", 1, 1);
 }
 
 int valid_inode(fs_t *fs){
@@ -181,7 +182,9 @@ void del_inode(inode_t *inode){
       del_inode(inode->child[i]);
     }
   }
-  int inodeno = inode->inodeno;
+  int inodeno = inode->inodeno, blkno = inode->blk;
+  if(blkno!=-1)
+    inode->fs->blk_map[blkno] = 0;
   inode->fs->inode_map[inodeno] = 0;
   inode_t *prev = inode->prev;
   for(int i=0; i<MAX_DIR; i++){

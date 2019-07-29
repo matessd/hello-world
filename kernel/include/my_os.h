@@ -22,9 +22,6 @@ typedef struct{
 }cli_t;
 extern volatile cli_t cpu_cli[8];//要加volatile吗?
 
-//extern spinlock_t *os_lk;
-//extern spinlock_t *create_lk;
-
 //trap,irq
 typedef struct{
   int seq;
