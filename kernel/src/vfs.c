@@ -26,7 +26,6 @@ void proc_init(){
   sprintf(src,"MemFree: xxx kB\n");
   strcat(ctmp, src);
   vfs->write("/proc/meminfo", ctmp, 0);
-
 }
 
 void vfs_init(){
