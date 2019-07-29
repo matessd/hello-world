@@ -237,7 +237,7 @@ ssize_t vfs_write(const char *path, void *buf, int off){
   int blkno = inode->blkno;
   inode->fs->blk[blkno][off] = '\0';
   strcpy(&inode->fs->blk[blkno][off], (char *)buf);
-  return nbyte;
+  return 0;
 }
 
 MODULE_DEF(vfs) {
