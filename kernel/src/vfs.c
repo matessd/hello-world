@@ -154,7 +154,7 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
 
   //success, now create new dir
   if(lmt<inode->lmt) return 3;//no permission
-  int8_t inodeno = valid_inode(ram);
+  int inodeno = valid_inode(ram);
   //assert(inodeno>=0);
   ram->inode_map[inodeno] = 1;
   child = &ram->inode_tab[inodeno];
