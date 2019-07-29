@@ -163,7 +163,7 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
 }
 
 void del_inode(inode_t *inode){
-  for(int i=0; i<=128; i++){
+  for(int i=0; i<MAX_DIR; i++){
     if(inode->child[i]){
       del_inode(inode->child[i]);
     }
@@ -171,7 +171,7 @@ void del_inode(inode_t *inode){
   int inodeno = inode->inodeno;
   inode->fs->inode_map[inodeno] = 0;
   inode_t *prev = inode->prev;
-  for(int i=0; i<=128; i++){
+  for(int i=0; i<MAX_DIR; i++){
     if(prev->child[i]==inode){
       prev->child[i] = NULL;
     }
