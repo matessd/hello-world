@@ -39,12 +39,12 @@ void merge_path(char *dst, char *src, char *cur_dir){
 void get_dir_name(char *dst, inode_t *inode){
   char ctmp[128];
   dst[0] = '\0';
-  if(strcmp("/",inode->name)==0){
+  if(strcmp(inode->name,"/")==0){
     strcpy(dst, "/"); return;
   }
   while(1){
     strcpy(ctmp, "/");
-    if(strcmp("/",inode->name)==0) return;
+    if(strcmp(inode->name,"/")==0) return;
     strcpy(&ctmp[1],inode->name);
     strcat(ctmp,dst);
     strcpy(dst,ctmp);
@@ -134,6 +134,13 @@ void echo_task(void *name) {
         sprintf(err, "rm: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
       }
+    }else if(strcmp(cmd1, "cat")==0){
+      if(cmd2[0]=='\0'){
+        sprintf(err, "cat: Miss operand\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }
+
     }
     else{
       sprintf(err, "No such cmd\n");
