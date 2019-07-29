@@ -183,7 +183,7 @@ int vfs_rmdir(const char *path, int8_t lmt){
   //assert(path!=NULL);
   //assert(path[0]=='/');
   printf("%s\n",path);
-  if(strcmp("/", path)==0) return 2;
+  if(strcmp(path, "/")==0) return 2;
   inode_t *inode = vfs->find(path);
   if(lmt<inode->lmt) return 2;
   del_inode(inode);
