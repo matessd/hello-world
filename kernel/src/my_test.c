@@ -133,6 +133,9 @@ void echo_task(void *name) {
       if(ret==2){
         sprintf(err, "rm: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
+      }else if(ret==1){
+        sprintf(err, "rm: No such dir or file\n");
+        tty->ops->write(tty, 0, err, strlen(err));
       }
     }else if(strcmp(cmd1, "cat")==0){
       if(cmd2[0]=='\0'){

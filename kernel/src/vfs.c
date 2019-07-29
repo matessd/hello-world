@@ -184,6 +184,8 @@ int vfs_rmdir(const char *path, int8_t lmt){
   //assert(path[0]=='/');
   if(strcmp(path, "/")==0) return 2;
   inode_t *inode = vfs->find(path);
+  if(inode==NULL)
+    return 1;
   if(lmt<inode->lmt) return 2;
   del_inode(inode);
   return 0;
