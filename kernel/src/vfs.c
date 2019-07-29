@@ -130,7 +130,8 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
 
   //success or fail
   if(strcmp(path,"/")==0) return 1;//already exists
-  for(int i=1; path[i]!='\0'; i++){
+  int len = strlen(path);
+  for(int i=1; i<len; i++){
       if(strcmp(path,"/proc/1")==0)
         printf("%d\n",i);
     if((path[i]=='/') || (path[i+1]=='\0')){
