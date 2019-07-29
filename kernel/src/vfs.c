@@ -173,6 +173,7 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
     }
   }
 
+  printf("%s ** %s\n", path, ctmp);
   //success, now create new dir
   if(lmt<inode->lmt) return 3;//no permission
   int inodeno = valid_inode(ram);
