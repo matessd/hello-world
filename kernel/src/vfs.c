@@ -19,13 +19,13 @@ void proc_init(){
     sprintf(src,"cpu cores: xxxx\n");
     strcat(ctmp, src);
   }
-  //vfs->write("/proc/cpuinfo", ctmp, 0);
+  vfs->write("/proc/cpuinfo", ctmp, 0);
 
   sprintf(src,"MemTotal: xxx kB\n");
   strcpy(ctmp, src);
   sprintf(src,"MemFree: xxx kB\n");
   strcat(ctmp, src);
-  //vfs->write("/proc/meminfo", ctmp, 0);
+  vfs->write("/proc/meminfo", ctmp, 0);
 }
 
 void vfs_init(){
