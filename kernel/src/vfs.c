@@ -27,11 +27,11 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  char ctmp[64];
+  char ctmp[64]; ctmp[0] = '\0';
   for(int i=0; i<_ncpu(); i++){
-    sprintf(ctmp, "processor:%d\n",i);
-    vfs->write("/proc/cpuinfo", ctmp, 1024);
+    strcat(ctmp, "processor:%d\n",i);
   }
+  vfs->write("/proc/cpuinfo", ctmp, 1024);
 }
 
 int valid_inode(fs_t *fs){
