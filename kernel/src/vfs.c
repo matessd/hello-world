@@ -135,7 +135,7 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
         printf("%d\n",i);
     if((path[i]=='/') || (path[i+1]=='\0')){
       if(i==4) {
-        assert(path[i+1]!='\0');
+        assert(path[i+1]=='\0');
       }
 
       if(path[i+1]=='\0' && path[i]!='/'){
