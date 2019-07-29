@@ -28,8 +28,10 @@ void vfs_init(){
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
   char ctmp[64]; ctmp[0] = '\0';
+  char src[64];
   for(int i=0; i<_ncpu(); i++){
-    strcat(ctmp, "processor:%d\n",i);
+    sprintf(src,"processor:%d\n",i);
+    strcat(ctmp, src);
   }
   vfs->write("/proc/cpuinfo", ctmp, 1024);
 }
