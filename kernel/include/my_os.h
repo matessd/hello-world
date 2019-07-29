@@ -45,8 +45,6 @@ int Curr[8];
 #define ntask cpu_ntask[_cpu()]
 #define current tasks[_cpu()][Curr[_cpu()]]
 //task_t *Current_task[8];
-//#define current (Current_task[_cpu()])
-//#define task_head (Task_head[_cpu()]) 
 _Context *kmt_context_save(_Event ev, _Context *context);
 _Context *kmt_context_switch(_Event ev, _Context *context);
 

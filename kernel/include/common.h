@@ -9,6 +9,7 @@
 struct task {
   _Context context;
   int32_t id, sleep_flg;
+  int swcnt;//调度次数
   const char *name;
   struct task *nxt;
   uint32_t fence;
