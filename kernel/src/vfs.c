@@ -117,14 +117,15 @@ inode_t *find_inode(const char *path){
   return NULL;
 }
 
-int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
+int vfs_mkdir(const char *path1, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
 
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
   inode_t *child = NULL;
-  char ctmp[128]; int cur=0;
+  char ctmp[128], path[128]; int cur=0;
+  strcpy(path, path1);
   ctmp[0] = '/'; ctmp[1] = '\0';
   int flg = 0;
 
