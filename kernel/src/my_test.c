@@ -149,7 +149,7 @@ void echo_task(void *name) {
         sprintf(err, "cat: No such file\n");
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
-      }if(ret==-2){
+      }else if(ret==-2){
         sprintf(err, "cat: Not a file\n");
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
