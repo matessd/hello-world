@@ -121,6 +121,7 @@ inode_t *find_inode(const char *path){
 int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
 
+  printf("%s **\n", path);
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
@@ -173,7 +174,6 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
     }
   }
 
-  printf("%s ** %s\n", path, ctmp);
   //success, now create new dir
   if(lmt<inode->lmt) return 3;//no permission
   int inodeno = valid_inode(ram);
