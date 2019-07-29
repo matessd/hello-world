@@ -83,7 +83,6 @@ inode_t *find_inode(const char *path){
         ctmp[cur] = '\0';
       }
       cur = 0; flg = 0;
-      //printf("%s**\n",ctmp);
       if(strcmp(ctmp,".")==0) {
         if(path[i+1]=='\0') return inode;
         continue;
