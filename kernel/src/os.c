@@ -15,11 +15,6 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
-  char src[64]; src[0]='\0';
-  for(int i=0; i<Ntask; i++){
-    sprintf(src,"/proc/%d",i);
-    vfs->mkdir(src, 0, 1);
-  }
 }
 
 static void hello() {

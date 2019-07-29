@@ -13,7 +13,17 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
-  task->id = Ntask;
+  task->id = Ntask+1;
+
+  //vfs 
+  char src[64], path[64]; src[0]='\0';
+  sprintf(path,"/proc/%d",Ntask+1);
+  vfs->mkdir(src, 0, 1);
+  sprintf(path, "/proc/%d/status", Ntask+1);
+  vfs->mkdir(src, 1, 1);
+  sprintf(src, "Name: %s\nPid: %d\n",name,Ntask+1);
+  vfs->write(path, src, 0);
+
   int cnt = Ntask++%_ncpu();
   //task->id = cnt;
   //如果多处理器准备好了这样会不会有问题？
@@ -34,48 +44,48 @@ void teardown(task_t *task){
 }
 
 /*void add_tail(task_t *task){
-  //kmt->spin_lock(task_lk);
-  task_t *cur = task_head;
-  if(task_head==NULL){
-    task_head = task;
-    task->nxt = NULL;
-    return;
-  }
-  while(cur->nxt){
-    //printf("%s\n",cur->nxt->name);
-    assert(cur!=cur->nxt);
-    cur = cur->nxt;
-  }
-  cur->nxt = task;
-  task->nxt = NULL;
-  //kmt->spin_unlock(task_lk);
+//kmt->spin_lock(task_lk);
+task_t *cur = task_head;
+if(task_head==NULL){
+task_head = task;
+task->nxt = NULL;
+return;
+}
+while(cur->nxt){
+//printf("%s\n",cur->nxt->name);
+assert(cur!=cur->nxt);
+cur = cur->nxt;
+}
+cur->nxt = task;
+task->nxt = NULL;
+//kmt->spin_unlock(task_lk);
 }
 
 void add_head(task_t *task, int cnt){
-  //printf("%s\n",task->name); 
-  //kmt->spin_lock(task_lk); 
-  task_t *cur = Task_head[cnt];
-  assert(cur!=task);
-  if(cur==NULL){
-    //printf("")
-    Task_head[cnt] = task;
-    task->nxt = NULL;
-    return;
-  }
-  //task_t *tmp_head = Task_head
-  Task_head[cnt] = task;
-  task->nxt = cur;
-  //kmt->spin_unlock(task_lk);
+//printf("%s\n",task->name); 
+//kmt->spin_lock(task_lk); 
+task_t *cur = Task_head[cnt];
+assert(cur!=task);
+if(cur==NULL){
+//printf("")
+Task_head[cnt] = task;
+task->nxt = NULL;
+return;
+}
+//task_t *tmp_head = Task_head
+Task_head[cnt] = task;
+task->nxt = cur;
+//kmt->spin_unlock(task_lk);
 }
 
 void del_head(){
-  //kmt->spin_lock(task_lk);
-  //task_t *tmp_head = task_head;
-  task_t *nxt = task_head->nxt;
-  task_head->nxt = NULL;
-  task_head = nxt;
-  //kmt->spin_unlock(task_lk);
-  //return tmp_head;
+//kmt->spin_lock(task_lk);
+//task_t *tmp_head = task_head;
+task_t *nxt = task_head->nxt;
+task_head->nxt = NULL;
+task_head = nxt;
+//kmt->spin_unlock(task_lk);
+//return tmp_head;
 }*/
 
 _Context *kmt_context_save(_Event ev, _Context *context){
@@ -89,9 +99,9 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
     //在sem睡眠队列中
     /*)if(current->sleep_flg==0){
-      //kmt->spin_lock(task_lk);
-      add_tail(current);
-      //kmt->spin_unlock(task_lk);
+    //kmt->spin_lock(task_lk);
+    add_tail(current);
+    //kmt->spin_unlock(task_lk);
     }*/
   }
   return NULL;
