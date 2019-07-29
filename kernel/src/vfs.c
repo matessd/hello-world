@@ -27,15 +27,6 @@ void proc_init(){
   strcat(ctmp, src);
   vfs->write("/proc/meminfo", ctmp, 0);
 
-  char path[64];
-  for(int i=1; i<=Ntask; i++){
-    sprintf(path,"/proc/%d",i);
-    vfs->mkdir(path, 0, 1);
-    sprintf(path, "/proc/%d/status", i);
-    vfs->mkdir(path, 1, 1);
-    sprintf(src, "Name: %s\nPid: %d\n",name,i);
-    vfs->write(path, src, 0);
-  }
 }
 
 void vfs_init(){

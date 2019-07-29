@@ -15,6 +15,15 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   kmt->spin_lock(task_lk);
   task->id = Ntask+1;
 
+  //vfs 
+  char src[64], path[64]; src[0]='\0';
+  sprintf(path,"/proc/%d",Ntask+1);
+  vfs->mkdir(path, 0, 1);
+  sprintf(path, "/proc/%d/status", Ntask+1);
+  vfs->mkdir(path, 1, 1);
+  sprintf(src, "Name: %s\nPid: %d\n",name,Ntask+1);
+  vfs->write(path, src, 0);
+
   int cnt = Ntask++%_ncpu();
   //task->id = cnt;
   //如果多处理器准备好了这样会不会有问题？
