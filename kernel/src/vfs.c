@@ -208,7 +208,7 @@ int vfs_rmdir(const char *path, int8_t lmt){
   return 0;
 }
 
-ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
+int vfs_read (const char *path, void *buf, size_t nbyte){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
@@ -220,7 +220,7 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   return -1;
 }
 
-ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
+int vfs_write(const char *path, void *buf, size_t nbyte){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
