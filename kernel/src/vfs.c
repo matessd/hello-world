@@ -214,8 +214,9 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   int sta = inode->sta;
   if(sta!=1) return -1;
   int blkno = inode->blkno;
-  buf[0] = '\0';
-  strcpy(buf, inode->fs->blk[blkno]);
+  char dst = (char *)buf;
+  dst[0] = '\0';
+  strcpy(dst, inode->fs->blk[blkno]);
 }
 
 ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
@@ -225,7 +226,7 @@ ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
   if(sta!=1) return -1;
   int blkno = inode->blkno;
   inode->fs->blk[blkno][0] = '\0';
-  strcpy(inode->fs->blk[blkno], buf);
+  strcpy(inode->fs->blk[blkno], (char *)buf);
 }
 
 MODULE_DEF(vfs) {
