@@ -121,7 +121,6 @@ inode_t *find_inode(const char *path){
 int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
 
-  printf("%s **\n", path);
   //init
   fs_t *ram = fs_list[0];
   inode_t *inode = &ram->inode_tab[0];
