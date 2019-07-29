@@ -143,7 +143,8 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      printf("%d\n",_ncpu());
+      merge_path(ctmp, cmd2, cur_dir);
+      vfs->read(ctmp, text, 1024);
     }else if(strcmp(cmd1, "touch")==0){
       if(cmd2[0]=='\0'){
         sprintf(err, "touch: Miss operand\n");

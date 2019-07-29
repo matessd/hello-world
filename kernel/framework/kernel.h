@@ -104,9 +104,9 @@ typedef struct{
   inode_t* (*find)(const char *path);
   //int (*link)(const char *oldpath, const char *newpath);
   //int (*unlink)(const char *path);
-  int (*open)(const char *path, int flags);
-  ssize_t (*read)(int fd, void *buf, size_t nbyte);
-  ssize_t (*write)(int fd, void *buf, size_t nbyte);
+  //int (*open)(const char *path, int flags);
+  ssize_t (*read)(const char *path, void *buf, size_t nbyte);
+  ssize_t (*write)(const char *path, void *buf, size_t nbyte);
   //off_t (*lseek)(int fd, off_t offset, int whence);
   int (*close)(int fd);
 } MODULE(vfs);
