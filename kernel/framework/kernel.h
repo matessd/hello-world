@@ -105,8 +105,8 @@ typedef struct{
   //int (*link)(const char *oldpath, const char *newpath);
   //int (*unlink)(const char *path);
   //int (*open)(const char *path, int flags);
-  int (*read)(const char *path, void *buf, size_t nbyte);
-  int (*write)(const char *path, void *buf, size_t nbyte);
+  ssize_t (*read)(const char *path, void *buf, size_t nbyte);
+  ssize_t (*write)(const char *path, void *buf, size_t nbyte);
   //off_t (*lseek)(int fd, off_t offset, int whence);
   int (*close)(int fd);
 } MODULE(vfs);
