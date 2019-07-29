@@ -131,19 +131,13 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //success or fail
   if(strcmp(path,"/")==0) return 1;//already exists
   for(int i=1; path[i]!='\0'; i++){
-    if(strcmp(path,"/proc/1")==0)
-      printf("%s&&%d\n",ctmp,i);
     if((path[i]=='/') || (path[i+1]=='\0')){
-      if(i==4) {
-        //assert(path[i+1]=='\0');
-      }
-
       if(path[i+1]=='\0' && path[i]!='/'){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
-      if(strcmp(path,"/proc/1")==0)
-        printf("%s**%d**%s\n",path,i,"/proc/1");
+      if(strcmp(path,"/proc/10")==0)
+        printf("%s**%d\n",path,i);
       cur = 0; flg = 0;
       if(strcmp(ctmp,".")==0) {
         if(path[i+1]=='\0') return 1;
