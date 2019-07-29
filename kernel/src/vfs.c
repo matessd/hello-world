@@ -19,13 +19,13 @@ void proc_init(){
     sprintf(src,"cpu cores: xxxx\n");
     strcat(ctmp, src);
   }
-  vfs->write("/proc/cpuinfo", ctmp, 0);
+  //vfs->write("/proc/cpuinfo", ctmp, 0);
 
   sprintf(src,"MemTotal: xxx kB\n");
   strcpy(ctmp, src);
   sprintf(src,"MemFree: xxx kB\n");
   strcat(ctmp, src);
-  vfs->write("/proc/meminfo", ctmp, 0);
+  //vfs->write("/proc/meminfo", ctmp, 0);
 }
 
 void vfs_init(){
@@ -46,7 +46,7 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  //proc_init();
+  proc_init();
 }
 
 int valid_inode(fs_t *fs){
