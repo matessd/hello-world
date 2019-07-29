@@ -182,7 +182,7 @@ void del_inode(inode_t *inode){
       del_inode(inode->child[i]);
     }
   }
-  int inodeno = inode->inodeno, blkno = inode->blk;
+  int inodeno = inode->inodeno, blkno = inode->blkno;
   if(blkno!=-1)
     inode->fs->blk_map[blkno] = 0;
   inode->fs->inode_map[inodeno] = 0;
