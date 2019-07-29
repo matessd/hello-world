@@ -46,7 +46,7 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  proc_init();
+  //proc_init();
 }
 
 int valid_inode(fs_t *fs){
