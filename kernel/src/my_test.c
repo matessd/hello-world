@@ -140,7 +140,24 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-
+    }else if(strcmp(cmd1, "touch")==0){
+      if(cmd2[0]=='\0'){
+        sprintf(err, "touch: Miss operand\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }
+      merge_path(ctmp, cmd2, cur_dir);
+      int ret = vfs->mkdir(ctmp, 1, 0);
+      if(ret==1){
+        sprintf(err, "mkdir: Already exist\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }else if(ret==2){
+        sprintf(err, "mkdir: No such directory\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }else if(ret==3){
+        sprintf(err, "mkdir: No permission\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+      }
     }
     else{
       sprintf(err, "No such cmd\n");
