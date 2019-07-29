@@ -136,7 +136,7 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
       }
-      if(strcmp(path,"/proc/10")==0)
+      if(strcmp(path,"/proc/1")==0)
         printf("%s\n",ctmp);
       cur = 0; flg = 0;
       if(strcmp(ctmp,".")==0) {
