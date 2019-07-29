@@ -22,6 +22,7 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   sprintf(path, "/proc/%d/status", Ntask+1);
   vfs->mkdir(path, 1, 1);
   sprintf(src, "Name: %s\nPid: %d\n",name,Ntask+1);
+  printf("Name: %s\nPid: %d\n",name,Ntask+1);
   vfs->write(path, src, 0);
 
   int cnt = Ntask++%_ncpu();

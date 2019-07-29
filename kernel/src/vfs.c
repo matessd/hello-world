@@ -14,7 +14,7 @@ void proc_init(){
   char ctmp[128]; ctmp[0] = '\0';
   char src[128];
   for(int i=0; i<_ncpu(); i++){
-    sprintf(src,"processor: %d\n",0);
+    sprintf(src,"processor: %d\n",i);
     strcat(ctmp, src);
     sprintf(src,"cpu cores: xxxx\n");
     strcat(ctmp, src);
