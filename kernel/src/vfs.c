@@ -38,11 +38,11 @@ void vfs_init(){
   }
   vfs->write("/proc/cpuinfo", ctmp, 0);
 
-  sprintf(src,"MemTotal: xxx kB\n");
+  /*sprintf(src,"MemTotal: xxx kB\n");
   strcat(ctmp, src);
   sprintf(src,"MemFree: xxx kB\n");
   strcat(ctmp, src);
-  vfs->write("/proc/meminfo", ctmp, 0);
+  vfs->write("/proc/meminfo", ctmp, 0);*/
 }
 
 int valid_inode(fs_t *fs){
