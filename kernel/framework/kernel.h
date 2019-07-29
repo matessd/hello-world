@@ -75,6 +75,7 @@ struct inode{
   //0 is dir, 1 is fs(block dev), 2 is file, 3 is dev
   int8_t sta;
   int8_t lmt;//权限
+  int inodeno;//inode NO
   char name[DIR_NAME_LEN];
   fs_t *fs;
   inode_t *prev;//上一级目录名
@@ -98,7 +99,8 @@ typedef struct{
   //int (*mount)(const char *path, fs_t *fs);
   //int (*unmount)(const char *path);
   int (*mkdir)(const char *path, int8_t sta, int8_t lmt);
-  int (*rmdir)(const char *path);
+  int (*rmdir)(const char *path, int8_t lmt);
+  inode_t (*find)(const char *path);
   //int (*link)(const char *oldpath, const char *newpath);
   //int (*unlink)(const char *path);
   int (*open)(const char *path, int flags);

@@ -1,7 +1,8 @@
 #include<my_os.h>
 
-void inode_init(inode_t *inode, int32_t no, int8_t sta, const char *name, fs_t *fs, inode_t *prev, int8_t lmt){
-  inode->blkno = no;
+void inode_init(inode_t *inode, int32_t blkno, int inodeno, int8_t sta, const char *name, fs_t *fs, inode_t *prev, int8_t lmt){
+  inode->blkno = inodeno;
+  inode->inodeno = inodeno;
   inode->sta = sta;
   strcpy(inode->name, name);
   inode->fs = fs;
@@ -14,7 +15,7 @@ void vfs_init(){
   fs_list[0] = fs;
   fs->inode_map[0] = 1;
   inode_t *inode = &fs->inode_tab[0];
-  inode_init(inode, (int32_t)-1, 0, "/", fs, inode, 0);
+  inode_init(inode, (int32_t)-1, 0, 0, "/", fs, inode, 0);
   vfs->mkdir("/dev", 0, 1);
   vfs->mkdir("/proc", 0, 1);
   vfs->mkdir("/dev/tty1", 3, 1);
@@ -30,6 +31,61 @@ int valid_inode(fs_t *fs){
     if(fs->inode_map[i]==0) return i;
   }
   return -1;
+}
+
+inode_t *find_inode(const char *path){
+  //assert(path[0]=='/');
+  
+  //init
+  fs_t *ram = fs_list[0];
+  inode_t *inode = &ram->inode_tab[0];
+  inode_t *child = NULL;
+  char ctmp[128]; int cur=0;
+  ctmp[0] = '/'; ctmp[1] = '\0';
+  int flg = 0;
+
+  //success or fail
+  if(strcmp(path,"/")==0) return inode;
+  for(int i=1; path[i]; i++){
+    if(path[i]=='/' || path[i+1]=='\0'){
+      if(path[i+1]=='\0' && path[i]!='/'){
+        ctmp[cur++] = path[i];
+        ctmp[cur] = '\0';
+      }
+      cur = 0; flg = 0;
+      //printf("%s**\n",ctmp);
+      if(strcmp(ctmp,".")==0) {
+        if(path[i+1]=='\0') return inode;
+        continue;
+      }
+      if(strcmp(ctmp,"..")==0){
+        inode = inode->prev;
+        ram = inode->fs;
+        if(path[i+1]=='\0') return inode;
+        continue;
+      }
+      for(int j=0; j<MAX_DIR; j++){
+        child = inode->child[j];
+        if(child){
+          if(strcmp(child->name, ctmp)==0){
+            if(child->sta==0 || path[i+1]=='\0'){
+              inode = child; 
+              ram = inode->fs;            
+              flg = 1;
+              break;
+            }
+          } 
+        }
+      }
+      if(flg==0) return NULL;//no such file or dir
+      if(path[i+1]=='\0') return inode;
+    }else{
+      ctmp[cur++] = path[i];
+      ctmp[cur] = '\0';
+    }
+  }
+  //assert(0); //can't reach here
+  return NULL;
 }
 
 int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
@@ -94,9 +150,9 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   ram->inode_map[inodeno] = 1;
   child = &ram->inode_tab[inodeno];
   if(sta!=0)
-    inode_init(child, -1, sta, ctmp, ram, inode, lmt);
+    inode_init(child, -1, inodeno, sta, ctmp, ram, inode, lmt);
   else
-    inode_init(child, -1, sta, ctmp, ram, inode, lmt);
+    inode_init(child, -1, inodeno, sta, ctmp, ram, inode, lmt);
   for(int i=0; i<MAX_DIR; i++){
     if(inode->child[i]==NULL){
       inode->child[i] = child;
@@ -106,8 +162,31 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   return 0;
 }
 
+void del_inode(inode_t *inode){
+  for(int i=0; i<=128; i++){
+    if(inode->child[i]){
+      del_inode(inode->child[i]);
+    }
+  }
+  int inodeno = inode->inodeno;
+  inode->fs->inode_map[inodeno] = 0;
+  memset(inode, 0, sizeof(*inode));
+}
+
+int vfs_rmdir(const char *path, int8_t lmt){
+  //assert(path!=NULL);
+  //assert(path[0]=='/');
+  
+  inode_t *inode = vfs->find(path);
+  if(lmt<inode->lmt) return 2;
+  del_inode(inode);
+  return 0;
+}
+
 MODULE_DEF(vfs) {
   .init = vfs_init,
   .mkdir = vfs_mkdir,
+  .find = find_inode,
+  .rmdir = vfs_rmdir,
 };
 

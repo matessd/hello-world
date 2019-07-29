@@ -36,61 +36,6 @@ void merge_path(char *dst, char *src, char *cur_dir){
   }
 }
 
-inode_t *find_inode(const char *path){
-  //assert(path[0]=='/');
-  
-  //init
-  fs_t *ram = fs_list[0];
-  inode_t *inode = &ram->inode_tab[0];
-  inode_t *child = NULL;
-  char ctmp[128]; int cur=0;
-  ctmp[0] = '/'; ctmp[1] = '\0';
-  int flg = 0;
-
-  //success or fail
-  if(strcmp(path,"/")==0) return inode;
-  for(int i=1; path[i]; i++){
-    if(path[i]=='/' || path[i+1]=='\0'){
-      if(path[i+1]=='\0' && path[i]!='/'){
-        ctmp[cur++] = path[i];
-        ctmp[cur] = '\0';
-      }
-      cur = 0; flg = 0;
-      //printf("%s**\n",ctmp);
-      if(strcmp(ctmp,".")==0) {
-        if(path[i+1]=='\0') return inode;
-        continue;
-      }
-      if(strcmp(ctmp,"..")==0){
-        inode = inode->prev;
-        ram = inode->fs;
-        if(path[i+1]=='\0') return inode;
-        continue;
-      }
-      for(int j=0; j<MAX_DIR; j++){
-        child = inode->child[j];
-        if(child){
-          if(strcmp(child->name, ctmp)==0){
-            if(child->sta==0 || path[i+1]=='\0'){
-              inode = child; 
-              ram = inode->fs;            
-              flg = 1;
-              break;
-            }
-          } 
-        }
-      }
-      if(flg==0) return NULL;//no such file or dir
-      if(path[i+1]=='\0') return inode;
-    }else{
-      ctmp[cur++] = path[i];
-      ctmp[cur] = '\0';
-    }
-  }
-  //assert(0); //can't reach here
-  return NULL;
-}
-
 void get_dir_name(char *dst, inode_t *inode){
   char ctmp[128];
   dst[0] = '\0';
@@ -136,7 +81,7 @@ void echo_task(void *name) {
         continue;
       }
       merge_path(ctmp, cmd2, cur_dir);
-      inode_t *p = find_inode(ctmp);
+      inode_t *p = vfs->find(ctmp);
       if(p!=NULL && p->sta==0){
         get_dir_name(ctmp, p);//deal .. and .
         strcpy(cur_dir, ctmp);
@@ -177,6 +122,14 @@ void echo_task(void *name) {
         sprintf(err, "mkdir: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
       }
+    }else if(strcmp(cmd1, "rm")==0){
+      if(cmd2[0]=='\0'){
+        sprintf(err, "rm: Miss operand\n");
+        tty->ops->write(tty, 0, err, strlen(err));
+        continue;
+      }
+      merge_path(ctmp, cmd2, cur_dir);
+      int ret = vfs->rmdir(ctmp, 0);
     }
     else{
       sprintf(err, "No such cmd\n");
