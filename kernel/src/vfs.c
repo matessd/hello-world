@@ -117,7 +117,7 @@ inode_t *find_inode(const char *path){
   return NULL;
 }
 
-int vfs_mkdir(char *path, int8_t sta, int8_t lmt){
+int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //assert(path[0]=='/');
 
   //init
@@ -133,7 +133,7 @@ int vfs_mkdir(char *path, int8_t sta, int8_t lmt){
   for(int i=1; path[i]; i++){
     if(path[i]=='/' || path[i+1]=='\0'){
       if(strcmp(path,"/proc/1")==0)
-        printf("%s&&%s\n",ctmp,&path[i]);
+        printf("%s&&%c\n",ctmp,path[i]);
       if(path[i+1]=='\0' && path[i]!='/'){
         ctmp[cur++] = path[i];
         ctmp[cur] = '\0';
