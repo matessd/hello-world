@@ -173,8 +173,8 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
         return 1;//already exist
       }
     }else{
-      ctmp[cur++] = path[i];
-      ctmp[cur] = '\0';
+      ctmp[cur] = path[i];
+      ctmp[++cur] = '\0';
     }
   }
 
