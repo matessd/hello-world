@@ -97,11 +97,11 @@ _Context *kmt_context_save(_Event ev, _Context *context){
   if(current) {
     assert(current->fence == FENCE);
     current->context = *context;
-
   }
   return NULL;
 }
 
+char g_ctmp[512], g_src[512];
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   //assert(task_head!=NULL);
 
@@ -113,13 +113,13 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
     task_t *task = tasks[_cpu()][i];
     if(task->sleep_flg==0){
       task->swcnt++;
-      char ctmp[256], src[128]; ctmp[0] = '\0';
-      sprintf(src,"Name: %s\nPid: %d\n",task->name,task->id);
-      strcat(ctmp, src);
-      sprintf(src,"ctxt_switches: %d\n",task->swcnt);
-      strcat(ctmp, src);
-      sprintf(src,"/proc/%d/status",task->id);
-      vfs->write(src, ctmp, 1);
+      g_ctmp[0] = '\0';
+      sprintf(g_src,"Name: %s\nPid: %d\n",task->name,task->id);
+      strcat(g_ctmp, g_src);
+      sprintf(g_src,"ctxt_switches: %d\n",task->swcnt);
+      strcat(g_ctmp, g_src);
+      sprintf(g_src,"/proc/%d/status",task->id);
+      vfs->write(g_src, g_ctmp, 1);
       Curr[_cpu()] = i;
       break;
     }
