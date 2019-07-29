@@ -16,6 +16,7 @@ void vfs_init(){
   fs->inode_map[0] = 1;
   inode_t *inode = &fs->inode_tab[0];
   inode_init(inode, (int32_t)-1, 0, 0, "/", fs, inode, 0);
+  vfs->mkdir("/mnt", 0, 0);
   vfs->mkdir("/dev", 0, 1);
   vfs->mkdir("/proc", 0, 1);
   vfs->mkdir("/dev/tty1", 3, 1);
@@ -30,10 +31,12 @@ void vfs_init(){
   char ctmp[64]; ctmp[0] = '\0';
   char src[64];
   for(int i=0; i<_ncpu(); i++){
-    sprintf(src,"processor:%d\n",i);
+    sprintf(src,"processor: %d\n",i);
+    strcat(ctmp, src);
+    sprintf(src,"cpu cores: xxxx\n");
     strcat(ctmp, src);
   }
-  vfs->write("/proc/cpuinfo", ctmp, 1024);
+  vfs->write("/proc/cpuinfo", ctmp, 0);
 }
 
 int valid_inode(fs_t *fs){
@@ -214,7 +217,7 @@ int vfs_rmdir(const char *path, int8_t lmt){
   return 0;
 }
 
-ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
+ssize_t vfs_read (const char *path, void *buf, int off){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
@@ -222,18 +225,18 @@ ssize_t vfs_read (const char *path, void *buf, size_t nbyte){
   int blkno = inode->blkno;
   char *dst = (char *)buf;
   dst[0] = '\0';
-  strcpy(dst, inode->fs->blk[blkno]);
+  strcpy(dst, &inode->fs->blk[blkno][off]);
   return 0;
 }
 
-ssize_t vfs_write(const char *path, void *buf, size_t nbyte){
+ssize_t vfs_write(const char *path, void *buf, int off){
   inode_t *inode = vfs->find(path);
   if(inode==NULL) return -1;
   int sta = inode->sta;
   if(sta!=1) return -2;
   int blkno = inode->blkno;
-  inode->fs->blk[blkno][0] = '\0';
-  strcpy(inode->fs->blk[blkno], (char *)buf);
+  inode->fs->blk[blkno][off] = '\0';
+  strcpy(&inode->fs->blk[blkno][off], (char *)buf);
   return nbyte;
 }
 

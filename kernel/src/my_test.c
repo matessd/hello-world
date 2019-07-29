@@ -144,7 +144,7 @@ void echo_task(void *name) {
         continue;
       }
       merge_path(ctmp, cmd2, cur_dir);
-      int ret = vfs->read(ctmp, text, 1024);
+      int ret = vfs->read(ctmp, text, 0);
       if(ret==-1){
         sprintf(err, "cat: No such file\n");
         tty->ops->write(tty, 0, err, strlen(err));
