@@ -35,7 +35,7 @@ int valid_inode(fs_t *fs){
   return -1;
 }
 
-int valid_bk(fs_t *fs){
+int valid_blk(fs_t *fs){
   for(int i=0; i<MAX_blk; i++){
     if(fs->blk_map[i]==0) return i;
   }
