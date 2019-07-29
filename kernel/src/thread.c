@@ -13,8 +13,9 @@ int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *a
   task->fence = FENCE;
 
   kmt->spin_lock(task_lk);
+  task->id = Ntask;
   int cnt = Ntask++%_ncpu();
-  task->id = cnt;
+  //task->id = Ntask;
   //如果多处理器准备好了这样会不会有问题？
   //add_head(task,cnt);
   //current = task;
@@ -98,7 +99,6 @@ _Context *kmt_context_save(_Event ev, _Context *context){
 
 _Context *kmt_context_switch(_Event ev, _Context *context){ 
   //assert(task_head!=NULL);
-  //printf("current: %s\n",task_head->name);
 
   //kmt->spin_lock(task_lk);
   int i=Curr[_cpu()];
@@ -107,10 +107,8 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
     i=(i+1)%ntask;
     if(tasks[_cpu()][i]->sleep_flg==0){
       Curr[_cpu()] = i;
-      //printf("%d\n", Curr[_cpu()]);
       break;
     }
-    //printf("1\n");
   }
   assert(current!=NULL);
   //current = task_head;
