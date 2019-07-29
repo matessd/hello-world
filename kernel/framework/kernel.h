@@ -84,13 +84,20 @@ struct inode{
 };
 
 #define MAX_inode 1024
+#define MAX_blk 1024
+int valid_inode(fs_t *fs){
+  for(int i=0; i<MAX_inode; i++){
+    if(fs->inode_map[i]==0) return i;
+  }
+  return -1;
+}
 struct fs{
   int8_t inode_map[MAX_inode];
-  int8_t blk_map[1024];
+  int8_t blk_map[MAX_blk];
   struct inode inode_tab[MAX_inode];
-  char blk[1024][512];
-  fsops_t *ops;
-  device_t *dev;
+  char blk[MAX_blk][512];
+  //fsops_t *ops;
+  //device_t *dev;
 };
 
 typedef struct{

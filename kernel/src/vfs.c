@@ -24,11 +24,20 @@ void vfs_init(){
   vfs->mkdir("/dev/tty4", 3, 1);
   vfs->mkdir("/dev/ramdisk0", 2, 1);
   vfs->mkdir("/dev/ramdisk1", 2, 1);
+
+  vfs->mkdir("/dev/proc/cpuinfo", 1, 1);
 }
 
 int valid_inode(fs_t *fs){
   for(int i=0; i<MAX_inode; i++){
     if(fs->inode_map[i]==0) return i;
+  }
+  return -1;
+}
+
+int valid_bk(fs_t *fs){
+  for(int i=0; i<MAX_blk; i++){
+    if(fs->blk_map[i]==0) return i;
   }
   return -1;
 }
@@ -146,13 +155,18 @@ int vfs_mkdir(const char *path, int8_t sta, int8_t lmt){
   //success, now create new dir
   if(lmt<inode->lmt) return 3;//no permission
   int inodeno = valid_inode(ram);
-  assert(inodeno>0);
+  //assert(inodeno>=0);
   ram->inode_map[inodeno] = 1;
   child = &ram->inode_tab[inodeno];
   if(sta!=0)
     inode_init(child, -1, inodeno, sta, ctmp, ram, inode, lmt);
-  else
-    inode_init(child, -1, inodeno, sta, ctmp, ram, inode, lmt);
+  else{
+    int blkno = valid_blk(ram);
+    //assert(blk>=0);
+    ram->blk_map[blkno] = 1;
+    child->blkno = blkno;
+    inode_init(child, blkno, inodeno, sta, ctmp, ram, inode, lmt);
+  }
   for(int i=0; i<MAX_DIR; i++){
     if(inode->child[i]==NULL){
       inode->child[i] = child;
