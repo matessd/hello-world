@@ -170,13 +170,19 @@ void del_inode(inode_t *inode){
   }
   int inodeno = inode->inodeno;
   inode->fs->inode_map[inodeno] = 0;
+  inode_t *prev = inode->prev;
+  for(int i=0; i<=128; i++){
+    if(prev->child[i]==inode){
+      prev->child[i] = NULL;
+    }
+  }
   memset(inode, 0, sizeof(*inode));
 }
 
 int vfs_rmdir(const char *path, int8_t lmt){
   //assert(path!=NULL);
   //assert(path[0]=='/');
-  
+  if(strcmp("/", path)==0) return 2;
   inode_t *inode = vfs->find(path);
   if(lmt<inode->lmt) return 2;
   del_inode(inode);
