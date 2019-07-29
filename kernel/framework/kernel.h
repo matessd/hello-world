@@ -99,7 +99,7 @@ typedef struct{
   //int (*access)(const char *path, int mode);
   //int (*mount)(const char *path, fs_t *fs);
   //int (*unmount)(const char *path);
-  int (*mkdir)(const char *path, int8_t sta, int8_t lmt);
+  int (*mkdir)(char *path, int8_t sta, int8_t lmt);
   int (*rmdir)(const char *path, int8_t lmt);
   inode_t* (*find)(const char *path);
   //int (*link)(const char *oldpath, const char *newpath);
