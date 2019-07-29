@@ -7,9 +7,9 @@ void idle(){
 }
 static void os_init() {
   pmm->init();
-  vfs->init();
   kmt->init();
   dev->init();
+  vfs->init();
   //print是线程名，tty是用来查dev的参数
   kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
