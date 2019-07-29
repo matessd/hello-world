@@ -10,6 +10,24 @@ void inode_init(inode_t *inode, int32_t blkno, int inodeno, int8_t sta, const ch
   inode->lmt = lmt;
 }
 
+void proc_init(){
+  char ctmp[64]; ctmp[0] = '\0';
+  char src[64];
+  for(int i=0; i<_ncpu(); i++){
+    sprintf(src,"processor: %d\n",i);
+    strcat(ctmp, src);
+    sprintf(src,"cpu cores: xxxx\n");
+    strcat(ctmp, src);
+  }
+  vfs->write("/proc/cpuinfo", ctmp, 0);
+
+  sprintf(src,"MemTotal: xxx kB\n");
+  strcat(ctmp, src);
+  sprintf(src,"MemFree: xxx kB\n");
+  strcat(ctmp, src);
+  vfs->write("/proc/meminfo", ctmp, 0);
+}
+
 void vfs_init(){
   fs_t *fs = pmm->alloc(sizeof(fs_t));
   fs_list[0] = fs;
@@ -28,21 +46,7 @@ void vfs_init(){
 
   vfs->mkdir("/proc/cpuinfo", 1, 1);
   vfs->mkdir("/proc/meminfo", 1, 1);
-  char ctmp[64]; ctmp[0] = '\0';
-  char src[64];
-  for(int i=0; i<_ncpu(); i++){
-    sprintf(src,"processor: %d\n",i);
-    strcat(ctmp, src);
-    sprintf(src,"cpu cores: xxxx\n");
-    strcat(ctmp, src);
-  }
-  vfs->write("/proc/cpuinfo", ctmp, 0);
-
-  /*sprintf(src,"MemTotal: xxx kB\n");
-  strcat(ctmp, src);
-  sprintf(src,"MemFree: xxx kB\n");
-  strcat(ctmp, src);
-  vfs->write("/proc/meminfo", ctmp, 0);*/
+  proc_init();
 }
 
 int valid_inode(fs_t *fs){
