@@ -95,6 +95,7 @@ void echo_task(void *name) {
         else
           sprintf(err, "cd: Not a dir, can't choose it\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }
     }else if(strcmp(cmd1,"ls")==0){
       sprintf(text, ".  ..");
@@ -119,12 +120,15 @@ void echo_task(void *name) {
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }else if(ret==2){
         sprintf(err, "mkdir: No such directory\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }else if(ret==3){
         sprintf(err, "mkdir: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }
     }else if(strcmp(cmd1, "rm")==0){
       if(cmd2[0]=='\0'){
@@ -135,7 +139,7 @@ void echo_task(void *name) {
       char cmd3[70];
       if(strcmp(cmd2,"-r")==0){
         mygets(cmd3, &line[cur]);
-        if(cmd2[0]=='\0'){
+        if(cmd3[0]=='\0'){
           sprintf(err, "rm: Miss operand\n");
           tty->ops->write(tty, 0, err, strlen(err));
           continue;
@@ -146,7 +150,7 @@ void echo_task(void *name) {
         inode_t *p = vfs->find(cmd2);
         if(p!=NULL){
           if(p->sta==0){
-            sprintf(err, "rm: It's a directory\n");
+            sprintf(err, "rm: Can't remove, it's a directory\n");
             tty->ops->write(tty, 0, err, strlen(err));
             continue;
           }
@@ -156,9 +160,11 @@ void echo_task(void *name) {
       if(ret==2){
         sprintf(err, "rm: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }else if(ret==1){
         sprintf(err, "rm: No such dir or file\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }
     }else if(strcmp(cmd1, "cat")==0){
       if(cmd2[0]=='\0'){
@@ -188,17 +194,21 @@ void echo_task(void *name) {
       if(ret==1){
         sprintf(err, "mkdir: Already exist\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }else if(ret==2){
         sprintf(err, "mkdir: No such directory\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }else if(ret==3){
         sprintf(err, "mkdir: No permission\n");
         tty->ops->write(tty, 0, err, strlen(err));
+        continue;
       }
     }
     else{
       sprintf(err, "No such cmd\n");
       tty->ops->write(tty, 0, err, strlen(err));
+      continue;
     }
     tty->ops->write(tty, 0, text, strlen(text));
   }
