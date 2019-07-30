@@ -75,6 +75,7 @@ void echo_task(void *name) {
     int cnt = mygets(cmd1, &line[cur]);
     cur+=cnt;
     cnt = mygets(cmd2, &line[cur]); 
+    cur+=cnt;
     if(strcmp(cmd1,"cd")==0){
       if(cmd2[0]=='\0'){
         cur_dir[0] = '/'; cur_dir[1] = '\0'; 
@@ -142,7 +143,6 @@ void echo_task(void *name) {
         if(cmd3[0]=='\0'){
           sprintf(err, "rm: Miss operand\n");
           tty->ops->write(tty, 0, err, strlen(err));
-          assert(0);
           continue;
         }
         merge_path(ctmp, cmd3, cur_dir);
@@ -157,7 +157,6 @@ void echo_task(void *name) {
           }
         }
       }
-      //assert(0);
       int ret = vfs->rmdir(ctmp, 0);
       if(ret==2){
         sprintf(err, "rm: No permission\n");
