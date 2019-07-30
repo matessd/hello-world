@@ -149,7 +149,7 @@ void echo_task(void *name) {
       }else{
         merge_path(ctmp, cmd2, cur_dir);
         inode_t *p = vfs->find(cmd2);
-        assert(0);
+        printf("%s\n",p->name);
         if(p!=NULL){
           //assert(0);
           if(p->sta==0){
