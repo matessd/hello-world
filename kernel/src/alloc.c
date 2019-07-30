@@ -6,11 +6,12 @@ static uintptr_t pm_start, pm_end;
 //#define INIT_VALUE 0xcccccccc
 spinlock_t Alloc_lk;
 spinlock_t *alloc_lk=&Alloc_lk;
-int memtot = (int)(uintptr_t)_heap.end - (int)(uintptr_t)_heap.start;
+int memtot;
 
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
   pm_end   = (uintptr_t)_heap.end;
+  memtot = (int)(uintptr_t)_heap.end - (int)(uintptr_t)_heap.start;
   printf("%d\n",memtot);
   //my
   a_head = (palloc_t)pm_start;
