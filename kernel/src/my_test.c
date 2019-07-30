@@ -56,7 +56,7 @@ void echo_task(void *name) {
   device_t *tty = dev_lookup(name);
   fs_t *fs = fs_list[0];
   inode_t *inode = &fs->inode_tab[0];
-  char cur_dir[64]; 
+  char cur_dir[128]; 
   cur_dir[0] = '/'; cur_dir[1] = '\0'; 
   while (1) {
     char line[1014], text[1024];
@@ -67,7 +67,7 @@ void echo_task(void *name) {
     line[nread - 1] = '\0';
 
     char ctmp[128]; ctmp[0] = '\0';
-    char cmd1[16], cmd2[DIR_NAME_LEN];
+    char cmd1[64], cmd2[DIR_NAME_LEN];
     char err[64];
     text[0] = '\0';
     int cur = 0;
@@ -137,7 +137,7 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      char cmd3[70];
+      char cmd3[128];
       if(strcmp(cmd2,"-r")==0){
         mygets(cmd3, &line[cur]);
         if(cmd3[0]=='\0'){
