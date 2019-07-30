@@ -125,9 +125,6 @@ _Context *kmt_context_switch(_Event ev, _Context *context){
     }
   }
   assert(current!=NULL);
-  //current = task_head;
-  //assert(task_head!=NULL);
-  //del_head(); 
   //kmt->spin_unlock(task_lk);
 
   return &current->context;
