@@ -100,6 +100,8 @@ void echo_task(void *name) {
         if(inode->child[i]){
           sprintf(ctmp, "  %s", inode->child[i]->name);
           strcat(text, ctmp);
+          if(inode->child[i]->sta==0)
+            strcat(text, "/");
         }
       }
       strcat(text, "\n");
