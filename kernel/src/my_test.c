@@ -70,9 +70,11 @@ void echo_task(void *name) {
     char cmd1[16], cmd2[DIR_NAME_LEN];
     char err[32];
     text[0] = '\0';
-    int cur = 0, cnt = mygets(cmd1, line);
+    int cur = 0;
+    for(cur=0; line[cur]==' '; cur++);
+    cnt = mygets(cmd1, &line[cur]);
     cur+=cnt;
-    mygets(cmd2, &line[cur]); 
+    cnt = mygets(cmd2, &line[cur]); 
     if(strcmp(cmd1,"cd")==0){
       if(cmd2[0]=='\0'){
         cur_dir[0] = '/'; cur_dir[1] = '\0'; 
@@ -130,7 +132,26 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      merge_path(ctmp, cmd2, cur_dir);
+      cmd3[70];
+      if(strcmp(cmd2,"-r")==0){
+        mygets(cmd3, &line[cur]);
+        if(cmd2[0]=='\0'){
+          sprintf(err, "rm: Miss operand\n");
+          tty->ops->write(tty, 0, err, strlen(err));
+          continue;
+        }
+        merge_path(ctmp, cmd3, cur_dir);
+      }else{
+        merge_path(ctmp, cmd2, cur_dir);
+        inode_t *p = vfs->find(cmd2);
+        if(p!=NULL){
+          if(p->sta==0){
+            sprintf(err, "rm: It's a directory\n");
+            tty->ops->write(tty, 0, err, strlen(err));
+            continue;
+          }
+        }
+      }
       int ret = vfs->rmdir(ctmp, 0);
       if(ret==2){
         sprintf(err, "rm: No permission\n");
