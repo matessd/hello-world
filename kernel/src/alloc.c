@@ -62,7 +62,7 @@ static void *kalloc(size_t size) {
   sprintf(src,"MemTotal:  %d B\n",memtot);
   strcpy(ctmp, src);
   memfree -= new_size;
-  sprintf(src,"MemFree:  %d B\n",memfree);
+  sprintf(src,"MemFree:   %d B\n",memfree);
   strcat(ctmp, src);
   vfs->write("/proc/meminfo", ctmp, 0);
 
@@ -86,7 +86,7 @@ static void kfree(void *ptr) {
   sprintf(src,"MemTotal:  %d B\n",memtot);
   strcpy(ctmp, src);
   memfree += cur->ed - (int)(intptr_t)cur;
-  sprintf(src,"MemFree:  %d B\n",memfree);
+  sprintf(src,"MemFree:   %d B\n",memfree);
   strcat(ctmp, src);
   vfs->write("/proc/meminfo", ctmp, 0);
 
