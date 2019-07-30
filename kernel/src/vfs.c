@@ -217,8 +217,8 @@ void del_inode(inode_t *inode){
 int vfs_rmdir(const char *path, int8_t lmt){
   //assert(path!=NULL);
   //assert(path[0]=='/');
-  if(strcmp(path, "/")==0) return 2;
   inode_t *inode = vfs->find(path);
+  if(strcmp(inode->name,"/")==0) return 2;
   if(inode==NULL)
     return 1;
   if(lmt<inode->lmt) return 2;
