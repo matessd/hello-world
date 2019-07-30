@@ -156,6 +156,7 @@ void echo_task(void *name) {
           }
         }
       }
+      assert(0);
       int ret = vfs->rmdir(ctmp, 0);
       if(ret==2){
         sprintf(err, "rm: No permission\n");
