@@ -132,7 +132,7 @@ void echo_task(void *name) {
         tty->ops->write(tty, 0, err, strlen(err));
         continue;
       }
-      cmd3[70];
+      char cmd3[70];
       if(strcmp(cmd2,"-r")==0){
         mygets(cmd3, &line[cur]);
         if(cmd2[0]=='\0'){
