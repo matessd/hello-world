@@ -148,8 +148,8 @@ void echo_task(void *name) {
         merge_path(ctmp, cmd3, cur_dir);
       }else{
         merge_path(ctmp, cmd2, cur_dir);
-        inode_t *p = vfs->find(cmd2);
-        printf("%s\n",p->name);
+        inode_t *p = vfs->find(ctmp);
+        //printf("%s**%s\n",p->name,ctmp);
         if(p!=NULL){
           //assert(0);
           if(p->sta==0){
