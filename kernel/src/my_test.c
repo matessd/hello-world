@@ -68,7 +68,7 @@ void echo_task(void *name) {
 
     char ctmp[128]; ctmp[0] = '\0';
     char cmd1[16], cmd2[DIR_NAME_LEN];
-    char err[32];
+    char err[64];
     text[0] = '\0';
     int cur = 0;
     for(cur=0; line[cur]==' '; cur++);
