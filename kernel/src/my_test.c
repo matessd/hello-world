@@ -72,7 +72,7 @@ void echo_task(void *name) {
     text[0] = '\0';
     int cur = 0;
     for(cur=0; line[cur]==' '; cur++);
-    cnt = mygets(cmd1, &line[cur]);
+    int cnt = mygets(cmd1, &line[cur]);
     cur+=cnt;
     cnt = mygets(cmd2, &line[cur]); 
     if(strcmp(cmd1,"cd")==0){
