@@ -150,6 +150,7 @@ void echo_task(void *name) {
         merge_path(ctmp, cmd2, cur_dir);
         inode_t *p = vfs->find(cmd2);
         if(p!=NULL){
+          assert(0);
           if(p->sta==0){
             sprintf(err, "rm: Can't remove, it's a directory\n");
             tty->ops->write(tty, 0, err, strlen(err));
